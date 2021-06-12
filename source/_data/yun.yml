@@ -1,0 +1,224 @@
+# Sidebar Avatar
+avatar:
+  url: /img/sanzo.png # 你的头像图片地址
+  enable: true
+  # If true, the avatar would be dispalyed in circle.
+  rounded: true
+  # The value of opacity should be choose from 0 to 1 to set the opacity of the avatar.
+  opacity: 1
+  mickey_mouse: false
+  status:
+    enable: false
+    emoji: 😊
+    message: Running Bit.
+
+favicon: /img/sanzo.ico
+
+
+# Social Links.
+social:
+  - name: RSS
+    # set rss in your root config
+    # https://github.com/hexojs/hexo-generator-feed
+    link: /atom.xml # config.feed.path
+    icon: icon-rss-line
+    color: orange
+  # - name: QQ 群 1050458482
+  #   # https://isux.tencent.com/wp-content/uploads/2016/05/20160512101222609.pdf
+  #   link: https://qm.qq.com/cgi-bin/qm/qr?k=kZJzggTTCf4SpvEQ8lXWoi5ZjhAx0ILZ&jump_from=webapi
+  #   icon: icon-qq-line
+  #   color: "#12B7F5"
+  - name: GitHub
+    link: https://github.com/Sanzo00
+    icon: icon-github-line
+    color: black
+    # color: "#6e5494"
+  # - name: 知乎
+  #   link: https://www.zhihu.com/people/Sanzo00
+  #   icon: icon-zhihu-line
+  #   color: "#0084FF"
+  - name: 哔哩哔哩
+    link: https://space.bilibili.com/297299131
+    icon: icon-bilibili-line
+    color: "#FF8EB3"
+  # - name: Twitter
+  #   link: https://twitter.com/Sanzo00
+  #   icon: icon-twitter-line
+  #   color: "#1da1f2"
+  - name: Telegram Channel
+    link: https://t.me/Sanzo00
+    # icon: icon-telegram-fill
+    icon: icon-telegram-line
+    color: "#0088CC"
+  - name: E-Mail
+    # link: mailto:me@yunyoujun.cn
+    link: mailto:arrangeman@163.com
+    icon: icon-mail-line
+    color: "#8E71C1"
+
+
+
+
+# Reward (Donate)
+# If enable true, reward would be displayed in every posts and pages by default.
+# You can show or hide reward in a specific page throuth `reward: true | false` in Front Matter.
+reward:
+  enable: true
+  icon: icon-hand-coin-line
+  comment: Donate me.
+  # url: https://github.com/YunYouJun/yunyoujun.github.io/issues/96
+  methods:
+    - name: 支付宝
+      # path: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/alipay-qrcode.jpg
+      path: /img/reward/alipay.jpg
+      color: "#00A3EE"
+      icon: icon-alipay-line
+    - name: QQ 支付
+      path: /img/reward/qqpay.jpg
+      color: "#12B7F5"
+      icon: icon-qq-line
+    - name: 微信支付
+      path: /img/reward/wechat.jpg
+      color: "#2DC100"
+      icon: icon-wechat-pay-line
+    # - name: paypal
+    #   link: https://paypal.com
+    #   path: https://www.paypalobjects.com/images/shared/paypal-logo-129x32.svg
+    #   color: "#2D70B5"
+    #   icon: icon-paypal-line
+
+# UI
+banner:
+  enable: false
+  # title: 云游君的小站
+  # src: /js/ui/banner.js
+  # border: true
+  # cloud:
+  #   enable: true
+  #   color: "white"
+  # go_down:
+  #   enable: true
+  #   icon: icon-arrow-down-s-line    
+
+# notice pin board
+notice:
+  enable: false
+  content: Thanks for watching my blog.    
+
+
+# say something
+# https://say.elpsy.cn
+say:
+  enable: false
+  # api: https://say.elpsy.cn/sentences.json
+  # /data/sentences.json
+  api: https://cdn.jsdelivr.net/gh/ElpsyCN/say@gh-pages/sentences.json
+  # src is the script
+  src: /js/say.js
+  # https://developer.hitokoto.cn/sentence/
+  hitokoto:
+    enable: true
+    api: https://v1.hitokoto.cn
+    # api: https://v1.hitokoto.cn?c=a&c=b&c=c&c=d&c=k  
+
+# Footer Settings
+# ---------------
+footer:
+  since: 2021
+
+  # Icon between year and copyright info.
+  icon:
+    # `heart` is recommended with animation in red (#ff0000).
+    name: icon-cloud-line
+    # If you want to animate the icon, set it to true.
+    animated: true
+    # Change the color of icon, using Hex Code.
+    color: "#0078E7"
+    # url: https://sponsors.yunyoujun.cn
+    # title: 云游君的赞助者们
+
+  powered:
+    # Hexo link (Powered by Hexo).
+    enable: true
+
+  # Beian icp information for Chinese users. In China, every legal website should have a beian icp in website footer.
+  # https://beian.miit.gov.cn/
+  beian:
+    enable: false
+    # icp: 苏ICP备xxxxxxxx号
+
+bg_image:
+  enable: false
+  url: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/bg/stars-timing-0-blur-30px.jpg # recomend image related to your mode
+  dark: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/bg/galaxy.jpg
+  # blur: 30px
+  opacity: 1    
+
+# Post wordcount
+# https://github.com/willin/hexo-wordcount
+wordcount:
+  enable: true
+  count: true
+  time: true  
+
+wordclound:
+  enable: true
+  height: 350
+
+  # https://github.com/wzpan/hexo-generator-search
+local_search:
+  enable: true
+  src: /js/search/local-search.js
+
+waline:
+  enable: true
+  serverURL: https://pinglun-ten.vercel.app/
+  visitor: true
+  comment: true
+  # walinePageSize: 5
+  avatar: 'mp'
+  avatarCDN: https://cdn.v2ex.com/gravatar/
+  placeholder: 填写邮箱，可以收到回复通知哦～
+  requiredFields: ["nick"]
+  emoji: [https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/qq]
+  emojiCDN: https://cdn.jsdelivr.net/gh/GamerNoTitle/ValineCDN@master/
+  langMode:
+  #   admin: 博主兼管理员
+    nick: 昵称
+    mail: 邮箱
+    link: 网址
+    # sofa: 这里冷冷清清的，快来留下脚印吧！
+
+
+# main menu navigation
+menu:
+  home:
+    path: /
+    icon: icon-home-4-line
+  list:
+    - type: archives
+      path: /archives/
+      icon: icon-archive-line
+    - type: categories
+      path: /categories/
+      icon: icon-folder-2-line
+    - type: tags
+      path: /tags/
+      icon: icon-price-tag-3-line
+  custom:
+    title: Messages
+    path: /about/#comment
+    icon: icon-chat-3-line  
+    # icon: icon-clipboard-line  
+
+
+comment:
+  tips:
+    # - 有什么话想对我说吗？
+    - Leave me a message.
+    # - 如果您有任何关于博客内容的相关讨论，欢迎前往 <a href="https://github.com/Sanzo00/blog/discussions" target="_blank">GitHub Discussions</a> 与我交流。
+
+
+# archive
+archive:
+  last_word: no more... (:з」∠)_    
