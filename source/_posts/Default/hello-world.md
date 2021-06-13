@@ -5,10 +5,13 @@ date: 2021-06-12 19:54:23
 updated: 2021-06-12 19:54:23
 tags:
   - hexo
+  - shell
+  - github actions
 categories: Default
+sticky: 1
 ---
 
-hexo基本命令、commit脚本、Github Action自动部署
+hexo基本命令、commit脚本、Github Actions自动部署
 
 <!-- more -->
 
@@ -109,6 +112,8 @@ jobs:
 
 ```bash
 bash update.sh "Add github actions"
+
+# bash update.sh
 ```
 
 
