@@ -8,7 +8,7 @@ tags:
 categories: Default
 ---
 
-hexo基本命令、commit脚本
+hexo基本命令、commit脚本、Github Action自动部署
 
 <!-- more -->
 
@@ -67,5 +67,50 @@ bash update.sh
 # 指定commit为”update.sh“
 bash update.sh "Add update.sh"
 ```
+
+
+
+## 自动部署
+
+在项目根目录创建文件`.github/workflows/gh-pages.yml`，将下面配置添加到文件中。
+
+```bash
+name: GitHub Pages
+on:
+  push:
+    branches:
+      - hexo
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+
+      - run: yarn
+      - run: yarn build
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: master
+          force_orphan: true
+```
+
+之后只需要向hexo分支push修改即可，github action会自动的进行构建，并将构建的文件同步到master分支。
+
+```bash
+bash update.sh "Add github actions"
+```
+
+
 
 <!-- Q.E.D. -->
