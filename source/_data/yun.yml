@@ -14,7 +14,6 @@ avatar:
 
 favicon: /img/sanzo.ico
 
-
 # Social Links.
 social:
   - name: RSS
@@ -37,7 +36,8 @@ social:
   #   link: https://www.zhihu.com/people/Sanzo00
   #   icon: icon-zhihu-line
   #   color: "#0084FF"
-  - name: 哔哩哔哩
+  # - name: 哔哩哔哩
+  - name: Bilibili
     link: https://space.bilibili.com/297299131
     icon: icon-bilibili-line
     color: "#FF8EB3"
@@ -45,7 +45,8 @@ social:
   #   link: https://twitter.com/Sanzo00
   #   icon: icon-twitter-line
   #   color: "#1da1f2"
-  - name: Telegram Channel
+  # - name: Telegram Channel
+  - name: Telegram
     link: https://t.me/Sanzo00
     # icon: icon-telegram-fill
     icon: icon-telegram-line
@@ -55,9 +56,6 @@ social:
     link: mailto:arrangeman@163.com
     icon: icon-mail-line
     color: "#8E71C1"
-
-
-
 
 # Reward (Donate)
 # If enable true, reward would be displayed in every posts and pages by default.
@@ -70,15 +68,18 @@ reward:
   methods:
     - name: 支付宝
       # path: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/alipay-qrcode.jpg
-      path: /img/reward/alipay.jpg
+      # path: /img/reward/alipay.jpg
+      path: https://img.sanzo.top/img/reward/alipay.jpg
       color: "#00A3EE"
       icon: icon-alipay-line
     - name: QQ 支付
-      path: /img/reward/qqpay.jpg
+      # path: /img/reward/qqpay.jpg
+      path: https://img.sanzo.top/img/reward/qqpay.jpg
       color: "#12B7F5"
       icon: icon-qq-line
     - name: 微信支付
-      path: /img/reward/wechat.jpg
+      # path: /img/reward/wechat.jpg
+      path: https://img.sanzo.top/img/reward/wechat.jpg
       color: "#2DC100"
       icon: icon-wechat-pay-line
     # - name: paypal
@@ -104,7 +105,6 @@ banner:
 notice:
   enable: false
   content: Thanks for watching my blog.    
-
 
 # say something
 # https://say.elpsy.cn
@@ -189,7 +189,6 @@ waline:
     link: 网址
     # sofa: 这里冷冷清清的，快来留下脚印吧！
 
-
 # main menu navigation
 menu:
   home:
@@ -211,14 +210,19 @@ menu:
     icon: icon-chat-3-line  
     # icon: icon-clipboard-line  
 
-
 comment:
   tips:
     # - 有什么话想对我说吗？
     - Leave me a message.
     # - 如果您有任何关于博客内容的相关讨论，欢迎前往 <a href="https://github.com/Sanzo00/blog/discussions" target="_blank">GitHub Discussions</a> 与我交流。
 
-
 # archive
 archive:
-  last_word: no more... (:з」∠)_    
+  last_word: no more... (:з」∠)_
+
+# Extra links
+pages:
+  - name: Friends
+    url: /links/
+    icon: icon-genderless-line
+    color: dodgerblue  
