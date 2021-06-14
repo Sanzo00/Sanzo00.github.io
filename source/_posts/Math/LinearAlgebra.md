@@ -18,14 +18,15 @@ categories: Math
 
 > 二阶行列式
 
-$ \begin{vmatrix} a_{11} & a_{12} \\  a_{21} & a_{22} \\  \end{vmatrix} = a_{11}a_{22} - a_{12}a_{21}  $
+$ \begin{vmatrix} a_{11} & a_{12} \\\\  a_{21} & a_{22} \\\\  \end{vmatrix} = a_{11}a_{22} - a_{12}a_{21}  $
 
 
 
 > 三阶行列式
 
+<div>
 $ \begin{vmatrix} a_{11} & a_{12} & a_{13} \\  a_{21} & a_{22} & a_{23} \\ a_{31} & a_{32} & a_{33} \end{vmatrix} = a_{11}a_{22}a_{33} + a_{12}a_{23}a_{31} + a_{13}a_{21}a_{32} -a_{13}a_{22}a_{31} - a_{23}a_{32}a_{11} - a_{33}a_{12}a_{21}$
-
+</div>
 
 
 ![image-20210111133613519](https://img.sanzo.top/img/math/LinearAlgebra/image-20210111133613519.png)
@@ -73,14 +74,9 @@ $(kA)^*=k^{n-1}A^*$
 $A^{-1} = \frac{1}{|A|}A^*（存在A^{-1}）$
 
 
-
-
-
 $A^{-1} = \frac{1}{|A|}A^{*}=\frac{1}{ad-bc}\begin{bmatrix}d &-b\\ -c & a\end{bmatrix}$
 
 例：$\begin{bmatrix}1&-1\\1&1 \end{bmatrix}^{-1} = \frac{1}{2}\begin{bmatrix}1&1\\-1&1 \end{bmatrix}$
-
-
 
 
 
@@ -94,10 +90,7 @@ $A^{-1} = \frac{1}{|A|}A^{*}=\frac{1}{ad-bc}\begin{bmatrix}d &-b\\ -c & a\end{bm
 
 物理中的向量有**长度**和**方向**决定，长度和方向不变可以随意移动，它们表示的是同一个向量。
 
-计算机中的向量更多的是对数据的抽象，可以根据面积和价格定义一个房子$\begin{bmatrix}
-   100m^2 \\
-   700000￥
-  \end{bmatrix}$。
+计算机中的向量更多的是对数据的抽象，可以根据面积和价格定义一个房子$\begin{bmatrix}100m^2\\\\700000￥\end{bmatrix}$。
 
 数学中的向量可以是任意东西，只要保证两个**向量的相加**$\vec v + \vec w$以及**数字和向量相乘**$2\vec v$是有意义的即可。
 
@@ -108,7 +101,7 @@ $A^{-1} = \frac{1}{|A|}A^{*}=\frac{1}{ad-bc}\begin{bmatrix}d &-b\\ -c & a\end{bm
 > 向量的基本运算
 
 向量的加法：可以理解为在坐标中两个向量的移动。
-
+<div>
 $\begin{bmatrix}
    1 \\
    2
@@ -119,7 +112,7 @@ $\begin{bmatrix}
    4 \\
    1
   \end{bmatrix}$
-
+</div>
 
 
 ![image-20200919202730552](https://img.sanzo.top/img/math/LinearAlgebra/image-20200919202730552.png)
@@ -127,7 +120,7 @@ $\begin{bmatrix}
 
 
 数字和向量相乘：可以理解为向量的缩放。
-
+<div>
 $2\begin{bmatrix}
    3 \\
    1
@@ -135,7 +128,7 @@ $2\begin{bmatrix}
    6 \\
    2
   \end{bmatrix}$
-
+</div>
 
 
 ![image-20200919202902807](https://img.sanzo.top/img/math/LinearAlgebra/image-20200919202902807.png)
@@ -199,12 +192,10 @@ $2\begin{bmatrix}
 
 通过记录两个基向量$\hat{i}$,$\hat{j}$的变换，就可以得到其他变化后的向量。
 
-已知向量$\vec v = \begin{bmatrix}
--1 \\
-   2
-  \end{bmatrix}$
+已知向量$\vec v = \begin{bmatrix}-1\\\\2\end{bmatrix}$
 
 变换之前的$\hat i$和$\hat j$：
+<div>
 $$
 \hat{i} = \begin{bmatrix}
 1 \\
@@ -219,7 +210,9 @@ $$
    2
   \end{bmatrix}
 $$
+<div>
 变换之后的$\hat i$和$\hat j$：
+<div>
 $$
 \begin{aligned}
 \hat{i} = \begin{bmatrix}
@@ -254,6 +247,7 @@ $$
   \end{bmatrix} \\
 \end{aligned}
 $$
+<div>
 我们可以将变换后的$\hat i$和$\hat j$写成矩阵的形式：$\begin{bmatrix}
 1 & 3 \\
    -2 & 0
@@ -414,15 +408,12 @@ $(AB)C = A(BC)$
 
 > 逆矩阵
 
-矩阵的逆运算，记为$\vec A = \begin{bmatrix}
-3&1 \\
-   0&2
-  \end{bmatrix}^{-1}$，对于线程方程$A \vec x = \vec v $来说，找到$A^{-1}$就得到解$\vec x = A^{-1} \vec v$。
+矩阵的逆运算，记为$\vec A = \begin{bmatrix}3&1 \\\\0&2\end{bmatrix}^{-1}$，对于线程方程$A \vec x = \vec v $来说，找到$A^{-1}$就得到解$\vec x = A^{-1} \vec v$。
 
-$A^{-1}A=\begin{bmatrix}
+<div>$A^{-1}A=\begin{bmatrix}
 1&0 \\
    0&1
-  \end{bmatrix}$，什么都不做称为恒等变换。
+  \end{bmatrix}$<div>，什么都不做称为恒等变换。
 
 
 
@@ -476,10 +467,7 @@ $det(A) =0$：空间被压缩到更低的维度，这时不存在逆变换，因
 
 
 
-当$A\vec x = \vec v$中的$\vec v$是一个零向量，即$A\vec x = \begin{bmatrix}
-0 \\
-   0
-  \end{bmatrix}$时，零空间就是它所有可能的解。
+当$A\vec x = \vec v$中的$\vec v$是一个零向量，即$A\vec x = \begin{bmatrix}0 \\\\0\end{bmatrix}$时，零空间就是它所有可能的解。
 
 
 
@@ -509,7 +497,7 @@ $det(A) =0$：空间被压缩到更低的维度，这时不存在逆变换，因
 
 > 点积
 
- 对于两个维度相同的向量，他们的点积计算为：$\begin{bmatrix}1\\2 \end{bmatrix}\cdot\begin{bmatrix} 3\\4\end{bmatrix}=1\cdot3+2\cdot4=11$。
+ 对于两个维度相同的向量，他们的点积计算为：$\begin{bmatrix}1\\\\2\end{bmatrix}\cdot\begin{bmatrix} 3\\\\4\end{bmatrix}=1\cdot3+2\cdot4=11$。
 
 点积的几何解释是将一个向量向一个向量投影，然后两个长度相乘，如果为负数则表示反向。
 
@@ -525,11 +513,11 @@ $det(A) =0$：空间被压缩到更低的维度，这时不存在逆变换，因
 
 当二维空间向一维空间映射时，如果在二维空间中等距分布的点在变换后还是等距分布的，那么这种变换就是线性的。
 
-假设有一个线性变换A$\begin{bmatrix}1&-2\end{bmatrix}$和一个向量$\vec v=\begin{bmatrix}4\\3\end{bmatrix}$。
+假设有一个线性变换A$\begin{bmatrix}1&-2\end{bmatrix}$和一个向量$\vec v=\begin{bmatrix}4\\\\3\end{bmatrix}$。
 
-变换后的位置为$\begin{bmatrix}1&-2\end{bmatrix}\begin{bmatrix}4\\3\end{bmatrix}=4\cdot1+3\cdot-2=-2$，这个变换是一个二维空间向一维空间的变化，所以变换后的结果为一个坐标值。
+变换后的位置为$\begin{bmatrix}1&-2\end{bmatrix}\begin{bmatrix}4\\\\3\end{bmatrix}=4\cdot1+3\cdot-2=-2$，这个变换是一个二维空间向一维空间的变化，所以变换后的结果为一个坐标值。
 
-我们可以看到线性变换的计算过程和向量的点积相同$\begin{bmatrix}1\\-2\end{bmatrix}\cdot\begin{bmatrix}4\\3\end{bmatrix}=4\cdot1+3\cdot-2=-2$，所以向量和一个线性变化有着微妙的联系。
+我们可以看到线性变换的计算过程和向量的点积相同$\begin{bmatrix}1\\\\-2\end{bmatrix}\cdot\begin{bmatrix}4\\\\3\end{bmatrix}=4\cdot1+3\cdot-2=-2$，所以向量和一个线性变化有着微妙的联系。
 
 
 
@@ -641,15 +629,15 @@ $det(A) =0$：空间被压缩到更低的维度，这时不存在逆变换，因
 
 ## 基变换
 
-标准坐标系的基向量为$\vec {i}: \begin{bmatrix}1\\0 \end{bmatrix}$和$\vec {j}: \begin{bmatrix}0\\1 \end{bmatrix}$，假如詹妮弗有另一个坐标系：她的基向量为$\vec i \begin{bmatrix}2\\1 \end{bmatrix}$和$\vec j \begin{bmatrix}-1\\1 \end{bmatrix}$。
+标准坐标系的基向量为$\vec {i}: \begin{bmatrix}1\\\\0 \end{bmatrix}$和$\vec {j}: \begin{bmatrix}0\\\\1 \end{bmatrix}$，假如詹妮弗有另一个坐标系：她的基向量为$\vec i \begin{bmatrix}2\\\\1 \end{bmatrix}$和$\vec j \begin{bmatrix}-1\\\\1 \end{bmatrix}$。
 
-对于同一个点$\begin{bmatrix}3\\2 \end{bmatrix}$来说他们所表示的形式不同，在詹妮弗的坐标系中表示为$\begin{bmatrix}\frac{5}{3}\\\frac{1}{3} \end{bmatrix}$。
+对于同一个点$\begin{bmatrix}3\\\\2 \end{bmatrix}$来说他们所表示的形式不同，在詹妮弗的坐标系中表示为$\begin{bmatrix}\frac{5}{3}\\\\\frac{1}{3} \end{bmatrix}$。
 
-从标准坐标到詹尼佛的坐标系，我能可以得到一个线性变换$A:\begin{bmatrix}2&-1\\1&1 \end{bmatrix}$。
+从标准坐标到詹尼佛的坐标系，我能可以得到一个线性变换$A:\begin{bmatrix}2&-1\\\\1&1 \end{bmatrix}$。
 
-如果想知道詹妮弗的坐标系中点$\begin{bmatrix}3\\2 \end{bmatrix}$在标准坐标系的位置，可以通过$\begin{bmatrix}2&-1\\1&1 \end{bmatrix}\begin{bmatrix}3\\2 \end{bmatrix}$得到。
+如果想知道詹妮弗的坐标系中点$\begin{bmatrix}3\\\\2 \end{bmatrix}$在标准坐标系的位置，可以通过$\begin{bmatrix}2&-1\\\\1&1 \end{bmatrix}\begin{bmatrix}3\\\\2 \end{bmatrix}$得到。
 
-如果想知道标准坐标系中点$\begin{bmatrix}3\\2 \end{bmatrix}$在詹妮弗坐标系的位置，可以通过$\begin{bmatrix}2&-1\\1&1 \end{bmatrix}^{-1}\begin{bmatrix}3\\2 \end{bmatrix}$得到。
+如果想知道标准坐标系中点$\begin{bmatrix}3\\\\2 \end{bmatrix}$在詹妮弗坐标系的位置，可以通过$\begin{bmatrix}2&-1\\\\1&1 \end{bmatrix}^{-1}\begin{bmatrix}3\\\\2 \end{bmatrix}$得到。
 
 具体的例子，90°旋转。
 
@@ -776,6 +764,7 @@ $det(A) =0$：空间被压缩到更低的维度，这时不存在逆变换，因
 求解特征值：
 
 $\begin{bmatrix}-\lambda&1\\1&1-\lambda \end{bmatrix}\vec{X}=0$
+<div>
 $$
 \begin{bmatrix}-\lambda&1\\1&1-\lambda \end{bmatrix}\vec{X}=0 \\
 \lambda=\frac{1+\sqrt{5}}{2},\frac{1-\sqrt{5}}{2} \\
@@ -786,6 +775,7 @@ P^{-1}=\frac{1}{4\sqrt{5}}\begin{bmatrix}\sqrt{5}-1&2\\\sqrt{5}+1&-2\end{bmatrix
 A=PMP^{-1}\\
 A^{n}=PMP^{-1}PMP^{-1}...PMP^{-1}=PM^{n}P^{-1}
 $$
+<div>
 
 
 

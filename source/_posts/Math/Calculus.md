@@ -13,21 +13,19 @@ categories: Math
 ## 数列极限
 
 如何证明$0.999\dots = 1$：
+<div>
 $$
 \begin{aligned} 
 proof\ 1: \\
 \frac{1}{3}&=0.333\cdots \\
 \frac{1}{3}\times3&=0.333\cdots\times3 \\
 1&=0.999\cdots \\ \\
-
 proof\ 2: \\
 0.999\cdots&=0.9+0.99+0.999+\cdots\\
 &=0.9+0.99+0.999+\cdots\\
 &=\frac{0.9\times(1-0.1^n)}{1-0.1}\\
 &=\frac{0.9}{0.9} \\
 &=1 \\ \\
-
-
 proof\ 3: \\
 a &= 0.999\cdots \\
 10a &= 9.999\cdots \\
@@ -35,9 +33,9 @@ a &= 0.999\cdots \\
 a&=1
 \end{aligned}
 $$
+</div>
 
-
-
+<div>
 $$
 \begin{aligned}
 正割:sec\theta&=\frac{1}{cos\theta}\\ 
@@ -45,21 +43,23 @@ $$
 余切:cot\theta&=\frac{1}{tan\theta}\\
 \end{aligned}
 $$
+</div>
+
 
 ## 两个重要极限
-
+<div>
 $$
 \begin{aligned}
 \lim\limits_{x\rightarrow0}\frac{sinx}{x}=1 \\
 \lim\limits_{x\rightarrow \infty}(1+\frac{1}{x})^x=e
 \end{aligned}
 $$
-
-
+</div>
 
 ## 等价无穷小
 
 当$x\rightarrow0$：
+<div>
 $$
 \begin{aligned}
 sinx &\sim x \\
@@ -74,11 +74,11 @@ a^x-1 &\sim xlna (a>0,a\ne1) \\
 log_a(1+x) &\sim\frac{x}{lna} (a>0,a\ne1) \\
 \end{aligned}
 $$
-
-
+</div>
 ## 求导法则
 
 一般函数求导：
+<div>
 $$
 \begin{aligned}
 (u+v)'&=u'+v' \\
@@ -86,21 +86,23 @@ $$
 (\frac{u}{v})' &= \frac{u'v-uv'}{v^2} \\
 \end{aligned}
 $$
+</div>
 反函数的导数，等于原函数导数的倒数。
+<div>
 $$
 y=f(x),\ x=\phi(y),\ \phi'(y)=\frac{1}{f'(x)}
 $$
-
-
+</div>
 复合函数遵循联式法则：
+<div>
 $$
 y=f(u),\ u=h(t),\ t=k(w),\ w=g(x) \\
 \frac{dy}{dx}=\frac{dy}{du}\cdot\frac{du}{dt}\cdot\frac{dt}{dw}\cdot\frac{dw}{dx}\\
 \frac{d}{dx}g(h(x))=\frac{dg}{dh}(h(x))\frac{dh}{dx}(x)
 $$
-
-
+</div>
 常见函数的求导：
+<div>
 $$
 \begin{aligned}
 c'&=0 \\
@@ -121,11 +123,11 @@ c'&=0 \\
 (arccotx)'x&=\frac{-1}{1+x^2} \\
 \end{aligned}
 $$
-
-
+</div>
 ## 高阶导数
 
 求导法则：
+<div>
 $$
 \begin{aligned}
 (u\pm v)^{(n)} &= u^{(n)}\pm v^{(n)} \\
@@ -133,6 +135,7 @@ $$
 (uv)^{(n)}&=\sum_{i=0}^{n}C_n^iu^{(n-i)}v^{(i)}
 \end{aligned}
 $$
+</div>
 先函数求导：
 
 ![image-20201004171414791](https://img.sanzo.top/img/math/Calculus/image-20201004171414791.png)
@@ -150,6 +153,7 @@ $$
 ![image-20201004171717622](https://img.sanzo.top/img/math/Calculus/image-20201004171717622.png)
 
 常见的多阶导数：
+<div>
 $$
 \begin{aligned}
 (sinx)^{(n)}&=sin(x+\frac{n\pi}{2}) \\
@@ -157,8 +161,7 @@ $$
 (lnx)^{(n)}&=(-1)^{n-1}\frac{(n-1)!}{x^{n}}
 \end{aligned}
 $$
-
-
+</div>
 ## 微分
 
 微分是求函数在某点$x_0$附近的变化量。
@@ -166,6 +169,7 @@ $$
 ![image-20201004190517554](https://img.sanzo.top/img/math/Calculus/image-20201004190517554.png)
 
 微分规则：
+<div>
 $$
 \begin{aligned}
 dc&=0 \\
@@ -173,10 +177,9 @@ d(u\pm v)&=du\pm dv \\
 d(uv)&=vdu+udv \\
 d(cu)&=cdu \\
 d(\frac{u}{v})&=\frac{vdu+udv}{v^2}
-
 \end{aligned}
 $$
-
+</div>
 
 
 
@@ -260,7 +263,7 @@ $$
 
 单调性可以根据函数的导数判断$f'(x)>0$增函数，$f'(x)<0$减函数。
 
-函数增减的分界点$\begin{cases} f'(x)=0(驻点)\\导数不存在的点\end{cases}$
+函数增减的分界点$\begin{cases} f'(x)=0(驻点)\\\\导数不存在的点\end{cases}$
 
 ![image-20201005201951384](https://img.sanzo.top/img/math/Calculus/image-20201005201951384.png)
 
@@ -270,6 +273,6 @@ $$
 
 函数的凸凹行可以根据二阶导数来判断，$f''(x)>0$凸函数，$f''(x)<0$凹函数。
 
-$\left.\begin{matrix} f''(x)=0(拐点)\\二阶导数不存在的点 \end{matrix} \right\}$可能是拐点（凸凹的分界点），还需要根据左右的凸凹性进一步判断。
+<div>$\left.\begin{matrix} f''(x)=0(拐点)\\\\二阶导数不存在的点 \end{matrix} \right\}$</div> 可能是拐点（凸凹的分界点），还需要根据左右的凸凹性进一步判断。
 
 ![image-20201005203040731](https://img.sanzo.top/img/math/Calculus/image-20201005203040731.png)
