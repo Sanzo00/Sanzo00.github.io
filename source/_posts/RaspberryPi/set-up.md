@@ -182,9 +182,9 @@ sudo proxychains apt install cups
 sudo vim /etc/cups/cupsd.conf
 ```
 
-![](/img/pi/print2.png)
+![](https://img.sanzo.top/img/pi/print2.png)
 
-![](/img/pi/print1.png)
+![](https://img.sanzo.top/img/pi/print1.png)
 
 ```bash
 # 重启服务
@@ -217,17 +217,17 @@ sudo make install
 
 记得要连接上打印机，而且要用root账号登录。
 
-![](/img/pi/print6.png)
+![](https://img.sanzo.top/img/pi/print6.png)
 
-![](/img/pi/print7.png)
+![](https://img.sanzo.top/img/pi/print7.png)
 
-![](/img/pi/print8.png)
+![](https://img.sanzo.top/img/pi/print8.png)
 
 ### Windows添加打印机
 
-![](/img/pi/print4.png)
+![](https://img.sanzo.top/img/pi/print4.png)
 
-![](/img/pi/print5.png)
+![](https://img.sanzo.top/img/pi/print5.png)
 
 
 
@@ -395,7 +395,7 @@ sudo service php7.3-fpm restart
 
 浏览器访问`http://树莓派ip`
 
-![image-20201227233013606](/img/pi/image-20201227233013606.png)
+![image-20201227233013606](https://img.sanzo.top/img/pi/image-20201227233013606.png)
 
 > 修改配置文件
 
@@ -426,7 +426,7 @@ location ~\.php$ {
 }
 ```
 
-![image-20201227233506067](/img/pi/image-20201227233506067.png)
+![image-20201227233506067](https://img.sanzo.top/img/pi/image-20201227233506067.png)
 
 
 
@@ -446,7 +446,7 @@ sudo chown -R www-data /var/www/html/pi-dashboard
 
 
 
-![image-20201227234232789](/img/pi/image-20201227234232789.png)
+![image-20201227234232789](https://img.sanzo.top/img/pi/image-20201227234232789.png)
 
 
 
