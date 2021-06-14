@@ -4,14 +4,43 @@ date: 2021-06-12 20:28:00
 updated: 2021-06-12 20:28:00
 layout: links
 links:
-  - url: https://www.kirito41dd.cn/
+  - url: https://sanzo.top
+    avatar: https://cdn.jsdelivr.net/gh/sanzo00/sanzo00.github.io@master/img/sanzo.png
+    name: Sanzo
+    blog: Sanzo's blog
+    desc: Running Bit.
+    color: "#f9a5c4" # 代表色, 默认为灰色
+    email: # 非必须
+  - url: https://www.kirito41dd.cn
     avatar: https://blog-1256556944.cos.ap-nanjing.myqcloud.com/kirito.jpg
     name: kirito
     blog: kirito's blog
     desc: 字节大佬 orz
     color: "#46a2c5" # 代表色
     email: # 非必须
+  - url: https://www.orzff.cn
+    avatar: https://cdn.jsdelivr.net/gh/Mug-9/Mug9er.github.io@master/medias/logo.png
+    name: Mug-9
+    blog: Mug-9's blog
+    desc: Stay Hungry, Stay Foolish
+    color: "#d0c1e4" # 代表色
+  - url: https://www.wolai.com/tony5t4rk/sVs2rsw8GcpU8NQzv9LAmL
+    avatar: https://secure.wostatic.cn/icon%2Fqjs7ZW5MYRTMPbGWWBvovJ%2F%E6%BD%98%E9%93%AD%E5%85%81-Seraphine.png?auth_key=1623714340-fTfMeCBKZLEXf1pwtHP5hW-0-db017ac842352964bbca150fe648dbbb&image_process=resize,w_73
+    name: Tony5t4rk
+    blog: Tony5t4rk
+    desc: ACM银牌大佬
+    color: "#42bacb" # 代表色    
 placeholder: 还没想好说些什么 # 默认对友链的描述
 tip: 友链加载中～如失败请刷新重试～
 ---
 
+欢迎评论区交换友链，格式如下：
+```bash
+  - url: https://sanzo.top
+    avatar: https://cdn.jsdelivr.net/gh/sanzo00/sanzo00.github.io@master/img/sanzo.png
+    name: Sanzo
+    blog: Sanzo's blog
+    desc: Running Bit.
+    color: "#f9a5c4" # 代表色, 默认为灰色
+    email: arrangeman@163.com # 非必须
+```
