@@ -25,7 +25,7 @@ links:
     desc: Stay Hungry, Stay Foolish
     color: "#d0c1e4" # 代表色
   - url: https://www.wolai.com/tony5t4rk/sVs2rsw8GcpU8NQzv9LAmL
-    avatar: https://secure.wostatic.cn/icon%2Fqjs7ZW5MYRTMPbGWWBvovJ%2F%E6%BD%98%E9%93%AD%E5%85%81-Seraphine.png?auth_key=1623714340-fTfMeCBKZLEXf1pwtHP5hW-0-db017ac842352964bbca150fe648dbbb&image_process=resize,w_73
+    avatar: https://avatars.githubusercontent.com/u/33507360
     name: Tony5t4rk
     blog: Tony5t4rk
     desc: ACM银牌大佬
