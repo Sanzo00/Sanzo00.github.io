@@ -229,3 +229,28 @@ pages:
     url: /links/
     icon: icon-genderless-line
     color: dodgerblue  
+
+engine_search:
+  enable: true
+  href: "https://www.google.com/search?q=site:"
+  # href: "https://www.baidu.com/s?wd=site:"
+  # href: "https://www.bing.com/search?q=site:"
+  domain: sanzo.top
+
+# Ads
+# ---------------
+# Google Adsense
+# google_adsense:
+#   enable: false
+#   client: ca-pub-2245427233262012
+
+# Analysis
+# ---------------
+google_analytics:
+  enable: true
+  id: G-82SWX0KLXT
+
+# Google Tagmanager
+# google_tagmanager:
+#   enable: false
+#   id:  
