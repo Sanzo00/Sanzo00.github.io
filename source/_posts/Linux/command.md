@@ -75,9 +75,14 @@ ps -ef | grep free | grep -v grep | awk '{print $2}'
 
 # 终止进程
 ps -ef | grep free | grep -v grep | awk '{print $2}' | xargs kill
+
+# 终止所有指定名称的进程
+killall xxx
 ```
 
 终止指定名称的进程：[kill.sh](https://github.com/Sanzo00/files/blob/master/shell/kill.sh)
+
+
 
 ```bash
 # check input args

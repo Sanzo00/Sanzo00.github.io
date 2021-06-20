@@ -1,5 +1,5 @@
 ---
-title: hello world
+title: hello hexo
 katex: true
 date: 2021-06-12 19:54:23
 updated: 2021-06-12 19:54:23
@@ -115,6 +115,16 @@ bash update.sh "Add github actions"
 
 # bash update.sh
 ```
+
+
+
+## 插件
+
+### pdf
+
+https://github.com/superalsrk/hexo-pdf
+
+
 
 
 

@@ -1,0 +1,18 @@
+---
+title: LaTex数学符号
+katex: true
+date: 2021-06-20 23:29:58
+updated: 2021-06-20 23:29:58
+tags:
+categories:
+---
+
+
+
+<!-- more -->
+
+---
+
+{% pdf https://img.sanzo.top/pdf/symbols.pdf %}
+
+<!-- Q.E.D. -->
