@@ -18,7 +18,7 @@ typora-copy-images-to: ..\..\img\paper
 
 [Scaling Distributed Machine Learning with the Parameter Server](http://www.cs.cmu.edu/~muli/file/parameter_server_osdi14.pdf)
 
-{% pdf http://www.cs.cmu.edu/~muli/file/parameter_server_osdi14.pdf %}
+{% pdf https://img.sanzo.top/pdf/paper/parameter_server_osdi14.pdf %}
 
 
 
