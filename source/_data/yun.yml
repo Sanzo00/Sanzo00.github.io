@@ -254,3 +254,21 @@ google_analytics:
 # google_tagmanager:
 #   enable: false
 #   id:  
+
+codeblock:
+  copy_btn: true
+  prismjs:
+    # light: default
+    # light: solarizedlight
+    light: tomorrow
+    dark: tomorrow
+    # dark: tomorrow
+
+# Home page setting
+# path: Root path for your blogs index page. (default = '')
+# per_page: Posts displayed per page. (0 = disable pagination)
+# order_by: Posts order. (Order by date descending by default)
+index_generator:
+  path: ''
+  per_page: 6
+  order_by: -date
