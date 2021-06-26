@@ -4,7 +4,8 @@ katex: true
 date: 2021-06-20 23:29:58
 updated: 2021-06-20 23:29:58
 tags:
-categories:
+	- latex
+categories: Default
 ---
 
 

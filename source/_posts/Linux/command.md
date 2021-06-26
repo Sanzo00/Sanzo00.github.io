@@ -73,6 +73,9 @@ ps -ef | grep xxx
 # 获取指定名称进程的pid
 ps -ef | grep free | grep -v grep | awk '{print $2}'
 
+# 查看指定进程的开始和执行的时间
+ps -eo pid,lstart,etime | grep pid
+
 # 终止进程
 ps -ef | grep free | grep -v grep | awk '{print $2}' | xargs kill
 
