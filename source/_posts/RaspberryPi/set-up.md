@@ -450,4 +450,36 @@ sudo chown -R www-data /var/www/html/pi-dashboard
 
 
 
+## VNC
+
+> 开启VNC服务
+
+```bash
+sudo raspi-config
+```
+
+选择Interface Options => VNC，开启VNC服务。
+
+
+
+>下载VNC客户端
+
+下载地址：[realvnc](https://www.realvnc.com/en/connect/download/viewer/)
+
+
+
+> 修改分辨率
+
+如果VNC不能正常访问，可以通过修改树莓派分辨率解决。
+
+```bash
+sudo raspi-config
+```
+
+选择Display Options => Resolution => Mode4，接着重启机器即可。
+
+
+
+
+
 <!-- Q.E.D. -->

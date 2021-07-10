@@ -1,9 +1,10 @@
 ---
-title: '论文笔记: ps-lite'
+title: 'PS: Scaling Distributed Machine Learning with the Parameter Server'
 katex: true
 date: 2021-06-18 13:58:33
 updated: 2021-06-18 13:58:33
-tags: ps-lite
+tags: 
+	- parameter server
 categories: Paper
 typora-copy-images-to: ..\..\img\paper
 ---

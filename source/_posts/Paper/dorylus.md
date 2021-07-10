@@ -1,5 +1,5 @@
 ---
-title: '论文笔记: Dorylus'
+title: 'Dorylus: Affordable, Scalable, and Accurate GNN Training withDistributed CPU Servers and Serverless Threads'
 katex: true
 date: 2021-06-22 10:34:04
 updated: 2021-06-22 10:34:04
@@ -14,7 +14,7 @@ typora-copy-images-to: ..\..\img\paper\
 
 ---
 
-
+## Paper link
 
 [Dorylus: Affordable, Scalable, and Accurate GNN Training withDistributed CPU Servers and Serverless Threads](http://web.cs.ucla.edu/~harryxu/papers/dorylus-osdi21.pdf)
 

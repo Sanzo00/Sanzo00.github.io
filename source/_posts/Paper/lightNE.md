@@ -1,11 +1,11 @@
 ---
-title: '论文笔记: LightNE'
+title: 'LightNE: A Lightweight Graph Processing System for NetworkEmbedding'
 katex: true
 typora-copy-images-to: ..\..\img\paper
 date: 2021-06-23 14:16:24
 updated: 2021-06-23 14:16:24
 tags:
-	- 
+	- embedding
 categories: Paper
 hide: false
 ---
@@ -16,7 +16,7 @@ hide: false
 
 ---
 
-
+## Paper link
 
 [LightNE: A Lightweight Graph Processing System for NetworkEmbedding](https://keg.cs.tsinghua.edu.cn/jietang/publications/SIGMOD21-Qiu-et-al-LightNE.pdf)
 

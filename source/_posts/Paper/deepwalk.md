@@ -1,10 +1,11 @@
 ---
-title: '论文笔记: DeepWalk'
+title: 'DeepWalk: Online Learning of Social Representations'
 katex: true
 typora-copy-images-to: ..\..\img\paper
 date: 2021-06-23 22:14:39
 updated: 2021-06-23 22:14:39
 tags:
+	- embedding
 categories: Paper
 hide: false
 ---
@@ -14,6 +15,8 @@ hide: false
 <!-- more -->
 
 ---
+
+## Paper link
 
 [DeepWalk: Online Learning of Social Representations](https://arxiv.org/pdf/1403.6652)
 
