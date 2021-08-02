@@ -125,4 +125,59 @@ https://www.python.org/ftp/python/3.8.5/Python-3.8.5.tgz
 
 
 
+
+
+## jupyter notebook
+
+### ipykernel
+
+通过ipykernel管理jupyter notebook的内核。
+
+```bash
+# 激活环境
+activate env_name
+
+# 安装ipykernel
+pip install ipykernel
+
+# 添加kernel
+python -m ipykernel install --name env_name
+
+# 删除内核
+jupyter kernelspec remove kernelname
+
+# 查看所有内核
+jupyter kernelspec list
+```
+
+
+
+### 远程访问
+
+生成密钥
+
+```bash
+# 通过ipython生成密码
+ipython
+
+In [1]: from notebook.auth import passwd
+In [2]: passwd()
+Enter password: 
+Verify password: 
+Out[3]: 'xxxxxxxxxxxxxxxxxxxxxx'
+
+# 生成配置文件，并添加如下配置
+jupyter notebook --generate-config
+
+c.NotebookApp.ip='0.0.0.0'
+c.NotebookApp.password = u'xxxxxxxxxxxxxxxxxxxxxx'
+c.NotebookApp.open_browser = False
+c.NotebookApp.port =8888
+```
+
+然后就可以通过[https://ip:8888远程访问`jupyter](https://ip:8888远程访问`jupyter/) notebook`
+
+
+
 <!-- Q.E.D. -->
+

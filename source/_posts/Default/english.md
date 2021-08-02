@@ -176,4 +176,118 @@ B: Thanks, I'll buy that!
 
 
 
+### Discussing a Document in English
+
+[video link](https://www.youtube.com/watch?v=_A_P35AkLcs&list=PL5bLw9Uguvv1VRVl3gHBt-FcM__k3UY9L&index=6)
+
+A president and his assistant are talking on the phone. Which document is the assistant going to deliver to the sales department?
+
+A: Hey, could you do me a favor? There's  a document on my desk, and I need you to deliver it to the sales department.
+
+B: Sure, Which one is it?
+
+A: I think it's in a blue envelope.
+
+B: A blue envelope... Well, there are two envelopes on your desk.
+
+A: Ah, right there should be a red tamp in the upper right corner of the envelope. The other one should have a green stamp, but it's the **orientation guid** we hand out to new employees.
+
+B: The one with the red stamp... Okay, got it.
+
+A: Great, please deliver it to the sales department by 1:00. And make sure you give it to the manager directly. You know him, right?
+
+B: Yes, We've met several times.
+
+A: Good. And while you're at it, could you deliver the other evnelope to HR?
+
+B: Sure thing.
+
+
+
+### Reporting a Lost Item in English
+
+[video link](https://www.youtube.com/watch?v=qck16c6HZsc&list=PL5bLw9Uguvv1VRVl3gHBt-FcM__k3UY9L&index=7)
+
+A woman is calling a restaurant on the phone. At which table was she having lunch?
+
+A: Hello. How can I help you?
+
+B: Hi... I was at your restaurant for lunch today, and I think I left my **scarf** there.
+
+A: You left your scarf at the table? Do you remember where you were seated?
+
+B: Well... it was in the back of the restaurent.
+
+A: Were you in the smoking area or the non-smoking area?
+
+B: The non-smoking area.
+
+A: How big was your table?
+
+B: It was a table for four people.
+
+A: OK, I'll go check. Please wait for a moment.
+
+B: Thank you so much.
+
+
+
+### Looking for an Apartment in The USA
+
+[video link](https://www.youtube.com/watch?v=8tfzTBy22vI&list=PL5bLw9Uguvv1VRVl3gHBt-FcM__k3UY9L&index=8)
+
+A man is looking for an apartment. Which apartment is he probably going to choose?
+
+A: Hi there, I'm looking for an apartment. Could you show me some floor plans?
+
+B: Sure thing. Will you be living alone?
+
+A: No, I'm married, and we're looking for a one-bedroom apartment with a study.
+
+B: Okay, how about this one? There are two rooms plus a living room. It's near a busy street, though,  so it might not be very quiet.
+
+A: I see, I usually work at home, so I need quiet place place. And I'd perfer the living room to be square shaped.
+
+B: Well, how about this one, It's located a bit far from downtown, but it's in a quiet residential area. There are two rooms and living room, but one of the room is a little small.
+
+A: Hmmm... We don't have too much stuff, so this one might work for us.
+
+B: We can show you another apartment with bigger rooms, but it's located further from downtown.
+
+A: No, thank you, Let's have a look at the second one you showed me.
+
+
+
+### Choosing a Cake in The USA
+
+[video link](https://www.youtube.com/watch?v=macHgCneE8k&list=PL5bLw9Uguvv1VRVl3gHBt-FcM__k3UY9L&index=9)
+
+
+
+A woman is ordering a birthday cake.  Which cake is she going to order?
+
+A: Excuse me, I'd like to order a birthday cake for my daughter.
+
+B: Great! Could you tell me what kind of cake you're looking for?
+
+A: My daughter likes chocolate, so I think a chocolate cream cake would be good. And can you put **strawberries** on it?
+
+B: Absolutely! We have round and square cakes. Which one would you perfer?
+
+A: Hmmm... A round one, please.
+
+B: Okay, How old is your daughter going to be?
+
+A: She'll be twelve.
+
+B: Okay, then we'll get twelve **candles** ready. Do you want to write a message?
+
+A: Yes, please write, "Happy Birthday."
+
+B: Alright, and do you want that written in pink? If so, we'll put it on a white plate. Otherwise, we can write it in white, and put it on  a pink plate.
+
+A: Please write it in pink and put it on a white plate.
+
+
+
 <!-- Q.E.D. -->

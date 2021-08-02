@@ -18,7 +18,7 @@ hide: false
 
 ## Paper link
 
-[LightNE: A Lightweight Graph Processing System for NetworkEmbedding](https://keg.cs.tsinghua.edu.cn/jietang/publications/SIGMOD21-Qiu-et-al-LightNE.pdf)
+[LightNE: A Lightweight Graph Processing System for Network Embedding](https://keg.cs.tsinghua.edu.cn/jietang/publications/SIGMOD21-Qiu-et-al-LightNE.pdf)
 
 {% pdf https://img.sanzo.top/pdf/paper/SIGMOD21-Qiu-et-al-LightNE.pdf %}
 
@@ -42,7 +42,7 @@ hide: false
 
 
 
-其中T表示random walk的步长(默认为10)，$trunc_log(x) = max(0, log(x))$，$vol(G) = 2m$，其中$(D^{-1}A)^r$是矩阵分解的瓶颈。
+其中T表示random walk的步长(默认为10)，$trunc\_log(x) = max(0, log(x))$，$vol(G) = 2m$，其中$(D^{-1}A)^r$是矩阵分解的瓶颈。
 
 trunc_log对embedding的质量至关重要，不能被忽略。
 
@@ -113,7 +113,7 @@ LightNE包含两步，NetSMF和spectral propagation，其中NetSMF可以分成�
 
 ![image-20210627174805619](../../img/paper/image-20210627174805619.png)
 
-#### Sparse Parallel Graph Processing
+### Sparse Parallel Graph Processing
 
 LightNE是在建立在Graph Based Benchmark Suite(GBBS)上，GBBS扩展了Ligra的接口
 
@@ -129,7 +129,7 @@ LightNE是首个提出将GBBS和Ligra+用于解决network embedding。
 
 
 
-#### Parallel Sparsifier Construction
+### Parallel Sparsifier Construction
 
 Parallel Sparsifier的构造包含两个部分：
 
