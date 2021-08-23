@@ -29,7 +29,20 @@ links:
     name: Tony5t4rk
     blog: Tony5t4rk
     desc: ACM银牌大佬
-    color: "#42bacb" # 代表色    
+    color: "#42bacb" # 代表色
+  - url: https://program-think.blogspot.com/
+    avatar: https://lh4.googleusercontent.com/-Wxl9HaDj1-I/SYPJWMNM65I/AAAAAAAAAcc/FjINutqB9_I/ThinkerSmall.jpg
+    name: 编程随想
+    blog: 编程随想的博客
+    desc: 墙外人士
+    color: "#0068fd" # 代表色
+  - url: https://dmesg.app/
+    avatar: https://avatars.githubusercontent.com/u/14024832?v=4
+    name: 土豆不好吃
+    blog: 土豆不好吃
+    desc: Remember me.
+    color: "#009966" # 代表色
+
 placeholder: 还没想好说些什么 # 默认对友链的描述
 tip: 友链加载中～如失败请刷新重试～
 ---
