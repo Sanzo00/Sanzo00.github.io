@@ -102,12 +102,12 @@ banner:
   #   color: "white"
   # go_down:
   #   enable: true
-  #   icon: icon-arrow-down-s-line    
+  #   icon: icon-arrow-down-s-line
 
 # notice pin board
 notice:
   enable: false
-  content: Thanks for watching my blog.    
+  content: Thanks for watching my blog.
 
 # say something
 # https://say.elpsy.cn
@@ -122,7 +122,7 @@ say:
   hitokoto:
     enable: true
     api: https://v1.hitokoto.cn
-    # api: https://v1.hitokoto.cn?c=a&c=b&c=c&c=d&c=k  
+    # api: https://v1.hitokoto.cn?c=a&c=b&c=c&c=d&c=k
 
 # Footer Settings
 # ---------------
@@ -156,21 +156,21 @@ footer:
     link: https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral
     logo: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png
     prefix: 本网站由
-    suffix: 提供云存储服务  
+    suffix: 提供云存储服务
 
 bg_image:
   enable: false
   url: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/bg/stars-timing-0-blur-30px.jpg # recomend image related to your mode
   dark: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/bg/galaxy.jpg
   # blur: 30px
-  opacity: 1    
+  opacity: 1
 
 # Post wordcount
 # https://github.com/willin/hexo-wordcount
 wordcount:
   enable: true
   count: true
-  time: true  
+  time: true
 
 wordclound:
   enable: true
@@ -218,8 +218,8 @@ menu:
   custom:
     title: Messages
     path: /about/#comment
-    icon: icon-chat-3-line  
-    # icon: icon-clipboard-line  
+    icon: icon-chat-3-line
+    # icon: icon-clipboard-line
 
 comment:
   tips:
@@ -236,7 +236,7 @@ pages:
   - name: Friends
     url: /links/
     icon: icon-genderless-line
-    color: dodgerblue  
+    color: dodgerblue
 
 engine_search:
   enable: false
@@ -261,7 +261,7 @@ google_analytics:
 # Google Tagmanager
 # google_tagmanager:
 #   enable: false
-#   id:  
+#   id:
 
 codeblock:
   copy_btn: true
@@ -278,5 +278,13 @@ codeblock:
 # order_by: Posts order. (Order by date descending by default)
 index_generator:
   path: ''
-  per_page: 6
+  per_page: 8
   order_by: -date
+
+
+toc:
+  list_number: true
+  max_depth: 6
+  min_depth: 1
+  placeholder: 很遗憾，咱没写啥目录
+  collapse: false
