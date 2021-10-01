@@ -16,9 +16,61 @@ categories: Default
 
 
 
+## 常用命令
+
+[Version Control（Git）](https://missing.csail.mit.edu/2020/version-control/)
+
+```shell
+# 查看hash对应的文件内容
+git cat-file -p <hash>
+
+# 以graph的格式展示log信息
+git log --all --graph --decorate
+git log --all --graph --decorate --oneline
+
+# 查看文件的修改
+git diff <filename>
+git diff master <filename>
+git diff <branch> <branch> <filename>
+git diff <hash> <hash> <filename>
+git diff --cached
+
+# 切换分支
+git checkout <branch>
+git checkout -b <branch> # 新建分支并切换
+git checkout <filenam> # 丢弃修改
+
+# 分支合并
+git merge <branch>
+
+# 设置upstream
+git branch --set-upstream-to=origin/master
+
+# 同步
+git remote add <name> <url>
+git push <name> <local branch>:<remote branch>
+git pull <name> <remote branch>:<local branch>
+
+# 仅选择需要add的行
+git add -p <filename>
+
+# 查看修改情况
+git blame <filename> # 查看修改对应的id
+git show <hash> # 查看commit信息
+
+# 隐藏修改
+git stash
+git stash pop
+
+```
+
+
+
+
+
 [git-简明指南](http://rogerdudler.github.io/git-guide/index.zh.html)
 
-## 配置git
+## 环境配置
 
 - 配置用户信息
 
