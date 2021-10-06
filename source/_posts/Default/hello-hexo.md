@@ -8,7 +8,6 @@ tags:
   - shell
   - github actions
 categories: Default
-sticky: 1
 ---
 
 hexo基本命令、commit脚本、Github Actions自动部署

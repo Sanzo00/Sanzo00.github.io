@@ -8,6 +8,7 @@ tags:
 	- pi
 	- car
 categories: RaspberryPi
+sticky: 1
 ---
 
 
@@ -101,7 +102,7 @@ sudo dpkg -i wiringpi-latest.deb
 
 > 接线
 
-这里使用树莓派的GPIO的BCM编号。 
+这里使用树莓派的GPIO的BCM编号。
 
 IN1、IN2、IN3、IN4分别接到树莓派的5、6、13、19上。
 
