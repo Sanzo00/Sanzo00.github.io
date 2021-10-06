@@ -62,7 +62,7 @@ MinHashing的具体做法时，对Shingles的集合进行随机打乱，bit vect
 
 ![image-20211001174630022](https://img.sanzo.top/img/algorithm/image-20211001174630022.png)
 
-MinHash相等的概率刚好等于Jaccard Similarity值，$Pr[h_\pi(D_1) = h_\pi(D_2)] = Jaccard(C_1, C_2)$。
+MinHash相等的概率刚好等于Jaccard Similarity值，$Pr[h_\pi(D_1) = h_\pi(D_2)] = Jaccard(D_1, D_2)$。
 
 证明如下：
 
@@ -74,7 +74,7 @@ MinHash相等的概率刚好等于Jaccard Similarity值，$Pr[h_\pi(D_1) = h_\pi
 
 其中全为0的情况不影响MinHash的值，第一个非零行为第一类的概率为$\frac{x}{x + y}$。
 
-另外从全排列考虑，第一行为第一类的情况有$x(x+y-1)!$，全排列为$(x+y)!$，即对特征进行全排列后，MinHash相等的次数即为Jaccard Similarity。
+另外从全排列考虑，第一行为第一类的情况有$x(x+y-1)!$，全排列为$(x+y)!$，$\frac{x(x+y-1)!}{(x+y)!}=\frac{x}{x+y}$即对特征进行全排列后，MinHash相等的次数即为Jaccard Similarity。
 
 因此我们可以使用MinHash近似表示Jaccard Similarity，同时将长的vector压缩为短的签名。
 
@@ -96,11 +96,23 @@ MinHash相等的概率刚好等于Jaccard Similarity值，$Pr[h_\pi(D_1) = h_\pi
 
 对于每个band，它们包含整体签名的一部分，将这部分签名通过hash映射到不同的桶中，如果两个签名相同它们就会映射到同一个桶中，经过b次映射，两个节点至少有一次被分到同一个桶中，我们就认为这两个节点的相似度更高。
 
-假设两个签名的相似度为$t$，那么在同一个band中每一行都相同的概率为$t^r$，至少有一行不同的概率为$1-t^r$，所有的band都不行同的概率为$(1-t^r)^b$，至少有一个band的相同的概率为$1-(1-t^r)^b$。
+假设两个签名的相似度为$t$，那么在同一个band中每一行都相同的概率为$t^r$，至少有一行不同的概率为$1-t^r$，所有的band都不相同的概率为$(1-t^r)^b$，至少有一个band相同的概率为$1-(1-t^r)^b$。
+
+假设两个签名的相似度为$t$。
+
+同一个band中每一行都相同的概率为$t^r$。
+
+至少有一行不同的概率为$1-t^r$。
+
+所有的band都不相同的概率为$(1-t^r)^b$。
+
+至少有一个band相同的概率为$1-(1-t^r)^b$。
+
+$b$和$r$是可调节的参数，下表是$b=20$，$r=5$的概率。
 
 ![image-20211001182918941](https://img.sanzo.top/img/algorithm/image-20211001182918941.png)
 
-另外$b$和$r$是可调节的参数。
+
 
 ![image-20211001183025149](https://img.sanzo.top/img/algorithm/image-20211001183025149.png)
 
