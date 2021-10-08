@@ -53,7 +53,7 @@ sudo bash install-release.sh --local ./v2ray-linux-64.zip
 }
 ```
 
-![image-20211008182055367](/home/sanzo/.config/Typora/typora-user-images/image-20211008182055367.png)
+![image-20211008182055367](https://img.sanzo.top/img/linux/image-20211008182055367.png)
 
 
 
@@ -204,9 +204,9 @@ sudo apt-get install indicator-sysmonitor
 indicator-sysmonitor
 ```
 
-![image-20211008181906389](/home/sanzo/.config/Typora/typora-user-images/image-20211008181906389.png)
+![image-20211008181906389](https://img.sanzo.top/img/linux/image-20211008181906389.png)
 
-![image-20211008181800153](/home/sanzo/.config/Typora/typora-user-images/image-20211008181800153.png)
+![image-20211008181800153](https://img.sanzo.top/img/linux/image-20211008181800153.png)
 
 
 

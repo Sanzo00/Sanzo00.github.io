@@ -6,7 +6,7 @@ date: 2021-10-01 23:11:13
 updated: 2021-10-01 23:11:13
 tags:
 	zsh
-categories: Default
+categories: Linux
 ---
 
 
