@@ -1,7 +1,7 @@
 ---
 title: ubuntu配置
 katex: true
-typora-copy-images-to: ..\..\img\
+typora-copy-images-to: ../../img/
 date: 2021-10-08 09:52:47
 updated: 2021-10-08 09:52:47
 tags: 
@@ -202,11 +202,13 @@ sudo apt-get install indicator-sysmonitor
 
 # 运行
 indicator-sysmonitor
+
+cpu: ({cpu} {cputemp}) gpu: ({nvgputemp}) mem: ({mem}) net: {net} {totalnet}
 ```
 
-![image-20211008181906389](https://img.sanzo.top/img/linux/image-20211008181906389.png)
+![image-20211008210121275](https://img.sanzo.top/img/linux/image-20211008210121275.png)
 
-![image-20211008181800153](https://img.sanzo.top/img/linux/image-20211008181800153.png)
+![image-20211008205948437](https://img.sanzo.top/img/linux/image-20211008205948437.png)
 
 
 
@@ -223,9 +225,102 @@ indicator-sysmonitor
 
 
 
+## 显卡
+
+[Ubuntu20.04安装NVIDIA显卡驱动+cuda+cudnn配置深度学习环境](https://www.mlzhilu.com/archives/ubuntu2004%E5%AE%89%E8%A3%85nvidia%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8)
+
+> 驱动安装
+
+```shell
+# 查看显卡型号
+lspci | grep -i nvidia
+```
+
+![image-20211008193000787](https://img.sanzo.top/img/linux/image-20211008193000787.png)
+
+[下载驱动](https://www.nvidia.com/Download/index.aspx?lang=en-us)
+
+![image-20211008193044041](https://img.sanzo.top/img/linux/image-20211008193044041.png)
+
+```shell
+sudo apt install -y lightdm gcc make
+sudo passwd root
+
+sudo chmod a+x NVIDIA-Linux-x86_64-450.80.02.run
+sudo ./NVIDIA-Linux-x86_64-450.80.02.run -no-x-check -no-nouveau-check -no-opengl-files
+# -no-x-check:安装时关闭X服务
+# -no-nouveau-check: 安装时禁用nouveau
+# -no-opengl-files:只安装驱动文件，不安装OpenGL文件
+# 后面出来的提示，选择默认选项
+```
+
+```shell
+# 测试是否成功
+nvidia-smi
+```
+
+![image-20211008204151165](https://img.sanzo.top/img/linux/image-20211008204151165.png)
+
+> 安装cuda
+
+[下载cuda](https://developer.nvidia.com/cuda-toolkit-archive)，这里我选择的是cuda 11.2。
+
+```shell
+wget https://developer.download.nvidia.com/compute/cuda/11.2.0/local_installers/cuda_11.2.0_460.27.04_linux.run
+sudo sh cuda_11.2.0_460.27.04_linux.run
+```
+
+![image-20211008204125042](https://img.sanzo.top/img/linux/image-20211008204125042.png)
+
+回车取消勾选`Driver`，因为前面已经装过驱动，然后install。
+
+![image-20211008204241869](https://img.sanzo.top/img/linux/image-20211008204241869.png)
+
+在.bashrc文件中配置环境变量
+
+```shell
+export PATH=/usr/local/cuda-11.2/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-11.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+```
+
+```shell
+source ～/.bashrc
+
+# 测试cuda
+nvcc -V
+```
+
+![image-20211008204439775](https://img.sanzo.top/img/linux/image-20211008204439775.png)
+
+
+
+> 安装cudnn
+
+[下载cudnn](https://developer.nvidia.com/rdp/cudnn-download)
+
+```shell
+# 将文件复制到cuda对应的文件夹下
+sudo cp cuda/include/cudnn.h /usr/local/cuda/include/
+sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64/
+```
+
+> 测试
+
+在`~/NVIDIA_CUDA-11.2_Samples`下编译代码，然后运行cuda提供的例子。
+
+![image-20211008204814707](https://img.sanzo.top/img/linux/image-20211008204814707.png)
+
+
+
+![image-20211008204917470](https://img.sanzo.top/img/linux/image-20211008204917470.png)
+
 ## 其他
 
 [typora](https://typora.io/#linux)
+
+[vscode](https://code.visualstudio.com/)
+
+[python环境](https://sanzo.top/Default/python-env/?highlight=python)
 
 
 
