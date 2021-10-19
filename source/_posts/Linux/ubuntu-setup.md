@@ -140,6 +140,23 @@ ssh-keygen -t rsa -C "your_email@example.com"
 cat ~/.ssh/id_rsa.pub 
 ```
 
+```shell
+vim ~/.vimrc
+
+"set paste
+"set nopaste
+set expandtab
+set softtabstop=2
+set autoindent
+set tabstop=2
+set shiftwidth=2
+set nu
+syntax on
+set mouse=a "支持鼠标滑轮
+set mouse=v "支持鼠标选中复制
+"set viminfo='1000,<500
+```
+
 
 
 ## 鼠标
@@ -301,6 +318,7 @@ nvcc -V
 ```shell
 # 将文件复制到cuda对应的文件夹下
 sudo cp cuda/include/cudnn.h /usr/local/cuda/include/
+sudo cp cuda/include/cudnn_version.h /usr/local/cuda/include/ # for cudnn v8+
 sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64/
 ```
 
@@ -313,6 +331,40 @@ sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64/
 
 
 ![image-20211008204917470](https://img.sanzo.top/img/linux/image-20211008204917470.png)
+
+
+
+## 显示器
+
+适用于多个显示器。
+
+我这里有两块屏幕`HDMI-1`，`HDMI-1-0`。
+
+```shell
+# 查看当前显示器信息
+xrandr
+
+# 设置HDMI-1为主屏幕
+xrandr --output HDMI-1 --primary
+
+# 只显示一个屏幕，关闭HDMI-1-0屏幕
+xrandr --output HDMI-1 --auto --output HDMI-1-0 --off
+
+# 复制屏幕
+xrandr --output HDMI-1-0 --same-as HDMI-1 --auto
+
+# 设置HDMI-1-0为左扩展屏
+xrandr --output HDMI-1-0 --left-of HDMI-1 --auto
+
+# 设置HDMI-1-0右扩展屏
+xrandr --output HDMI-1-0 --right-of HDMI-1 --auto
+```
+
+> 开机自启
+
+还没找到合适的开机自启命令，不过可以在系统设置中调。
+
+
 
 ## 其他
 

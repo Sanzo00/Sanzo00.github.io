@@ -227,6 +227,32 @@ git checkout -- <file>
 
    
 
+## 本地仓库
+
+本地仓库可以用于本地端的同步，例如将本地文件定时同步到硬盘这样的场景。
+
+比如本地的文件夹为`files`。
+
+```shell
+# 将文件夹初始化为git目录。
+git init
+
+# 导出 files.git 目录
+git clone --bare files files.git
+
+# 把 files.git 放到硬盘中。
+scp -r files.git /media/sanzo/path/
+
+# 添加远程目录
+git remote add origin g/media/sanzo/path/files.git
+git push --set-upstream origin master
+
+# 同步
+git push
+```
+
+
+
 
 
 ## 创建与合并分支
