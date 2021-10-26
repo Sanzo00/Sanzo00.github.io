@@ -125,6 +125,17 @@ https://www.python.org/ftp/python/3.8.5/Python-3.8.5.tgz
 
 
 
+## Pytorch
+
+[Pytorch](https://pytorch.org/get-started/locally/)，选择对应cuda版本。
+
+```shell
+torch.version # PyTorch version
+torch.version.cuda # Corresponding CUDA version
+torch.backends.cudnn.version() # Corresponding cuDNN version
+torch.cuda.get_device_name(0) # GPU type
+```
+
 
 
 ## jupyter notebook

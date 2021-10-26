@@ -263,6 +263,12 @@ lspci | grep -i nvidia
 sudo apt install -y lightdm gcc make
 sudo passwd root
 
+# 切换桌面，选择lightdm
+sudo dpkg-reconfigure gdm3
+
+# 关闭lightdm桌面
+systemctl stop lightdm
+
 sudo chmod a+x NVIDIA-Linux-x86_64-450.80.02.run
 sudo ./NVIDIA-Linux-x86_64-450.80.02.run -no-x-check -no-nouveau-check -no-opengl-files
 # -no-x-check:安装时关闭X服务
@@ -277,6 +283,18 @@ nvidia-smi
 ```
 
 ![image-20211008204151165](https://img.sanzo.top/img/linux/image-20211008204151165.png)
+
+
+
+
+
+如果出现`/dev/xxx: clean`的问题，进不了桌面，可能是因为驱动不匹配的问题。可以删除`/etc/X11/xorg.conf`。
+
+
+
+
+
+
 
 > 安装cuda
 

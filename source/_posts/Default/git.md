@@ -62,6 +62,14 @@ git show <hash> # 查看commit信息
 git stash
 git stash pop
 
+# fork后的同步
+# 设置upstream
+git remote add upstream https://github.com/xxx/xxx.git
+# 同步原仓库的更新
+git fetch upstream
+# 合并
+git checkout master
+git merge upstream/master
 ```
 
 
@@ -400,11 +408,11 @@ git push origin master
 git checkout -b dev origin/dev
 
 # 多人向dev合并, 会出现冲突
-	# 将远程库dev分支, 同步到本地
-	git pull
-	# git pull失败, 没有和远程库链接
-	git branch --set-upstream-to =origin/dev dev
-	# git pull之后, 手动解决冲突, 然后上传
+# 将远程库dev分支, 同步到本地
+git pull
+# git pull失败, 没有和远程库链接
+git branch --set-upstream-to =origin/dev dev
+# git pull之后, 手动解决冲突, 然后上传
 ```
 
 
