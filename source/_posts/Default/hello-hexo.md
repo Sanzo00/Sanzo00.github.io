@@ -123,7 +123,9 @@ bash update.sh "Add github actions"
 
 https://github.com/superalsrk/hexo-pdf
 
-
+```shell
+{% pdf xx.pdf %}
+```
 
 
 
