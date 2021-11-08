@@ -106,7 +106,10 @@ $$\nabla_{\mathbf{X}(n,c,hs+q(0), ws+q(1))}L=\nabla{\mathbf{Y}(n,c,h,w)}L$$
 
 其中Img2col是一种比较好理解的算法，基本思想是将卷积核相乘转化为矩阵相称，很多库已经对矩阵相乘进行了优化，因此速度要比for循环相乘快很多。
 
-关于Img2col的介绍可以参考：[High Performance Convolutional Neural Networks for Document Processing](https://hal.inria.fr/file/index/docid/112631/filename/p1038112283956.pdf)
+关于Img2col的介绍可以参考：
+
+- [High Performance Convolutional Neural Networks for Document Processing](https://hal.inria.fr/file/index/docid/112631/filename/p1038112283956.pdf)
+- [卷积神经网络之快速卷积算法(img2col、Winograd、FFT)](https://blog.csdn.net/qq_43409114/article/details/105426806)
 
 {%pdf https://img.sanzo.top/pdf/others/p1038112283956.pdf%}
 
