@@ -231,7 +231,9 @@ cpu: ({cpu} {cputemp}) gpu: ({nvgputemp}) mem: ({mem}) net: {net} {totalnet}
 
 ## 截图
 
-我在windows[snipaste](https://www.snipaste.com/)，不过linux还没出，先用ubuntu默认的截图吧。
+我在windows上用的[snipaste](https://www.snipaste.com/)，不过linux还没出，有两个方案可以代替：
+
+1、系统默认的截图工具
 
 - `PrtSc` – 获取整个屏幕的截图并保存到 Pictures 目录。
 - `Shift + PrtSc` – 获取屏幕的某个区域截图并保存到 Pictures 目录。
@@ -239,6 +241,16 @@ cpu: ({cpu} {cputemp}) gpu: ({nvgputemp}) mem: ({mem}) net: {net} {totalnet}
 - `Ctrl + PrtSc` – 获取整个屏幕的截图并存放到剪贴板。
 - `Shift + Ctrl + PrtSc` – 获取屏幕的某个区域截图并存放到剪贴板。
 - `Ctrl + Alt + PrtSc` – 获取当前窗口的 截图并存放到剪贴板。
+
+2、[flameshot](https://github.com/flameshot-org/flameshot)
+
+```shell
+# install
+apt install flameshot
+
+# start
+flameshot gui
+```
 
 
 
