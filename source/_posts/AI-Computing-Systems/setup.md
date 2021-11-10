@@ -98,7 +98,7 @@ SSH工具：[XShell](https://www.netsarang.com/en/xshell/)、[MobaXterm](https:/
 
 
 
-## 编辑器
+## 开发工具
 
 大家可以使用`vim`或者`vscode`来写代码。
 
@@ -130,6 +130,61 @@ Host chap2
 
 
 
+
+## Linux命令
+
+这里简单介绍下常用的Linux操作命令。
+
+> 系统操作命令
+
+```bash
+# 跳转到指定目录
+cd 目录名
+
+# 返回上一级目录
+cd ..
+
+# 解压tar.gz文件
+tar -xvf 压缩包名.gz
+
+# 展示当前目录下子目录
+ls
+
+# 快速补全
+TAB + 首字母
+```
+
+
+
+
+
+> vim操作
+
+```bash
+# 打开文件进行编辑
+vim 文件名
+
+# 打开编辑模式
+i
+
+# 退出编辑模式
+ESC
+
+# 保存修改
+:w
+
+# 不保存修改并退出
+:q!
+
+# 保存修改并退出
+:wq
+```
+
+推荐阅读：
+
+[Linux vi/vim 菜鸟教程](https://www.runoob.com/linux/linux-vim.html)
+
+[Learning VIM while playing a game](https://vim-adventures.com/)
 
 
 
