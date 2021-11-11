@@ -32,35 +32,39 @@ categories:
 
 $$H_{pad} = H_{in} + 2p$$
 
-$$W_{pad} = W_{in} + 2p$$
+$$W_{pad} = W_{in} + 2p\tag{3.2}$$
 
 输出特征图的高宽：
 
 $$H_{out} = \lfloor \frac{H_{pad}-K}{s} + 1 \rfloor = \lfloor \frac{H_{in}+2p-K}{s} + 1 \rfloor$$
 
-$$ W_{out} = \lfloor \frac{W_{pad}-K}{s} + 1 \rfloor = \lfloor \frac{W_{in} + 2p -K}{s} + 1 \rfloor$$
+$$ W_{out} = \lfloor \frac{W_{pad}-K}{s} + 1 \rfloor = \lfloor \frac{W_{in} + 2p -K}{s} + 1 \rfloor\tag{3.4}$$
 
 > 前向传播
 
 在边界扩充后的特征图上滑动卷积窗口，计算输出特征图：
 
 <div>
-    $$\mathbf{Y}(n, c_{out}, h, w)=\sum_{c_{in}, k_h, k_w} \mathbf{W} (c_{in}, k_h, k_w, c_{out})\mathbf{X}_{pad}(n, c_{in},hs+k_h, ws+k_w) + b(c_{out})$$
+    $$\mathbf{Y}(n, c_{out}, h, w)=\sum_{c_{in}, k_h, k_w} \mathbf{W} (c_{in}, k_h, k_w, c_{out})\mathbf{X}_{pad}(n, c_{in},hs+k_h, ws+k_w) + b(c_{out})\tag{3.3}$$
 </div>
+
 
 > 反向传播
 
 <div>
-    $$\nabla_{\mathbf{W}(c_{in},k_h, k_w,c_{out})}L=\sum_{n,h,w}\nabla_{\mathbf{Y}(n, c_{out},h,w)}L\space\mathbf{X}_{pad}(n, c_{in}, hs+k_h,ws+k_w)$$
+    $$
+    \begin{aligned}
+    \nabla_{\mathbf{W}(c_{in},k_h, k_w,c_{out})}L&=\sum_{n,h,w}\nabla_{\mathbf{Y}(n, c_{out},h,w)}L\space\mathbf{X}_{pad}(n, c_{in}, hs+k_h,ws+k_w) \\
+    \nabla_{b(c_{out})}L&=\sum_{n,h,w}\nabla_{\mathbf{Y}(n,c_{out},h,w)}L \\
+    \nabla_{\mathbf{X}_{pad}(n,c_{in}, hs+i_h,ws+i_w)}L&=\sum_{c_{out}}\sum_{f_h=0}^{\lfloor\frac{K}{s}\rfloor-i_h}\sum_{f_w=0}^{\lfloor\frac{K}{s}-i_w\rfloor}\nabla_{\mathbf{Y}(n,c_{out},h-f_h,w-f_w)}L\space\mathbf{W}(c_{in},f_hs+i_h,f_ws+i_w,c_{out}) \\
+    \end{aligned}
+    \tag{3.5}
+    $$
 </div>
 
-$$\nabla_{b(c_{out})}L=\sum_{n,h,w}\nabla_{\mathbf{Y}(n,c_{out},h,w)}L$$
 
-<div>
-    $$\nabla_{\mathbf{X}_{pad}(n,c_{in}, hs+i_h,ws+i_w)}L=\sum_{c_{out}}\sum_{f_h=0}^{\lfloor\frac{K}{s}\rfloor-i_h}\sum_{f_w=0}^{\lfloor\frac{K}{s}-i_w\rfloor}\nabla_{\mathbf{Y}(n,c_{out},h-f_h,w-f_w)}L\space\mathbf{W}(c_{in},f_hs+i_h,f_ws+i_w,c_{out})$$
-</div>
 
-<div>$$\nabla_{\mathbf{X}(n,c_{in},h,w)}L=\nabla_{\mathbf{X}_{pad}(n,c_{in},h+p,w+p)}L$$</div>
+<div>$$\nabla_{\mathbf{X}(n,c_{in},h,w)}L=\nabla_{\mathbf{X}_{pad}(n,c_{in},h+p,w+p)}L\tag{3.6}$$</div>
 
 其中$n\in[0,N),\space c_{in}\in[0,C_{in}),\space c_{out}\in[0,C_{out}),\space h\in[0,H_{out}),\space w\in[0,W_{out}),\space k_h\in[0,K),\space k_w\in[0,K),\space i_h\in[0,s),\space i_w\in[0,s)$。
 
@@ -70,7 +74,7 @@ $$\nabla_{b(c_{out})}L=\sum_{n,h,w}\nabla_{\mathbf{Y}(n,c_{out},h,w)}L$$
 
 > 前向传播
 
-$$Y(n,c,h,w)=\underset{k_h,k_w} {max}\space \mathbf{X}(n,c,hs+k_h,ws+k_w)$$
+$$Y(n,c,h,w)=\underset{k_h,k_w} {max}\space \mathbf{X}(n,c,hs+k_h,ws+k_w)\tag{3.7}$$
 
 
 
@@ -78,11 +82,11 @@ $$Y(n,c,h,w)=\underset{k_h,k_w} {max}\space \mathbf{X}(n,c,hs+k_h,ws+k_w)$$
 
 首先需要计算最大值所在的位置p，其中$F$为获取最大值的函数。
 
-$$p(n,c,h,w)=\underset{k_h,k_w}{F}(\mathbf{X}(n,c,hs+k_h,ws+k_w))$$
+$$p(n,c,h,w)=\underset{k_h,k_w}{F}(\mathbf{X}(n,c,hs+k_h,ws+k_w))\tag{3.8}$$
 
 利用最大值的位置$[q(0), q(1)]$可得最大池化层的$\nabla_{\mathbf{X}}L$：
 
-$$\nabla_{\mathbf{X}(n,c,hs+q(0), ws+q(1))}L=\nabla{\mathbf{Y}(n,c,h,w)}L$$
+$$\nabla_{\mathbf{X}(n,c,hs+q(0), ws+q(1))}L=\nabla{\mathbf{Y}(n,c,h,w)}L\tag{3.9}$$
 
 
 
@@ -139,9 +143,9 @@ $$\nabla_{\mathbf{X}(n,c,hs+q(0), ws+q(1))}L=\nabla{\mathbf{Y}(n,c,h,w)}L$$
 
 > 内容损失函数
 
-$$L_{content} = \frac{1}{2NCHW}\sum_{n,c,h,w}(\mathbf{X}^l(n,c,h,w)-\mathbf{Y}^l(n,c,h,w))^2$$
+$$L_{content} = \frac{1}{2NCHW}\sum_{n,c,h,w}(\mathbf{X}^l(n,c,h,w)-\mathbf{Y}^l(n,c,h,w))^2\tag{3.10}$$
 
-$$\nabla_{\mathbf{X}^l(n,c,h,w)}L_{content}=\frac{1}{NCHW}(\mathbf{X}^l(n,c,h,w)-\mathbf{Y}^l(n,c,h,w))$$
+$$\nabla_{\mathbf{X}^l(n,c,h,w)}L_{content}=\frac{1}{NCHW}(\mathbf{X}^l(n,c,h,w)-\mathbf{Y}^l(n,c,h,w))\tag{3.11}$$
 
 
 
@@ -151,21 +155,21 @@ $$\nabla_{\mathbf{X}^l(n,c,h,w)}L_{content}=\frac{1}{NCHW}(\mathbf{X}^l(n,c,h,w)
 
 $$G^l(n,i,j)=\sum_{h,w}\mathbf{X}^l(n,i,h,w)\mathbf{X}^l(n,j,h,w)$$
 
-$$A^l(n,i,j)=\sum_{h,w}\mathbf{Y}^l(n,i,h,w)\mathbf{Y}^l(n,j,h,w)$$
+$$A^l(n,i,j)=\sum_{h,w}\mathbf{Y}^l(n,i,h,w)\mathbf{Y}^l(n,j,h,w)\tag{3.12}$$
 
 风格特征$G^l$和$A^l$的形状为$[N,C,C]$。
 
-$$L_{style}^l=\frac{1}{4NC^2H^2W^2}\sum_{n,i,j}(G^l(n,i,j)-A^l(n,i,j))^2$$
+$$L_{style}^l=\frac{1}{4NC^2H^2W^2}\sum_{n,i,j}(G^l(n,i,j)-A^l(n,i,j))^2\tag{3.13}$$
 
-$$L_{style}=\sum_{l}\omega_lL_{style}^l$$
+$$L_{style}=\sum_{l}\omega_lL_{style}^l\tag{3.14}$$
 
-$$\nabla_{\mathbf{X}^l(n,i,h,w)}L_{style}^l=\frac{1}{NC^2H^2W^2}\sum_{j}\mathbf{X}^l(n,j,h,w)(G^l(n,j,i)-A^l(n,j,i))$$
+$$\nabla_{\mathbf{X}^l(n,i,h,w)}L_{style}^l=\frac{1}{NC^2H^2W^2}\sum_{j}\mathbf{X}^l(n,j,h,w)(G^l(n,j,i)-A^l(n,j,i))\tag{3.15}$$
 
 
 
 > 损失函数
 
-$$L_{total}=\alpha L_{content}+\beta L_{style}$$
+$$L_{total}=\alpha L_{content}+\beta L_{style}\tag{3.16}$$
 
 
 
@@ -177,16 +181,18 @@ Adam利用梯度的一阶矩估计和二阶矩估计动态调整每个参数的�
 
 Adam超参数$\beta_1=0.9,\beta_2=0.999,\epsilon=10^{-8}$，以及学习率$\eta$。
 
-$$m_t=\beta_1m_{t-1}+(1-\beta_1)\nabla_{\mathbf{X}}L$$
-
-$$v_t=\beta_2v_{t-1}+(1-\beta_2)(\nabla_{\mathbf{X}}L)^2$$
-
-$$\hat{m}_t=\frac{m_t}{1-\beta_1^t}$$
-
-$$\hat{v}_t=\frac{v_t}{1-\beta_2^t}$$
-
-$$\mathbf{X}\leftarrow\mathbf{X}-\eta\frac{\hat{m}_t}{\sqrt{\hat{v}_t}+\epsilon}$$
-
+<div>
+$$    
+\begin{aligned}
+m_t&=\beta_1m_{t-1}+(1-\beta_1)\nabla_{\mathbf{X}}L \\
+v_t&=\beta_2v_{t-1}+(1-\beta_2)(\nabla_{\mathbf{X}}L)^2 \\
+\hat{m}_t&=\frac{m_t}{1-\beta_1^t} \\
+\hat{v}_t&=\frac{v_t}{1-\beta_2^t} \\
+\mathbf{X}&\leftarrow\mathbf{X}-\eta\frac{\hat{m}_t}{\sqrt{\hat{v}_t}+\epsilon}
+\tag{3.17}
+\end{aligned}
+$$    
+</div>
 
 
 ## 实验补充
