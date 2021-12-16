@@ -1,7 +1,7 @@
 ---
 title: 智能计算系统：实验5
 katex: true
-typora-copy-images-to: ../../img
+typora-copy-images-to: https://img.sanzo.top/img/znjs/img
 date: 2021-12-07 18:00:42
 updated: 2021-12-07 18:00:42
 tags:
@@ -67,6 +67,8 @@ categories:
 
 
 ### Kernel实现
+
+采用智能编程语言BCL实现PowerDifference算子的计算逻辑并进行正确性测试。
 
 补全`plugin_power_difference_kernel.h`,`plugin_power_difference_kernel.mlu`。
 
@@ -202,9 +204,13 @@ cnrtInvokeKernel_V2((void *)(&L2LossKernel), dim, params, ft, pQueue);
 
 ### 框架算子集成
 
+通过高性能库PluginOp的接口对PowerDifference算子进行封装，使其调用方式和高性能库原有算子一致，将封装后的算子集成到TensorFlow编程框架中并进行测试，保证其精度和功能正确行。
+
+
+
 为了使算子往TensorFlow中集成更加模块化，这里对算子进行了多个层次的封装，如下图。
 
-![image-20211207235558729](https://img.sanzo.top/img/znjs/image-20211207235558729.png)
+![image-20211207235558729](https://img.sanzo.top/img/znjs/znjs/image-20211207235558729.png)
 
 自底向上分为以下几个层次：
 
@@ -214,6 +220,10 @@ cnrtInvokeKernel_V2((void *)(&L2LossKernel), dim, params, ft, pQueue);
 - 封装MLUOpKernel：定义并组册最终运行的算子类MLUOpKernel，集成TensorFLow中的OpKernel，作为与TensorFlow算子层的接口。
 - 算子注册：注册最终的算子供上层调用。
 
+> 封装MLULib层
+
+![image-20211210233750068](https://img.sanzo.top/img/znjs/image-20211210233750068.png)
+
 MLULib层的调用：
 
 ![image-20211208002114236](https://img.sanzo.top/img/znjs/image-20211208002114236.png)
@@ -222,15 +232,80 @@ MLULib层的调用：
 
 根据实验手册补全`plugin_power_difference_op.cc`和`cnplugin.h`。 
 
+```cpp
+ 1  // file: plugin_power_difference_op.cc
+   
+////////////////////////////////////   
+	  // 参数初始化（常量数据）
+    cnmlStatus_t cnmlCreatePluginPowerDifferenceOpParam(
+      cnmlPluginPowerDifferenceOpParam_t *param,
+      // TODO：添加变量
+    ) {
+      *param = new cnmlPluginPowerDifferenceOpParam();
+      // TODO：配置变量
+
+      return CNML_STATUS_SUCCESS;
+    }   
+//////////////////////////////////////
+
+ 3  // 算子创建接口：cnmlCreatePluginPowerDifferenceOp
+ 4  cnmlStatus_t cnmlCreatePluginPowerDifferenceOp (
+ 5    cnmlBaseOp_t *op,
+ 6    cnmlTensor_t* input_tensors,
+ 7    int power,
+ 8    cnmlTensor_t* output_tensors,
+ 9    int len
+10  ) {
+11    void** InterfacePtr;
+12    InterfacePtr = reinterpret_cast <void**>(&PowerDifferenceKernel);
+13    // 传递参数
+14    cnrtKernelParamsBuffer_t params;
+15    cnrtGetKernelParamsBuffer(&params);
+16    cnrtKernelParamsBufferMarkInput(params);    // input 0
+17    cnrtKernelParamsBufferMarkInput(params);    // input 1
+18    cnrtKernelParamsBufferAddParam(params, &power, sizeof(int));
+19    cnrtKernelParamsBufferMarkOutput(params);   // output 0
+20    cnrtKernelParamsBufferAddParam(params, &len, sizeof(int));
+21    cnmlCreatePluginOp(op,
+22                       "PowerDifference",
+23                       InterfacePtr,
+24                       params,
+25                       input_tensors,
+26                       2,
+27                       output_tensors,
+28                       1,
+29                       nullptr,
+30                       0);
+31    cnrtDestroyKernelParamsBuffer(params);
+32    return CNML_STATUS_SUCCESS;
+33  }
+34  // 算子计算接口：cnmlComputePluginPowerDifferenceOpForward
+35  cnmlStatus_t cnmlComputePluginPowerDifferenceOpForward(
+36    cnmlBaseOp_t op,
+37    void **inputs,
+38    void **outputs,
+39    cnrtQueue_t queue
+40  ) {
+41    cnmlComputePluginOpForward_V4(op,
+42                                  nullptr,
+43                                  inputs,
+44                                  2,
+45                                  nullptr,
+46                                  outputs,
+47                                  1,
+48                                  queue,
+49                                  nullptr);
+50    return CNML_STATUS_SUCCESS;
+51  }
+```
+
+
+
 `cnmlPluginPowerDifferenceOpParam_t`的实现可以参考`cnplugin.h`中其他算子的实现。
 
 ![image-20211204151424761](https://img.sanzo.top/img/znjs/image-20211204151424761.png)
 
 
-
-cnmlCreatePluginPowerDifferenceOp函数的参数顺序可以参考`tf-implementation/mlu_lib_ops.cc`文件的这个函数调用的参数顺序。
-
-![image-20211204205151238](https://img.sanzo.top/img/znjs/image-20211204205151238.png)
 
 ![image-20211203213305385](https://img.sanzo.top/img/znjs/image-20211203213305385.png)
 
@@ -258,11 +333,13 @@ cnmlCreatePluginPowerDifferenceOp函数的参数顺序可以参考`tf-implementa
 
 
 
-> 集成到tensorflow
+> 封装MLUOp层
 
-补全cwise_op_power_difference_mlu.h，这个和实验4-4注册算子一样，直接拿来用就行。
+MLUOp层负责TensorFlow算子的DLP实现，调用MLULib实现算子后供MLUStream层调用。可以只调用单独的MLULib算子，也可以调用多个MLULib算子拼接为更复杂的TensorFlow算子。
 
-补全`powerdifference.cc`。
+![image-20211210233815076](https://img.sanzo.top/img/znjs/image-20211210233815076.png)
+
+主要是在MLUOp层实现算子类的Create和Compute等方法，补全`powerdifference.cc`。
 
 ```cpp
  1  // file: tensorflow / stream_executor / mlu / mlu_api / ops / mlu_ops.h
@@ -317,11 +394,86 @@ cnmlCreatePluginPowerDifferenceOp函数的参数顺序可以参考`tf-implementa
 
 
 
+> 封装MLUStream层
+
+MLUStream主要是在MLUStream层添加算子类说明，与MLUOpKernel类接口相关联，负责MLU算子的实例化并与运行时队列结合。
+
+![image-20211210234114270](https://img.sanzo.top/img/znjs/image-20211210234114270.png)
+
+```cpp
+1  // file: tensorflow / stream_executor /mlu/mlu_stream.h
+2    Status PowerDifference(OpKernelContext* ctx,
+3        Tensor* input1, Tensor* input2, Tensor* output, int input3) {
+4      return CommonOpImpl<ops::MLUPowerDifference>(ctx,
+5          {input1, input2}, {output}, static_cast <void*>(&input3));
+6  }
+```
 
 
-按照readme.txt提示拷入到对应文件夹，重新编译tensorflow。
+
+> 封装MLUOpKernel层
+
+定义MLUOpKernel层接口主要是在MLUOpKernel层定义MLUPowerDifferenceOp，在其中通过stream机制调用MLUStream层具体的PowerDifference函数。
+
+![image-20211210234401303](https://img.sanzo.top/img/znjs/image-20211210234401303.png)
+
+
+
+补全cwise_op_power_difference_mlu.h，这个和实验4-4注册算子一样，直接拿来用就行。
+
+```cpp
+ 1  // file: tf-implementation/tf-add-power-diff/cwise_op_power_difference_mlu.h
+ 2  class MLUPowerDifferenceOp: public MLUOpKernel {
+ 3   public:
+ 4    explicit MLUPowerDifferenceOp(OpKernelConstruction* ctx):
+ 5            MLUOpKernel(ctx) {}
+ 6    void ComputeOnMLU(OpKernelContext* ctx) override {
+ 7      //TODO：输入数据处理与条件判断
+ 8      _______________________________
+ 9      _______________________________
+10      _______________________________
+11      //TODO：通过stream调用PowerDifference接口
+12      OP_REQUIRES_OK(ctx, stream−>PowerDifference(________));
+```
+
+
+
+> 算子注册
+
+注册最终的算子供上层调用。
+
+PowerDifference DLP算子会与CPU算子共享tensorflow/core/ops/math_ops.cc中的算子注册方法，这样用户可以使用相同的Python API（powerdifference）调用自定义算子，在编程上无需感知底层硬件的差异，通过环境变量来区分。
+
+![image-20211211204056405](https://img.sanzo.top/img/znjs/image-20211211204056405.png)
+
+```python
+os.environ['MLU_VISIBLE_DEVICES']="0"
+```
+
+```cpp
+ 1  REGISTER_OP("PowerDifference")
+ 2      .Input ("x: T")
+ 3      .Input ("y: T")
+ 4      .Input ("pow: T")
+ 5      .Output ("z: T")
+ 6      .Attr (
+ 7          "T: {bfloat16, float, half, double, int32, int64, complex64,"
+ 8          "complex128}")
+ 9      .SetShapeFn ([] (:: tensorflow:: shape_inference:: InferenceContext* c) {
+10        c−>set_output (0, c−>input (0));
+11        c−>set_output (0, c−>input (1));
+12        c−>set_output (0, c−>input (2));
+13        return Status::OK();
+14      });
+```
+
+
+
+算子集成到Tensorflow之后需要重新进行编译，按照readme.txt提示拷入到对应文件夹，重新编译tensorflow。
 
 ```bash
+# file src/tf-implementation/tf-add-power-diff/readme.txt
+
 /opt/code_chap_5_student/env/tensorflow-v1.10/tensorflow/core/kernels/cwise_op_power_difference*
 /opt/code_chap_5_student/env/tensorflow-v1.10/tensorflow/core/kernels/BUILD
 /opt/code_chap_5_student/env/tensorflow-v1.10/tensorflow/stream_executor/mlu/mlu_stream.h
@@ -370,6 +522,147 @@ cd $dir_tf
 
 
 
+下面是[杨世蛟](http://heavensheep.xyz)同学提供的脚本文件，这个功能比较全，使用source执行这个脚本。
+
+```bash
+#!/bin/bash
+
+current_wd=$(pwd)
+# set env variable
+cd /opt/code_chap_5_student/env
+source env.sh
+
+# copy to pluginops
+dir1=/opt/code_chap_5_student/code_chap_5_1_student/src/bangc/PluginPowerDifferenceOp
+dir2=/opt/code_chap_5_student/env/Cambricon-CNPlugin-MLU270/pluginops
+
+so_file=/opt/code_chap_5_student/env/Cambricon-CNPlugin-MLU270/build/libcnplugin.so
+neuware_pth=/opt/code_chap_5_student/env/neuware/
+
+buildPlugin() {
+    cp -r $dir1 $dir2 
+    if [ $? -ne 0 ]
+    then 
+        echo "failed to copy plugin ops"
+        cd $current_wd
+        return 1
+    fi
+    echo "building plugin"
+
+    # build cnplugin
+    cd /opt/code_chap_5_student/env/Cambricon-CNPlugin-MLU270
+    ./build_cnplugin.sh
+}
+
+if [ ! -d "$dir2/PluginPowerDifferenceOp" ]
+then
+    # if we don't have the folder, then we copy it directly
+    buildPlugin
+else
+    # if we have the folder, then we check the difference
+    diff $dir1 "$dir2/PluginPowerDifferenceOp" >/dev/null
+    if [ $? -ne 0 -o ! -f "$so_file" ]
+    then
+        buildPlugin
+    else
+        echo "skip building plugin"
+    fi
+fi
+# set -e will terminate the console if you are using source config.sh to execute this script
+
+# copy to env/neuware
+cp $so_file "$neuware_pth/lib64/"
+
+if [ $? -ne 0 ]
+then 
+    echo "failed to copy libcnplugin.so"
+    cd $current_wd
+    return 1
+fi
+
+cp "$dir1/cnplugin.h" "$neuware_pth/include"
+
+if [ $? -ne 0 ]
+then
+    echo "failed to copy cnplugin.h"
+    cd $current_wd
+    return 1
+fi
+
+# copy to tensorflow
+dir3=/opt/code_chap_5_student/code_chap_5_1_student/src/tf-implementation/tf-add-power-diff
+dir4=/opt/code_chap_5_student/env/tensorflow-v1.10/tensorflow
+
+cp $dir3/cwise_op_power_difference* $dir4/core/kernels/
+
+if [ $? -ne 0 ]
+then 
+    echo "failed to copy power_difference"
+    cd $current_wd
+    return 1
+fi
+
+cp $dir3/BUILD $dir4/core/kernels/
+if [ $? -ne 0 ]
+then 
+    echo "failed to copy BUILD"
+    cd $current_wd
+    return 1
+fi
+
+cp $dir3/mlu_stream.h $dir4/stream_executor/mlu/
+
+if [ $? -ne 0 ]
+then 
+    echo "failed to copy mlu_stream.h"
+    cd $current_wd
+    return 1
+fi
+
+cp $dir3/mlu_lib_ops.* $dir4/stream_executor/mlu/mlu_api/lib_ops/
+
+if [ $? -ne 0 ]
+then 
+    echo "failed to copy mlu_lib_ops"
+    cd $current_wd
+    return 1
+fi
+
+cp $dir3/mlu_ops.h $dir4/stream_executor/mlu/mlu_api/ops/
+
+if [ $? -ne 0 ]
+then 
+    echo "failed to copy mlu_ops.h"
+    cd $current_wd
+    return 1
+fi
+
+cp $dir3/power_difference.cc $dir4/stream_executor/mlu/mlu_api/ops/
+
+if [ $? -ne 0 ]
+then 
+    echo "failed to copy power_difference.cc"
+    cd $current_wd
+    return 1
+fi
+
+cp $dir3/math_ops.cc $dir4/core/ops/
+
+if [ $? -ne 0 ]
+then 
+    echo "failed to copy math_ops.cc"
+    cd $current_wd
+    return 1
+fi
+
+# build tensorflow
+dir_tf=/opt/code_chap_5_student/env/tensorflow-v1.10
+cd $dir_tf
+./build_tensorflow-v1.10_mlu.sh
+```
+
+
+
 编译结果如下：
 
 ```bash
@@ -389,8 +682,6 @@ Successfully installed tensorflow-mlu-1.14.0
 
 
 
-> 算子测试
-
 补齐`online_mlu/power_difference_test_bcl.py`
 
 ```bash
@@ -402,6 +693,8 @@ err rate= 0.06631744635811314
 
 
 ### 模型在线推断
+
+通过TensorFlow框架的接口，在内部高性能库CNML和运行时库CNRT的配合下，完成对风格迁移模型的在线推理，并生成离线模型。
 
 参考实验4-4的`transform_cpu.py`补全`transform_mlu.py`。
 
@@ -415,8 +708,13 @@ config.mlu_options.save_offline_model = True
 ```
 
 ```python
+# run_ori_power_diff_pb
 input_pow = np.array(2, dtype=float)
 ret = sess.run(output_tensor, feed_dict={input_tensor:[X], input_tensor_pow: input_pow})
+
+# run_numpy_pb
+input_pow = 2
+output = power_diff_numpy(input_x, input_y, input_pow).reshape(1, 256, 256, 3)
 ```
 
 底层算子在实现的时候是通过dim_size来确定的power_value，所以传入的是一个张量。
@@ -427,7 +725,97 @@ ret = sess.run(output_tensor, feed_dict={input_tensor:[X], input_tensor_pow: inp
 
 ### 模型离线推断
 
-补全`inference.cpp`文件，需要对输入数据的格式进行转换float32 to flaot16，另外还需要对输入的数据的维度进行变换。
+通过上一节的在线推断，可以得到所有算子在DLP硬件上运行的实时风格迁移离线模型，在实际场景中，为了尽可能提高部署的效率，通常会选择离线部署的方式。
+
+离线部署与在线的区别主要是脱离了TensorFlow编程框架和高性能库CNML，仅与运行时库CNRT有关，减少了不必要的开销，提升了执行效率。
+
+在编写离线模型时，DLP目前只支持C++语言，主要包括输入数据预处理、离线预测以及后处理。
+
+> main函数
+
+```cpp
+ 1  //file:src/style_transfer.cpp
+ 2  #include "style_transfer.h"
+ 3  #include <math.h>
+ 4  #include <time.h>
+ 5  #include "stdio.h"
+ 6  #include <stdlib.h>
+ 7  #include <sys / time.h>
+ 8  
+ 9  int main(int argc, char** argv){
+10      // 解析参数
+11      std:: string file_list = "/path/to/images/" + std:: string (argv [1]) + ".jpg";
+12      std:: string offline_model = "/path/to/models/offline_models/" + std:: string (argv[2]) + ".cambricon";
+13      
+14      // 创建数据
+15      DataTransfer* DataT =(DataTransfer *) new DataTransfer();
+16      DataT−>image_name = argv [1];
+17      DataT−>model_name = argv [2];
+18      // 处理图像 474x712 to 256x256
+19      DataProvider *image = new DataProvider (file_list);
+20      image−>run (DataT);
+21      
+22      // 运行推断
+23      Inference *infer = new Inference (offline_model);
+24      infer −>run (DataT);
+25      
+26      // 图像后处理
+27      PostProcessor *post_process = new PostProcessor();
+28      post_process −>run (DataT);
+29      
+30      delete DataT;
+31      DataT = NULL;
+32      delete image;
+33      image = NULL;
+34      delete infer;
+35      infer = NULL;
+36      delete post_process;
+37      post_process = NULL;
+38  }
+```
+
+
+
+> CNRT离线推断
+
+采用运行时库CNRT的接口编写应用程序，完成离线推理，并将其结果和在线推理以及4.4节中的模型推断进行性能对比。
+
+参考[CNRT离线模型示例程序](https://www.cambricon.com/docs/cnrt/user_guide_html/example/offline_mode.html)，补全`inference.cpp`文件。
+
+```cpp
+ 1  // file: src/inference.cpp
+ 2  #include "inference.h"
+ 3  #include "cnrt.h"
+ 4  ...
+ 5  namespace StyleTransfer {
+ 6  Inference:: Inference (std:: string offline_model){
+ 7      offline_model_ = offline_model;
+ 8  }
+ 9  void Inference:: run (DataTransfer* DataT){
+10      // TODO：1) 加载模型，抽取CNRT Function
+11      _______________________________
+12      _______________________________
+13      // TODO：2) 准备主机端与DLP端的输入输出存储空间和数据
+14      _______________________________
+15      _______________________________
+16      // TODO：3) 设置运行时上下文ctx，绑定设备，将计算任务下发到任务队列
+17      _______________________________
+18      _______________________________
+19      // TODO：4) 将计算结果从DLP拷贝回主机端
+20      _______________________________
+21      _______________________________
+22      // TODO：5) 释放主机端和DLP端的内存等资源
+23      _______________________________
+24      _______________________________
+25  }
+26  } // namespace StyleTransfer
+```
+
+
+
+
+
+需要对输入数据的格式进行转换float32 to flaot16，另外还需要对输入的数据的维度进行变换。
 
 ```cpp
 extern cnrtRet_t cnrtTransDataOrder(void *src_addr,
