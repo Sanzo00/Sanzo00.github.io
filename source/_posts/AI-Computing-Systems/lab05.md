@@ -210,7 +210,7 @@ cnrtInvokeKernel_V2((void *)(&L2LossKernel), dim, params, ft, pQueue);
 
 为了使算子往TensorFlow中集成更加模块化，这里对算子进行了多个层次的封装，如下图。
 
-![image-20211207235558729](https://img.sanzo.top/img/znjs/image-20211207235558729.png)
+![image-20211207235558729](https://img.sanzo.top/img/znjs/image-20211211204056405.png)
 
 自底向上分为以下几个层次：
 
