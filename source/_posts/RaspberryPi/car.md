@@ -8,7 +8,6 @@ tags:
 	- pi
 	- car
 categories: RaspberryPi
-sticky: 1
 ---
 
 
