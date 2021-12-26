@@ -5,7 +5,7 @@ updated: {{ date }}
 katex: true
 tags: 
 categories: 
-typora-copy-images-to: ..\..\img\
+typora-copy-images-to: ../../img
 ---
 
 
