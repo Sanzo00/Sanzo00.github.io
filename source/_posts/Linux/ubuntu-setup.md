@@ -26,32 +26,7 @@ wget https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-re
 sudo bash install-release.sh --local ./v2ray-linux-64.zip
 ```
 
-```shell
-# 参考配置文件
-{
-  "inbounds": [ 
-    {
-      "tag": "proxy",
-      "port": 10800,
-      "listen": "127.0.0.1",
-      "protocol": "socks",
-      ...
-    },
-    {
-      "tag": "proxy-http",
-      "port": 10801,
-      "listen": "127.0.0.1",
-      "protocol": "http",
-      ...
-    }
-  ],
-    "outbounds": [
-        {
-        	...
-        }
-    ]
-}
-```
+[v2ray config.json配置](https://github.com/Sanzo00/files/blob/master/other/v2ray.json)
 
 ![image-20211008182055367](https://img.sanzo.top/img/linux/image-20211008182055367.png)
 
@@ -95,6 +70,10 @@ export https_proxy="https://127.0.0.1:10801"
 在setting中设置了http，apt和bash应该可以不用再设置了，以防万一可以加上。
 
 
+
+## zsh
+
+https://sanzo.top/Linux/zsh/
 
 
 
@@ -363,6 +342,14 @@ sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64/
 ![image-20211008204917470](https://img.sanzo.top/img/linux/image-20211008204917470.png)
 
 
+
+> 踩坑
+
+1. apt 更新软件包之后，导致显卡驱动失效，这是因为内核版本发生了变化，将内核回退到上一个版本即可。
+
+   https://www.jianshu.com/p/5ac8aa703075
+
+   
 
 ## 显示器
 

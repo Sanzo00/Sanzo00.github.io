@@ -12,8 +12,6 @@ categories: RaspberryPi
 
 
 
-
-
 树莓派装机基本配置
 
 <!-- more -->
@@ -58,10 +56,10 @@ vim ~/.vimrc
 "set paste
 "set nopaste
 set expandtab
-set softtabstop=4
+set softtabstop=2
 set autoindent
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set nu
 syntax on
 set mouse=a "支持鼠标滑轮
@@ -117,6 +115,8 @@ socks5    127.0.0.1 10800
 
 [v2ray下载地址安装包](https://github.com/v2ray/v2ray-core/releases)
 
+[config.json格式](https://github.com/Sanzo00/files/blob/master/other/v2ray.json)
+
 ```bash
 mkdir v2ray
 cd v2ray
@@ -149,6 +149,23 @@ sudo proxychains apt update
 # 可以自己指定安装包, v2ray-linux-64.zip
 sudo bash install-release.sh --local v2ray-linux-64.zip
 ```
+
+
+
+终端代理设置：
+
+```bash
+export ALL_PROXY="socks5://127.0.0.1:10800"
+export all_proxy="socks5://127.0.0.1:10800"
+export http_proxy="http://127.0.0.1:10801"
+export https_proxy="https://127.0.0.1:10801"
+```
+
+
+
+## zsh
+
+https://sanzo.top/Linux/zsh/
 
 
 
@@ -204,16 +221,17 @@ tar -xzvf foo2zjs.tar.gz
 cd foo2zjs
 
 # 安装ghostscript依赖
-sudo proxychains apt install ghostscript
-sudo proxychains apt install dc
+sudo apt install ghostscript
+sudo apt install dc
+
 # 编译
-make
+make -j10
 
 # 安装
 sudo make install
 ```
 
-浏览器访问cups的配置页面(http://192.168.31.240:631/)，添加对应的打印机。
+浏览器访问cups的配置页面[http://192.168.31.240:631](http://192.168.31.240:631/)，添加对应的打印机。
 
 记得要连接上打印机，而且要用root账号登录。
 
@@ -227,9 +245,15 @@ sudo make install
 
 ![](https://img.sanzo.top/img/pi/print4.png)
 
+
+
+https://192.168.31.240:631/printers/HP_LaserJet_M1005
+
 ![](https://img.sanzo.top/img/pi/print5.png)
 
 
+
+mac：https://support.apple.com/kb/DL1888?viewlocale=en_US&locale=en_US
 
 ## 挂载硬盘
 
