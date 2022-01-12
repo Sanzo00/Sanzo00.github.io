@@ -6,3 +6,9 @@ node_modules/
 public/
 .deploy*/
 .bak/
+
+# lock
+yarn.lock
+package-lock.json
+yarn.lock.bak
+package-lock.json.bak

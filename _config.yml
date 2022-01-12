@@ -114,3 +114,14 @@ deploy:
   repo: https://github.com/Sanzo00/blog # 比如：https://github.com/YunYouJun/yunyoujun.github.io
   branch: master # 默认使用 master 分支
   message: Update Hexo Static Content # 你可以自定义此次部署更新的说明
+
+# hexo-hide-posts
+hide_posts:
+  enable: true
+  # Change the filter name to fit your need
+  filter: hidden
+  # Generators which you want to expose all posts (include hidden ones) to.
+  # Common generators: index, tag, category, archive, sitemap, feed, etc.
+  public_generators: []
+  # Add "noindex" meta tag to prevent hidden posts from being indexed by search engines
+  noindex: true
