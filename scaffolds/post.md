@@ -1,5 +1,6 @@
 ---
 title: {{ title }}
+hidden: false
 date: {{ date }}
 updated: {{ date }}
 katex: true
