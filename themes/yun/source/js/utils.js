@@ -156,6 +156,8 @@ Yun.utils = {
    * 注册切换侧边栏按钮事件
    */
   registerToggleSidebar() {
+    document.querySelector(".hamburger").classList.toggle("is-active");
+    document.querySelector(".container").classList.toggle("sidebar-open");
     const toggleBtns = document.querySelectorAll(".sidebar-toggle");
     toggleBtns.forEach((el) => {
       el.addEventListener("click", () => {
