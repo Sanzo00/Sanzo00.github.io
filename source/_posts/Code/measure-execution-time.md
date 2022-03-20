@@ -5,19 +5,15 @@ typora-copy-images-to: ..\..\img\
 date: 2021-08-22 21:36:25
 updated: 2021-08-22 21:36:25
 tags:
-	- c
-	- c++
-	- time
+    - c
+    - c++
+    - time
 categories: Code
 ---
-
-
 
 <!-- more -->
 
 ---
-
-
 
 ## clock()
 
@@ -63,8 +59,6 @@ int main() {
 }
 ```
 
-
-
 ## std::chrono()
 
 `std::chrono()`提供两种对象：`timepoint`，`duration`分别对应时间点和间隔。
@@ -76,6 +70,12 @@ int main() {
 - `std::chrono::high_resolution_clock`：提供最高精度的计时周期 (不同的库实现的可能不一样，不推荐用)
 
 这里使用`steady_clock`来获取当前时间，之后通过`duration`转化为对应的时间单元，例如`nanoseconds`, `microseconds`, `milliseconds,``seconds`, `minutes`, `hours`。
+
+```cpp
+auto get_time() { 
+  return std::chrono::duration_cast<std::chrono::microseconds> (std::chrono::steady_clock::now().time_since_epoch()).count();
+}
+```
 
 ```cpp
 #include <iostream>
@@ -107,9 +107,5 @@ int main() {
   return 0;
 }
 ```
-
-
-
-
 
 <!-- Q.E.D. -->

@@ -6,6 +6,7 @@ node_modules/
 public/
 .deploy*/
 .bak/
+draft/
 
 # lock
 yarn.lock

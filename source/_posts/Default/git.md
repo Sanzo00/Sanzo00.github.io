@@ -43,6 +43,11 @@ git checkout <filenam> # 丢弃修改
 # 分支合并
 git merge <branch>
 
+# 删除分支
+git branch -d <branch>
+git push origin --delete <branch>
+git push origin :<branch>
+
 # 设置upstream
 git branch --set-upstream-to=origin/master
 
@@ -58,8 +63,10 @@ git add -p <filename>
 git blame <filename> # 查看修改对应的id
 git show <hash> # 查看commit信息
 
-# 隐藏修改
+# 临时保存
 git stash
+git stash --include-untracked
+git stash list
 git stash pop
 
 # fork后的同步

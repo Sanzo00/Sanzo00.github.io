@@ -230,6 +230,16 @@ gdigrab: 用来捕获视频设备
 
 
 
+## 录像
+
+```bash
+ffmpeg -f v4l2 -framerate 60 -video_size 1920x1080 -i /dev/video0 -t 3600 out.mp4
+```
+
+
+
+
+
 ## 直播
 
 ```bash
