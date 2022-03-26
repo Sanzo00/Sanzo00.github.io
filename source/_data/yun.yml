@@ -114,7 +114,7 @@ banner:
 
 # notice pin board
 notice:
-  enable: true
+  enable: false
   content: 祈祷东方航空MU5735✈️上133人平安！
 
 # say something
@@ -136,13 +136,7 @@ mourn:
   enable: true
   days:
     - "9-18"
-    - "3-21"
-    - "3-22"
-    - "3-23"
-    - "3-24"
-    - "3-25"
-    - "3-26"
-    - "3-27"
+#    - "3-21"
 
 # Footer Settings
 # ---------------
