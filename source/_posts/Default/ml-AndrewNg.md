@@ -26,6 +26,8 @@ categories:
 
 [课后作业及答案：https://github.com/Sanzona/ML-homework](https://github.com/Sanzona/ML-homework)
 
+[ppt和笔记下载链接: 阿里云盘](https://www.aliyundrive.com/s/841uW13SYEH)
+
 ## 监督学习
 
 监督学习是已经知道数据的label，例如预测房价问题，给出了房子的面积和价格。
