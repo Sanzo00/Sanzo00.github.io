@@ -77,6 +77,9 @@ git fetch upstream
 # 合并
 git checkout master
 git merge upstream/master
+
+# submodule 
+git submodule add your_repository.git
 ```
 
 

@@ -5,6 +5,7 @@ katex: true
 typora-copy-images-to: https://img.sanzo.top/img/default/ml
 date: 2022-03-27 13:02:26
 updated: 2022-03-27 13:02:26
+sticky: 10
 tags:
   - ML
   - AndrewNg
