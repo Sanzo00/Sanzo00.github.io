@@ -27,6 +27,9 @@ usermod -a -G sudo sanzo
 
 # 删除用户
 sudo userdel -r test
+
+# append ssh key to remote host
+cat .ssh/id_ras.pub | ssh user@hostname "cat >> ~/.ssh/authorized_keys"
 ```
 
 

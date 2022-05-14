@@ -67,7 +67,10 @@ git show <hash> # 查看commit信息
 git stash
 git stash --include-untracked
 git stash list
+git stash show -p stash@{0}
+git stash drop stash@{0}
 git stash pop
+
 
 # fork后的同步
 # 设置upstream
@@ -79,6 +82,7 @@ git checkout master
 git merge upstream/master
 
 # submodule 
+git submodule update --init --recursive
 git submodule add your_repository.git
 ```
 

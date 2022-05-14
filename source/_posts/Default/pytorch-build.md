@@ -73,6 +73,10 @@ set_property(TARGET example-app PROPERTY CXX_STANDARD 14)
 #include <iostream>
 
 int main() {
+  std::cout << "PyTorch version: "
+    << TORCH_VERSION_MAJOR << "."
+    << TORCH_VERSION_MINOR << "."
+    << TORCH_VERSION_PATCH << std::endl;
   torch::Tensor tensor = torch::rand({2, 3});
   std::cout << tensor << std::endl;
 }
