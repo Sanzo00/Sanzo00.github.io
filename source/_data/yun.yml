@@ -8,7 +8,7 @@ avatar:
   opacity: 1
   mickey_mouse: false
   status:
-    enable: true
+    enable: false
     emoji: 🛹
     message: Skate...
 
