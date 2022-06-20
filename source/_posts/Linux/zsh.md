@@ -32,6 +32,22 @@ chsh -s /bin/zsh
 
 
 
+离线安装：
+
+https://www.jianshu.com/p/c65f145772c2
+
+https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH
+
+```bash
+# install zsh
+https://sourceforge.net/projects/zsh/files/latest/download
+
+xz -d zsh.tar.xz
+tar -xf zsh.tar 
+```
+
+
+
 ## 按键映射
 
 ```shell

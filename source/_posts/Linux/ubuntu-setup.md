@@ -14,6 +14,55 @@ categories: Linux
 
 <!-- more -->
 
+## vim
+
+```shell
+sudo apt install vim
+
+# 添加配置文件
+vim ~/.vimrc
+
+"set paste
+"set nopaste
+set expandtab
+set softtabstop=2
+set autoindent
+set tabstop=2
+set shiftwidth=2
+set nu
+syntax on
+set mouse=a "支持鼠标滑轮
+set mouse=v "支持鼠标选中复制
+"set viminfo='1000,<500
+```
+
+
+
+
+
+## 用户
+
+```bash
+# 创建用户sanzo，指定home目录和登陆的shell
+useradd -d /home/sanzo -s /bin/bash -m sanzo
+
+# 设置登录密码
+passwd sanzo
+
+# 添加sudo组
+usermod -a -G sudo sanzo
+
+# 删除用户
+sudo userdel -r test
+
+# append ssh key to remote host
+cat .ssh/id_ras.pub | ssh user@hostname "cat >> ~/.ssh/authorized_keys"
+```
+
+
+
+
+
 ## 代理
 
 > 配置v2ray
@@ -24,6 +73,9 @@ categories: Linux
 mkdir v2ray && cd v2ray
 wget https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh
 sudo bash install-release.sh --local ./v2ray-linux-64.zip
+
+# local user run
+nohup ./v2ray run config.json > v2ray.log 2>&1 &
 ```
 
 [v2ray config.json配置](https://github.com/Sanzo00/files/blob/master/other/v2ray.json)
@@ -65,39 +117,10 @@ export ALL_PROXY="socks5://127.0.0.1:10800"
 export all_proxy="socks5://127.0.0.1:10800"
 export http_proxy="http://127.0.0.1:10801"
 export https_proxy="https://127.0.0.1:10801"
+# export https_proxy="http://127.0.0.1:10801" # for conda http error
 ```
 
 在setting中设置了http，apt和bash应该可以不用再设置了，以防万一可以加上。
-
-
-
-## zsh
-
-https://sanzo.top/Linux/zsh/
-
-
-
-## vim
-
-```shell
-sudo apt install vim
-
-# 添加配置文件
-vim ~/.vimrc
-
-"set paste
-"set nopaste
-set expandtab
-set softtabstop=2
-set autoindent
-set tabstop=2
-set shiftwidth=2
-set nu
-syntax on
-set mouse=a "支持鼠标滑轮
-set mouse=v "支持鼠标选中复制
-"set viminfo='1000,<500
-```
 
 
 
@@ -109,8 +132,6 @@ sudo apt install git
 # 环境配置
 git config --global user.email "arrangeman@163.com"
 git config --global user.name "Sanzo00"
-git config --global http.proxy 'socks5://127.0.0.1:10800'
-git config --global https.proxy 'socks5://127.0.0.1:10800'
 
 # 生成公钥和私钥
 ssh-keygen -t rsa -C "your_email@example.com"
@@ -119,21 +140,74 @@ ssh-keygen -t rsa -C "your_email@example.com"
 cat ~/.ssh/id_rsa.pub 
 ```
 
-```shell
-vim ~/.vimrc
+> 代理
 
-"set paste
-"set nopaste
-set expandtab
-set softtabstop=2
-set autoindent
-set tabstop=2
-set shiftwidth=2
-set nu
-syntax on
-set mouse=a "支持鼠标滑轮
-set mouse=v "支持鼠标选中复制
-"set viminfo='1000,<500
+```bash
+# http and https
+git config --global http.proxy http://127.0.0.1:10801
+git config --global https.proxy https://127.0.0.1:10801
+# socks5
+git config --global http.proxy socks5://127.0.0.1:10800
+git config --global https.proxy socks5://127.0.0.1:10800
+
+# unset
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+
+
+# ssh
+sudo apt install connect-proxy
+vim ~/.ssh/config
+# socks5
+Host github.com
+User git
+ProxyCommand connect -S 127.0.0.1:10800 %h %p
+# http || https
+Host github.com
+User git
+ProxyCommand connect -H 127.0.0.1:10801 %h %p
+```
+
+
+
+
+
+## zsh
+
+https://sanzo.top/Linux/zsh/
+
+```bash
+# 安装zsh
+sudo apt install zsh
+
+# 安装ohmyzsh
+sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# 切换shell为zsh
+chsh -s /bin/zsh
+```
+
+ 
+
+> 插件
+
+```bash
+# 自动补全
+git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+
+# 高亮
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+
+# 修改配置文件
+vim ~/.zshrc
+plugins=(
+  git
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+)
+
+# 重置zsh环境
+source ~/.zshrc
 ```
 
 
@@ -291,22 +365,24 @@ nvidia-smi
 
 [下载cuda](https://developer.nvidia.com/cuda-toolkit-archive)，这里我选择的是cuda 11.2。
 
-```shell
+![image-20211008204125042](https://img.sanzo.top/img/linux/image-20211008204125042.png)
+
+```bash
 wget https://developer.download.nvidia.com/compute/cuda/11.2.0/local_installers/cuda_11.2.0_460.27.04_linux.run
 sudo sh cuda_11.2.0_460.27.04_linux.run
 ```
 
-![image-20211008204125042](https://img.sanzo.top/img/linux/image-20211008204125042.png)
 
-回车取消勾选`Driver`，因为前面已经装过驱动，然后install。
+
+回车取消勾选`Driver`，因为前面已经装过驱动，然后install，也可以在Options中自定义安装位置。
 
 ![image-20211008204241869](https://img.sanzo.top/img/linux/image-20211008204241869.png)
 
 在.bashrc文件中配置环境变量
 
 ```shell
-export PATH=/usr/local/cuda-11.2/bin${PATH:+:${PATH}}
-export LD_LIBRARY_PATH=/usr/local/cuda-11.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+export PATH=/usr/local/cuda-11.2/bin:${PATH}
+export LD_LIBRARY_PATH=/usr/local/cuda-11.2/lib64:${LD_LIBRARY_PATH}
 ```
 
 ```shell

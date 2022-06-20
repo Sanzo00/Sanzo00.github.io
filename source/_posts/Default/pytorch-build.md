@@ -94,7 +94,11 @@ int main() {
 
 
 
+
+
 ## references
+
+old version lib torch: [https://github.com/pytorch/pytorch/issues/40961](https://github.com/pytorch/pytorch/issues/40961)
 
 https://dev-discuss.pytorch.org/t/universal-binaries-for-libtorch-mac/229
 

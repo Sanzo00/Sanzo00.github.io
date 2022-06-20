@@ -29,6 +29,11 @@ Linux: [python3.8 Miniconda3 Linux 64-bit](https://repo.anaconda.com/miniconda/M
 
 ​			[python3.7 Miniconda3 Linux 32-bit](https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86.sh)
 
+```bash
+# 以前的版本没有ssh问题
+wget https://repo.anaconda.com/miniconda/Miniconda3-4.7.12.1-Linux-x86_64.sh
+```
+
 
 
 ### 配置
@@ -126,6 +131,8 @@ https://www.python.org/ftp/python/3.8.5/Python-3.8.5.tgz
 
 
 ## Pytorch
+
+old version lib torch: [https://github.com/pytorch/pytorch/issues/40961](https://github.com/pytorch/pytorch/issues/40961)
 
 [Pytorch](https://pytorch.org/get-started/locally/)，选择对应cuda版本。
 
