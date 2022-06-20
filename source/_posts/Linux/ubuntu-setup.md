@@ -309,6 +309,10 @@ flameshot gui
 
 ## 显卡
 
+[显卡算力](https://developer.nvidia.com/zh-cn/cuda-gpus#compute)
+
+[cuda对应的最低驱动版本](https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html)
+
 [Ubuntu20.04安装NVIDIA显卡驱动+cuda+cudnn配置深度学习环境](https://www.mlzhilu.com/archives/ubuntu2004%E5%AE%89%E8%A3%85nvidia%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8)
 
 > 驱动安装
