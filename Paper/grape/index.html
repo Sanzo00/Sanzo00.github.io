@@ -1,0 +1,204 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="Sanzo"><meta name="copyright" content="Sanzo"><meta name="generator" content="Hexo 5.4.2"><meta name="theme" content="hexo-theme-yun"><title>Grape: Parallelizing Sequential Graph Computations | null</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.25/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_j5gk85dg4pf.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>document.addEventListener("DOMContentLoaded", () => {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+});
+</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"></script><script>document.addEventListener("DOMContentLoaded", () => {
+  Yun.utils.renderKatex();
+});</script><link id="light-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: light)"><link id="dark-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)"><link rel="icon" href="/img/sanzo.ico"><link rel="mask-icon" href="/img/sanzo.ico" color="#0078E7"><link rel="alternate icon" href="/yun.ico"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"hostname":"sanzo.top","root":"/","title":"云游君的小站","version":"1.6.1","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn?c=k&c=h","hitokoto":true},"local_search":{"path":"/search.xml"},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/utils.js"></script><script src="/js/hexo-theme-yun.js"></script><link rel="alternate" href="/atom.xml" title="null" type="application/atom+xml"><link rel="preconnect" href="https://www.google-analytics.com" crossorigin><script async src="https://www.googletagmanager.com/gtag/js?id=G-82SWX0KLXT"></script><script>if (CONFIG.hostname === location.hostname) {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-82SWX0KLXT');
+}</script><meta name="description" content="Grape是一个并行的图计算系统，可以将整个图算法作为整体并行的计算，和其他的系统不同，不需要重写图算法来适应系统，可以很方便的将算法以”plugged into”的方式执行，只要算法是正确的，Graph就可以在单调的条件下得到正确答案。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Grape: Parallelizing Sequential Graph Computations">
+<meta property="og:url" content="https://sanzo.top/Paper/grape/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="Grape是一个并行的图计算系统，可以将整个图算法作为整体并行的计算，和其他的系统不同，不需要重写图算法来适应系统，可以很方便的将算法以”plugged into”的方式执行，只要算法是正确的，Graph就可以在单调的条件下得到正确答案。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img.sanzo.top/img/paper/image-20210703165424167.png">
+<meta property="og:image" content="https://img.sanzo.top/img/paper/image-20210703165504851.png">
+<meta property="og:image" content="https://img.sanzo.top/img/paper/image-20210703192952595.png">
+<meta property="og:image" content="https://img.sanzo.top/img/paper/image-20210703231814414.png">
+<meta property="og:image" content="https://img.sanzo.top/img/paper/image-20210704125540831.png">
+<meta property="og:image" content="https://img.sanzo.top/img/paper/image-20210704130106240.png">
+<meta property="og:image" content="https://img.sanzo.top/img/paper/image-20210704220128070.png">
+<meta property="og:image" content="https://img.sanzo.top/img/paper/image-20210704220147557.png">
+<meta property="article:published_time" content="2021-06-30T13:10:42.000Z">
+<meta property="article:modified_time" content="2021-06-30T13:10:42.000Z">
+<meta property="article:author" content="Sanzo">
+<meta property="article:tag" content="博客">
+<meta property="article:tag" content="blog">
+<meta property="article:tag" content="Sanzo&#39;s blog.">
+<meta property="article:tag" content="sanzo.top">
+<meta property="article:tag" content="www.sanzo.top">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.sanzo.top/img/paper/image-20210703165424167.png"><script src="/js/ui/mode.js"></script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="Table of Contents"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="Overview"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="Sanzo"><img width="96" loading="lazy" src="/img/sanzo.png" alt="Sanzo"></a><div class="site-author-name"><a href="/about/">Sanzo</a></div><span class="site-name"></span><sub class="site-subtitle"></sub><div class="site-desciption"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="Home"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="Archives"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">49</span></a></div><div class="site-state-item"><a href="/categories/" title="Categories"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">11</span></a></div><div class="site-state-item"><a href="/tags/" title="Tags"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">70</span></a></div><a class="site-state-item hty-icon-button" href="/about/#comment" title="Messages"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-chat-3-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-rss-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/Sanzo00" title="GitHub" target="_blank" style="color:var(--hty-text-color)"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/297299131" title="Bilibili" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://t.me/Sanzo00" title="Telegram" target="_blank" style="color:#0088CC"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-telegram-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:arrangeman@163.com" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="Friends" style="color:dodgerblue"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-genderless-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Paper-link"><span class="toc-number">1.</span> <span class="toc-text">Paper link</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduce"><span class="toc-number">2.</span> <span class="toc-text">Introduce</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Related-work"><span class="toc-number">2.1.</span> <span class="toc-text">Related work</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Perliminaries"><span class="toc-number">3.</span> <span class="toc-text">Perliminaries</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Partition-strategy"><span class="toc-number">3.1.</span> <span class="toc-text">Partition strategy</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Programming-with-Grape"><span class="toc-number">4.</span> <span class="toc-text">Programming with Grape</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PEval-Partial-Evaluation"><span class="toc-number">4.1.</span> <span class="toc-text">PEval: Partial Evaluation</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Message-preamble"><span class="toc-number">4.1.1.</span> <span class="toc-text">Message preamble</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Message-segment"><span class="toc-number">4.1.2.</span> <span class="toc-text">Message segment</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Message-grouping"><span class="toc-number">4.1.3.</span> <span class="toc-text">Message grouping</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IncEval-Incremental-Evaluation"><span class="toc-number">4.2.</span> <span class="toc-text">IncEval: Incremental Evaluation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Implementation-of-Grape"><span class="toc-number">5.</span> <span class="toc-text">Implementation of Grape</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Graph-partition"><span class="toc-number">5.1.</span> <span class="toc-text">Graph partition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Graph-level-optimization"><span class="toc-number">5.2.</span> <span class="toc-text">Graph-level optimization</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Indexing"><span class="toc-number">5.2.1.</span> <span class="toc-text">Indexing</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Compression"><span class="toc-number">5.2.2.</span> <span class="toc-text">Compression</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Dynamic-grouping"><span class="toc-number">5.2.3.</span> <span class="toc-text">Dynamic grouping</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Load-balancing"><span class="toc-number">5.2.4.</span> <span class="toc-text">Load balancing</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fault-tolerance"><span class="toc-number">5.3.</span> <span class="toc-text">Fault tolerance</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Consistency"><span class="toc-number">5.4.</span> <span class="toc-text">Consistency</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Experimental"><span class="toc-number">6.</span> <span class="toc-text">Experimental</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Setting"><span class="toc-number">6.1.</span> <span class="toc-text">Setting</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Result"><span class="toc-number">6.2.</span> <span class="toc-text">Result</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://sanzo.top/Paper/grape/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="Sanzo"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Grape: Parallelizing Sequential Graph Computations</h1><div class="post-meta"><div class="post-time" style="display:block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="Created: 2021-06-30 21:10:42" itemprop="dateCreated datePublished" datetime="2021-06-30T21:10:42+08:00">2021-06-30</time></div><span class="post-count"><span class="post-symbolcount"><span class="post-meta-item-icon" title="Word count in article"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-file-word-line"></use></svg></span> <span title="Word count in article">1.6k</span><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="Reading time"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-timer-line"></use></svg></span> <span title="Reading time">6m</span></span></span><span class="leancloud_visitors" id="/Paper/grape/" data-flag-title="Grape: Parallelizing Sequential Graph Computations"><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="Views"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-eye-line"></use></svg> <span class="leancloud-visitors-count"></span></span></span><span class="post-meta-divider">-</span><a href="#comment"><span class="post-meta-item-icon" title="Comments"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-chat-3-line"></use></svg> <span class="waline-comment-count" id="/Paper/grape/"></span></span></a><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/Paper/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">Paper</span></a></span></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#0078E7;"><p>Grape是一个并行的图计算系统，可以将整个图算法作为整体并行的计算，和其他的系统不同，不需要重写图算法来适应系统，可以很方便的将算法以”plugged into”的方式执行，只要算法是正确的，Graph就可以在单调的条件下得到正确答案。</p>
+<span id="more"></span>
+
+<hr>
+<h2 id="Paper-link"><a href="#Paper-link" class="headerlink" title="Paper link"></a>Paper link</h2><p><a target="_blank" rel="noopener" href="https://homepages.inf.ed.ac.uk/wenfei/papers/sigmod17-GRAPE.pdf">Parallelizing Sequential Graph Computations</a></p>
+
+
+	<div class="row">
+    <embed src="https://img.sanzo.top/pdf/paper/sigmod17-GRAPE.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+
+
+
+
+<h2 id="Introduce"><a href="#Introduce" class="headerlink" title="Introduce"></a>Introduce</h2><p><img src="https://img.sanzo.top/img/paper/image-20210703165424167.png" alt="image-20210703165424167" loading="lazy"></p>
+<p>图1是Grape的编程接口，对于一个查询$Q$，用户需要自定义三个函数：PEval、IncEval和Assemble，在配置面板，用户可以选择图分区策略和worker的数量。</p>
+<p><img src="https://img.sanzo.top/img/paper/image-20210703165504851.png" alt="image-20210703165504851" loading="lazy"></p>
+<p>图2是Grape的工作流：</p>
+<ul>
+<li>首先worker对本地数据$F_i$执行$PEval$，得到部分结果$Q(F_i)$。</li>
+<li>worker以消息的方式同步的交换信息，接受到消息$M_i$后做增量计算$Q(F_i\bigoplus M_i)$。</li>
+<li>不断地重复步骤2直到worker不再有新的消息产生，此使Assemble pulls partial answers $Q(F_i\bigoplus M_i)$，聚集得到$Q(G)$。</li>
+</ul>
+<p>Grape负责消息传递、负载均衡和容错等细节，用户不需要重新将整个算法转换为新的模型。</p>
+<h3 id="Related-work"><a href="#Related-work" class="headerlink" title="Related work"></a>Related work</h3><p>关于图的并行计算模型有：</p>
+<ul>
+<li>PRAM，在共享内存上抽象的并行RAM访问。</li>
+<li>BSP，在superstep中模拟并行计算，包括本地计算、通信和同步屏障。<ul>
+<li>Pregel实现了以顶点为中心的BSP模型，每个超步节点并行的执行用户自定义的函数。</li>
+<li>GraphLab修改了BSP，通过异步的方式传递消息。</li>
+<li>Block-centric模型，将顶点为中心的编程扩展到blocks。</li>
+</ul>
+</li>
+<li>MapReduce</li>
+</ul>
+<p>比较流行的图处理系统有：</p>
+<ul>
+<li>GraphX，在分布式数据流框架中，通过spark的map操作将图计算重新定义为一系列的join和分组阶段。</li>
+<li>Grace，提供一个operator-level的迭代编程模型，通过异步来加强BSP。</li>
+<li>GPS，通过扩展APIs和分区策略实现Pregel。</li>
+</ul>
+<p>以上系统都需要对图算法的重塑以适应系统的模型。</p>
+<p>Grape采用BSP模型，和其他系统不同的是：</p>
+<ul>
+<li>Grape通过结合partial evaluation和incremental computation来实现算法的并行。</li>
+<li>和Mapduce不同，通过graph fragmentation凸显数据并行，不需要在每次迭代计算后发送整个算法。</li>
+<li>顶点为中心的Pregel是Grape的特列，可以看作Grape的每个fragment限制在单个顶点上，因为fragment，Grape相对Pregel减少了通信量和调度开销。</li>
+</ul>
+<p>另外Grape可以使用<strong>graph-level</strong>的优化算法，这些在以顶点为中心的系统是无法实现的。</p>
+<p>先前的系统都没有使用有界的增量计算来加速迭代计算，并且都不能保证并行计算的正确性。 </p>
+<h2 id="Perliminaries"><a href="#Perliminaries" class="headerlink" title="Perliminaries"></a>Perliminaries</h2><p><img src="https://img.sanzo.top/img/paper/image-20210703192952595.png" alt="image-20210703192952595" loading="lazy"></p>
+<p>表2是一些图的符号定义。</p>
+<h3 id="Partition-strategy"><a href="#Partition-strategy" class="headerlink" title="Partition strategy"></a>Partition strategy</h3><p>给定一个数字m，分区策略$P$将图$G$划分成fragments $F=(F_1,…F_m)$，其中$F_i=(V_i, E_i, L_i)$是$G$的子图，$E=U_{i\in [1,m]}E_i,\space V=U_{i\in[1,m]}V_i$。</p>
+<p>$F_i$分配到Worker$P_i$中：</p>
+<ul>
+<li>$F_i.I$是所有指向$F_i$的点集合。</li>
+<li>$F_i.O$是$F_i$指向的点集合。</li>
+<li>$F.O=U_{i\in [1,m]}F_i.O,\space F.I=U_{i\in[1,m]}F_i.I;\space F.O=F.I$。</li>
+</ul>
+<p>$G_P(v)$可以得到$(i\rightarrow j)$，其中$v\in F_i.O\space v\in F_j.I \space with\space i \ne j$。</p>
+<h2 id="Programming-with-Grape"><a href="#Programming-with-Grape" class="headerlink" title="Programming with Grape"></a>Programming with Grape</h2><h3 id="PEval-Partial-Evaluation"><a href="#PEval-Partial-Evaluation" class="headerlink" title="PEval: Partial Evaluation"></a>PEval: Partial Evaluation</h3><h4 id="Message-preamble"><a href="#Message-preamble" class="headerlink" title="Message preamble"></a>Message preamble</h4><p>声明状态变量$\overrightarrow{x}$和特定的顶点集合$C_i$，$C_i\overrightarrow{x}$即为$F_i$的更新集合。更具体的$C_i$由$d$和$S$指定，S是$F_i.I$或$F_I.O$，$C_i$是$S$中d-hops的节点和边的集合。</p>
+<h4 id="Message-segment"><a href="#Message-segment" class="headerlink" title="Message segment"></a>Message segment</h4><p>PEval可以指定$aggregateMsg$用于解决来自多个worker的消息冲突，如果用户没有指定，Grape提供一个默认的处理方法。</p>
+<h4 id="Message-grouping"><a href="#Message-grouping" class="headerlink" title="Message grouping"></a>Message grouping</h4><p>调度器$P_0$收到worker$P_i$的消息后执行以下两步操作：</p>
+<ul>
+<li><p>Identifying $C_i$</p>
+<p>根据分区策略$G_P$确定$C_i$。</p>
+</li>
+<li><p>Composing $M_i$</p>
+<p>首先根据分区策略确定$P_j$（vetex cut or edge cut）将所有发送到$P_j$的消息合并成单个消息$M_j$，并发送到$P_j$。</p>
+</li>
+</ul>
+<p><img src="https://img.sanzo.top/img/paper/image-20210703231814414.png" alt="image-20210703231814414" loading="lazy"></p>
+<p>图3是算法SSSP的PEval例子。</p>
+<h3 id="IncEval-Incremental-Evaluation"><a href="#IncEval-Incremental-Evaluation" class="headerlink" title="IncEval: Incremental Evaluation"></a>IncEval: Incremental Evaluation</h3><p><img src="https://img.sanzo.top/img/paper/image-20210704125540831.png" alt="image-20210704125540831" loading="lazy"></p>
+<h2 id="Implementation-of-Grape"><a href="#Implementation-of-Grape" class="headerlink" title="Implementation of Grape"></a>Implementation of Grape</h2><p><img src="https://img.sanzo.top/img/paper/image-20210704130106240.png" alt="image-20210704130106240" loading="lazy"></p>
+<p>图5是Grape的架构图：</p>
+<ol>
+<li>user interface</li>
+<li>parallel query engine</li>
+<li>Underlying the query engine are:<ul>
+<li>MPI Controller</li>
+<li>Index Manager</li>
+<li>Partition Manager</li>
+<li>Load Balancer</li>
+</ul>
+</li>
+<li>storage layer mannages graph data in DFS</li>
+</ol>
+<h3 id="Graph-partition"><a href="#Graph-partition" class="headerlink" title="Graph partition"></a>Graph partition</h3><p>user may pick：</p>
+<ol>
+<li>METIS，a fast heuristic algorithm for sparse graphs.</li>
+<li>vetex cut and edge cut partitions for graphs with small vertex cut-set and edge cut-set.</li>
+<li>1-D and 2-D partitions, which disribute vertex and adjacent matrix to the workers.</li>
+<li>a fast hight degree nodes to reduce cross edges</li>
+</ol>
+<h3 id="Graph-level-optimization"><a href="#Graph-level-optimization" class="headerlink" title="Graph-level optimization"></a>Graph-level optimization</h3><h4 id="Indexing"><a href="#Indexing" class="headerlink" title="Indexing"></a>Indexing</h4><ol>
+<li>2-hop index for reachability queries.</li>
+<li>neighborhood-index for candidate filtering in graph pattern matching.</li>
+</ol>
+<h4 id="Compression"><a href="#Compression" class="headerlink" title="Compression"></a>Compression</h4><p>Grape在fragment level采用query preserving compression。</p>
+<p>对于给定的查询Q，每个worker通过压缩算法离线的计算一个更小的$F_i^c$。</p>
+<h4 id="Dynamic-grouping"><a href="#Dynamic-grouping" class="headerlink" title="Dynamic grouping"></a>Dynamic grouping</h4><p>Grape通过添加一个虚拟节点动态的分组一系列点，并分批从虚拟节点发送消息。</p>
+<h4 id="Load-balancing"><a href="#Load-balancing" class="headerlink" title="Load balancing"></a>Load balancing</h4><p>Grape将计算任务分组到work units，并检查每个virtual worker $P_i$的开销，包括fragment size$|F_i|$，border nodes in $F_i$，查询Q的计算复杂度，load balancer最小化work unit的计算开销和通信开销。</p>
+<h3 id="Fault-tolerance"><a href="#Fault-tolerance" class="headerlink" title="Fault tolerance"></a>Fault tolerance</h3><p>Grape采用arbitrator mechanism实现对worker和coordinator的恢复，令其中一个worker为arbitrator，一个为standby coordinator，它们不断地向worker和coordinator发送心跳包，如果对方没有恢复，则使用备用的worker替换失败的worker和coordinator。</p>
+<h3 id="Consistency"><a href="#Consistency" class="headerlink" title="Consistency"></a>Consistency</h3><p>Grape允许用户指定aggregateMsg来处理消息冲突，如果用户没有指定，Grape将执行默认的处理函数。</p>
+<p>另外Grape实现了一个轻量级的transaction controller，处理queries、insertions and deletions of nodes and edges.</p>
+<h2 id="Experimental"><a href="#Experimental" class="headerlink" title="Experimental"></a>Experimental</h2><h3 id="Setting"><a href="#Setting" class="headerlink" title="Setting"></a>Setting</h3><p>Dataset：</p>
+<ul>
+<li>liveJorunal, 4.8 million entities and 68milion relationships, with 100 labels and 18293 connect components.</li>
+<li>DBpedia, 28 million entities of 200 types and 33.4 million edges of 160 types.</li>
+<li>traffic, 23 million nodes and 58 million edges.</li>
+<li>movieLens, 10 million movie ratings, 71567 users and 10681 movies. (for collaborative filtering)</li>
+</ul>
+<p>Queries：</p>
+<ul>
+<li>对每个图随机采样10个点，对每个点生成SSSP query。</li>
+<li>为Sim和Sublso生成20个pattern queries。</li>
+</ul>
+<p>Algorithm：</p>
+<p>默认的分区策略为METIS。</p>
+<p>Environment：</p>
+<p>Aliyun ECS n2.large，Intel Xeon processor 2.5GHz，16G memory。</p>
+<h3 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h3><p><img src="https://img.sanzo.top/img/paper/image-20210704220128070.png" alt="image-20210704220128070" loading="lazy"></p>
+<p>(a) 从上图可以看出，Grape通过简单的并行顺序算法而不做进一步的优化，就可以和最先进的系统相媲美。</p>
+<p>另外图(b)和图(c)可以看出，Grape在从liveJourmal到DBpedia上性能提升要打羽GraphLab和Graph，这是因为vertex-centric算法需要更多的supersteps才能达到收敛。</p>
+<p>(b) 随着n的增大(processors)每个系统的运行时间都显著下降，其中与Giraph和GraphLab相比Grape的加速比最大，n从4到24Grape平均要快4倍。</p>
+<p><img src="https://img.sanzo.top/img/paper/image-20210704220147557.png" alt="image-20210704220147557" loading="lazy"></p>
+<p>(c) Grape的通信量远小于其他系统。</p>
+<p>。。。</p>
+<!-- Q.E.D. --></div><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="Donate" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-hand-coin-line"></use></svg></span><div id="reward-comment">Donate me.</div><div id="qr" style="display:none;"><div style="display:inline-block"><a target="_blank" rel="noopener" href="https://img.sanzo.top/img/reward/alipay.jpg"><img loading="lazy" src="https://img.sanzo.top/img/reward/alipay.jpg" alt="支付宝" title="支付宝"></a><div><span style="color:#00A3EE"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-alipay-line"></use></svg></span></div></div><div style="display:inline-block"><a target="_blank" rel="noopener" href="https://img.sanzo.top/img/reward/qqpay.jpg"><img loading="lazy" src="https://img.sanzo.top/img/reward/qqpay.jpg" alt="QQ 支付" title="QQ 支付"></a><div><span style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></span></div></div><div style="display:inline-block"><a target="_blank" rel="noopener" href="https://img.sanzo.top/img/reward/wechat.jpg"><img loading="lazy" src="https://img.sanzo.top/img/reward/wechat.jpg" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-pay-line"></use></svg></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>Post author: </strong>Sanzo</li><li class="post-copyright-link"><strong>Post link: </strong><a href="https://sanzo.top/Paper/grape/" title="Grape: Parallelizing Sequential Graph Computations">https://sanzo.top/Paper/grape/</a></li><li class="post-copyright-license"><strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> unless otherwise stated.</li></ul></section></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/Default/cmake/" rel="prev" title="cmake笔记"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">cmake笔记</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/Default/english/" rel="next" title="English"><span class="post-nav-text">English</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>Leave me a message.</span><br></div><div id="waline"></div><script>Yun.utils.getScript("https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js", () => {
+  const walineConfig = {"enable":true,"serverURL":"https://pinglun-ten.vercel.app/","comment":true,"visitor":true,"avatar":"mp","avatarCDN":"https://cdn.v2ex.com/gravatar/","placeholder":"填写邮箱，可以收到回复通知哦～","requiredFields":["nick"],"emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/qq"],"emojiCDN":"https://cdn.jsdelivr.net/gh/GamerNoTitle/ValineCDN@master/","langMode":{"nick":"昵称","mail":"邮箱","link":"网址"},"el":"#waline","lang":"en"}
+  walineConfig.path = "/Paper/grape/"
+  new Waline(walineConfig)
+}, window.Waline);</script></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2021 – 2022 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> Sanzo</span></div><div class="footer-support"><span>本网站由</span><a class="footer-support-logo" href="https://www.upyun.com/?utm_source=lianmeng&amp;utm_medium=referral" target="blank" title="又拍云"><img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" alt="又拍云"></a><span>提供云存储服务</span></div></footer><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a><a class="popup-trigger hty-icon-button icon-search" id="search" href="javascript:;" title="Search"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-search-line"></use></svg></span></a><script>window.addEventListener("DOMContentLoaded", () => {
+  // Handle and trigger popup window
+  document.querySelector(".popup-trigger").addEventListener("click", () => {
+    document.querySelector(".popup").classList.add("show");
+    setTimeout(() => {
+      document.querySelector(".search-input").focus();
+    }, 100);
+  });
+
+  // Monitor main search box
+  const onPopupClose = () => {
+    document.querySelector(".popup").classList.remove("show");
+  };
+
+  document.querySelector(".popup-btn-close").addEventListener("click", () => {
+    onPopupClose();
+  });
+
+  window.addEventListener("keyup", event => {
+    if (event.key === "Escape") {
+      onPopupClose();
+    }
+  });
+});
+</script><script src="/js/search/local-search.js" defer></script><div class="popup search-popup"><div class="search-header"><span class="popup-btn-close close-icon hty-icon-button"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-close-line"></use></svg></span></div><div class="search-input-container"><input class="search-input" id="local-search-input" type="text" placeholder="Searching..." value=""></div><div id="local-search-result"></div></div><script>const date = new Date();
+const today = (date.getMonth() + 1) + "-" + date.getDate()
+const mourn_days = ["9-18"]
+if (mourn_days.includes(today)) {
+  document.documentElement.style.filter = "grayscale(1)";
+}</script></div></body></html>

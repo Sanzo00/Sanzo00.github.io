@@ -1,0 +1,421 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="Sanzo"><meta name="copyright" content="Sanzo"><meta name="generator" content="Hexo 5.4.2"><meta name="theme" content="hexo-theme-yun"><title>ubuntu配置 | null</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.25/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_j5gk85dg4pf.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>document.addEventListener("DOMContentLoaded", () => {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+});
+</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"></script><script>document.addEventListener("DOMContentLoaded", () => {
+  Yun.utils.renderKatex();
+});</script><link id="light-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: light)"><link id="dark-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)"><link rel="icon" href="/img/sanzo.ico"><link rel="mask-icon" href="/img/sanzo.ico" color="#0078E7"><link rel="alternate icon" href="/yun.ico"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"hostname":"sanzo.top","root":"/","title":"云游君的小站","version":"1.6.1","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn?c=k&c=h","hitokoto":true},"local_search":{"path":"/search.xml"},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/utils.js"></script><script src="/js/hexo-theme-yun.js"></script><link rel="alternate" href="/atom.xml" title="null" type="application/atom+xml"><link rel="preconnect" href="https://www.google-analytics.com" crossorigin><script async src="https://www.googletagmanager.com/gtag/js?id=G-82SWX0KLXT"></script><script>if (CONFIG.hostname === location.hostname) {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-82SWX0KLXT');
+}</script><meta name="description" content="vimsudo apt install vim  # 添加配置文件 vim ~&#x2F;.vimrc  &quot;set paste &quot;set nopaste set expandtab set softtabstop&#x3D;2 set autoindent set tabstop&#x3D;2 set shiftwidth&#x3D;2 set nu syntax on set mouse&#x3D;a &quot;支持鼠标滑轮 set mouse&#x3D;v">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ubuntu配置">
+<meta property="og:url" content="https://sanzo.top/Linux/ubuntu-setup/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="vimsudo apt install vim  # 添加配置文件 vim ~&#x2F;.vimrc  &quot;set paste &quot;set nopaste set expandtab set softtabstop&#x3D;2 set autoindent set tabstop&#x3D;2 set shiftwidth&#x3D;2 set nu syntax on set mouse&#x3D;a &quot;支持鼠标滑轮 set mouse&#x3D;v">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img.sanzo.top/img/linux/image-20211008182055367.png">
+<meta property="og:image" content="https://img.sanzo.top/img/linux/image-20211008210121275.png">
+<meta property="og:image" content="https://img.sanzo.top/img/linux/image-20211008205948437.png">
+<meta property="og:image" content="https://img.sanzo.top/img/linux/image-20211008193000787.png">
+<meta property="og:image" content="https://img.sanzo.top/img/linux/image-20211008193044041.png">
+<meta property="og:image" content="https://img.sanzo.top/img/linux/image-20211008204151165.png">
+<meta property="og:image" content="https://img.sanzo.top/img/linux/image-20211008204125042.png">
+<meta property="og:image" content="https://img.sanzo.top/img/linux/image-20211008204241869.png">
+<meta property="og:image" content="https://img.sanzo.top/img/linux/image-20211008204439775.png">
+<meta property="og:image" content="https://img.sanzo.top/img/linux/image-20211008204814707.png">
+<meta property="og:image" content="https://img.sanzo.top/img/linux/image-20211008204917470.png">
+<meta property="article:published_time" content="2021-10-08T01:52:47.000Z">
+<meta property="article:modified_time" content="2021-10-08T01:52:47.000Z">
+<meta property="article:author" content="Sanzo">
+<meta property="article:tag" content="setup">
+<meta property="article:tag" content="ubuntu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.sanzo.top/img/linux/image-20211008182055367.png"><script src="/js/ui/mode.js"></script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="Table of Contents"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="Overview"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="Sanzo"><img width="96" loading="lazy" src="/img/sanzo.png" alt="Sanzo"></a><div class="site-author-name"><a href="/about/">Sanzo</a></div><span class="site-name"></span><sub class="site-subtitle"></sub><div class="site-desciption"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="Home"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="Archives"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">49</span></a></div><div class="site-state-item"><a href="/categories/" title="Categories"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">11</span></a></div><div class="site-state-item"><a href="/tags/" title="Tags"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">70</span></a></div><a class="site-state-item hty-icon-button" href="/about/#comment" title="Messages"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-chat-3-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-rss-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/Sanzo00" title="GitHub" target="_blank" style="color:var(--hty-text-color)"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/297299131" title="Bilibili" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://t.me/Sanzo00" title="Telegram" target="_blank" style="color:#0088CC"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-telegram-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:arrangeman@163.com" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="Friends" style="color:dodgerblue"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-genderless-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#vim"><span class="toc-number">1.</span> <span class="toc-text">vim</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7"><span class="toc-number">2.</span> <span class="toc-text">用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git"><span class="toc-number">4.</span> <span class="toc-text">git</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#zsh"><span class="toc-number">5.</span> <span class="toc-text">zsh</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BC%A0%E6%A0%87"><span class="toc-number">6.</span> <span class="toc-text">鼠标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E9%80%9F%E7%9B%91%E6%8E%A7"><span class="toc-number">7.</span> <span class="toc-text">网速监控</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%AA%E5%9B%BE"><span class="toc-number">8.</span> <span class="toc-text">截图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%BE%E5%8D%A1"><span class="toc-number">9.</span> <span class="toc-text">显卡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E5%99%A8"><span class="toc-number">10.</span> <span class="toc-text">显示器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-number">11.</span> <span class="toc-text">其他</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://sanzo.top/Linux/ubuntu-setup/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="Sanzo"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">ubuntu配置</h1><div class="post-meta"><div class="post-time" style="display:block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="Created: 2021-10-08 09:52:47" itemprop="dateCreated datePublished" datetime="2021-10-08T09:52:47+08:00">2021-10-08</time></div><span class="post-count"><span class="post-symbolcount"><span class="post-meta-item-icon" title="Word count in article"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-file-word-line"></use></svg></span> <span title="Word count in article">1.5k</span><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="Reading time"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-timer-line"></use></svg></span> <span title="Reading time">7m</span></span></span><span class="leancloud_visitors" id="/Linux/ubuntu-setup/" data-flag-title="ubuntu配置"><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="Views"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-eye-line"></use></svg> <span class="leancloud-visitors-count"></span></span></span><span class="post-meta-divider">-</span><a href="#comment"><span class="post-meta-item-icon" title="Comments"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-chat-3-line"></use></svg> <span class="waline-comment-count" id="/Linux/ubuntu-setup/"></span></span></a><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/Linux/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">Linux</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/setup/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">setup</span></a><a class="tag-item" href="/tags/ubuntu/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">ubuntu</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#0078E7;"><span id="more"></span>
+
+<h2 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h2><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> <span class="token function">vim</span>
+
+<span class="token comment"># 添加配置文件</span>
+<span class="token function">vim</span> ~/.vimrc
+
+<span class="token string">"set paste
+"</span><span class="token builtin class-name">set</span> nopaste
+<span class="token builtin class-name">set</span> expandtab
+<span class="token builtin class-name">set</span> <span class="token assign-left variable">softtabstop</span><span class="token operator">=</span><span class="token number">2</span>
+<span class="token builtin class-name">set</span> autoindent
+<span class="token builtin class-name">set</span> <span class="token assign-left variable">tabstop</span><span class="token operator">=</span><span class="token number">2</span>
+<span class="token builtin class-name">set</span> <span class="token assign-left variable">shiftwidth</span><span class="token operator">=</span><span class="token number">2</span>
+<span class="token builtin class-name">set</span> nu
+syntax on
+<span class="token builtin class-name">set</span> <span class="token assign-left variable">mouse</span><span class="token operator">=</span>a <span class="token string">"支持鼠标滑轮
+set mouse=v "</span>支持鼠标选中复制
+"set <span class="token assign-left variable">viminfo</span><span class="token operator">=</span>'1000,<span class="token operator">&lt;</span><span class="token number">500</span></code></pre>
+
+
+
+
+
+<h2 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h2><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建用户sanzo，指定home目录和登陆的shell</span>
+<span class="token function">useradd</span> -d /home/sanzo -s /bin/bash -m sanzo
+
+<span class="token comment"># 设置登录密码</span>
+<span class="token function">passwd</span> sanzo
+
+<span class="token comment"># 添加sudo组</span>
+<span class="token function">usermod</span> -a -G <span class="token function">sudo</span> sanzo
+
+<span class="token comment"># 删除用户</span>
+<span class="token function">sudo</span> <span class="token function">userdel</span> -r <span class="token builtin class-name">test</span>
+
+<span class="token comment"># append ssh key to remote host</span>
+<span class="token function">cat</span> .ssh/id_ras.pub <span class="token operator">|</span> <span class="token function">ssh</span> user@hostname <span class="token string">"cat >> ~/.ssh/authorized_keys"</span></code></pre>
+
+
+
+
+
+<h2 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h2><blockquote>
+<p>配置v2ray</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/v2fly/v2ray-core/releases">v2ray-core/releases</a></p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">mkdir</span> v2ray <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">cd</span> v2ray
+<span class="token function">wget</span> https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh
+<span class="token function">sudo</span> <span class="token function">bash</span> install-release.sh --local ./v2ray-linux-64.zip
+
+<span class="token comment"># local user run</span>
+<span class="token function">nohup</span> ./v2ray run config.json <span class="token operator">></span> v2ray.log <span class="token operator"><span class="token file-descriptor important">2</span>></span><span class="token file-descriptor important">&amp;1</span> <span class="token operator">&amp;</span></code></pre>
+
+<p><a target="_blank" rel="noopener" href="https://github.com/Sanzo00/files/blob/master/other/v2ray.json">v2ray config.json配置</a></p>
+<p><img src="https://img.sanzo.top/img/linux/image-20211008182055367.png" alt="image-20211008182055367" loading="lazy"></p>
+<blockquote>
+<p>proxychains</p>
+</blockquote>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> proxychains
+
+<span class="token comment"># 修改配置文件</span>
+<span class="token function">sudo</span> <span class="token function">vim</span> /etc/proxychains.conf 
+<span class="token comment"># 最后一行改为对应自己的端口</span>
+socks5    <span class="token number">127.0</span>.0.1 <span class="token number">10800</span></code></pre>
+
+
+
+<blockquote>
+<p>apt代理</p>
+</blockquote>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">vim</span> /etc/apt/apt.conf.d/proxy.conf
+Acquire::http::Proxy <span class="token string">"socks5h://127.0.0.1:10800"</span><span class="token punctuation">;</span>
+Acquire::https::Proxy <span class="token string">"socks5h://127.0.0.1:10800"</span><span class="token punctuation">;</span></code></pre>
+
+
+
+<blockquote>
+<p>bash代理</p>
+</blockquote>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">vim</span> ~/.bashrc
+<span class="token comment"># vim ~/.zshrc</span>
+
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">ALL_PROXY</span><span class="token operator">=</span><span class="token string">"socks5://127.0.0.1:10800"</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">all_proxy</span><span class="token operator">=</span><span class="token string">"socks5://127.0.0.1:10800"</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">http_proxy</span><span class="token operator">=</span><span class="token string">"http://127.0.0.1:10801"</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">https_proxy</span><span class="token operator">=</span><span class="token string">"https://127.0.0.1:10801"</span>
+<span class="token comment"># export https_proxy="http://127.0.0.1:10801" # for conda http error</span></code></pre>
+
+<p>在setting中设置了http，apt和bash应该可以不用再设置了，以防万一可以加上。</p>
+<h2 id="git"><a href="#git" class="headerlink" title="git"></a>git</h2><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> <span class="token function">git</span>
+
+<span class="token comment"># 环境配置</span>
+<span class="token function">git</span> config --global user.email <span class="token string">"arrangeman@163.com"</span>
+<span class="token function">git</span> config --global user.name <span class="token string">"Sanzo00"</span>
+
+<span class="token comment"># 生成公钥和私钥</span>
+ssh-keygen -t rsa -C <span class="token string">"your_email@example.com"</span>
+
+<span class="token comment"># 将公钥放到github中</span>
+<span class="token function">cat</span> ~/.ssh/id_rsa.pub </code></pre>
+
+<blockquote>
+<p>代理</p>
+</blockquote>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># http and https</span>
+<span class="token function">git</span> config --global http.proxy http://127.0.0.1:10801
+<span class="token function">git</span> config --global https.proxy https://127.0.0.1:10801
+<span class="token comment"># socks5</span>
+<span class="token function">git</span> config --global http.proxy socks5://127.0.0.1:10800
+<span class="token function">git</span> config --global https.proxy socks5://127.0.0.1:10800
+
+<span class="token comment"># unset</span>
+<span class="token function">git</span> config --global --unset http.proxy
+<span class="token function">git</span> config --global --unset https.proxy
+
+
+<span class="token comment"># ssh</span>
+<span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> connect-proxy
+<span class="token function">vim</span> ~/.ssh/config
+<span class="token comment"># socks5</span>
+Host github.com
+User <span class="token function">git</span>
+ProxyCommand connect -S <span class="token number">127.0</span>.0.1:10800 %h %p
+<span class="token comment"># http || https</span>
+Host github.com
+User <span class="token function">git</span>
+ProxyCommand connect -H <span class="token number">127.0</span>.0.1:10801 %h %p</code></pre>
+
+
+
+
+
+<h2 id="zsh"><a href="#zsh" class="headerlink" title="zsh"></a>zsh</h2><p><a href="https://sanzo.top/Linux/zsh/">https://sanzo.top/Linux/zsh/</a></p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装zsh</span>
+<span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> <span class="token function">zsh</span>
+
+<span class="token comment"># 安装ohmyzsh</span>
+<span class="token function">sh</span> -c <span class="token string">"<span class="token variable"><span class="token variable">$(</span><span class="token function">wget</span> -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh<span class="token variable">)</span></span>"</span>
+
+<span class="token comment"># 切换shell为zsh</span>
+chsh -s /bin/zsh</code></pre>
+
+<blockquote>
+<p>插件</p>
+</blockquote>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 自动补全</span>
+<span class="token function">git</span> clone https://github.com/zsh-users/zsh-autosuggestions.git <span class="token variable">$ZSH_CUSTOM</span>/plugins/zsh-autosuggestions
+
+<span class="token comment"># 高亮</span>
+<span class="token function">git</span> clone https://github.com/zsh-users/zsh-syntax-highlighting.git <span class="token variable">$ZSH_CUSTOM</span>/plugins/zsh-syntax-highlighting
+
+<span class="token comment"># 修改配置文件</span>
+<span class="token function">vim</span> ~/.zshrc
+<span class="token assign-left variable">plugins</span><span class="token operator">=</span><span class="token punctuation">(</span>
+  <span class="token function">git</span>
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+<span class="token punctuation">)</span>
+
+<span class="token comment"># 重置zsh环境</span>
+<span class="token builtin class-name">source</span> ~/.zshrc</code></pre>
+
+
+
+<h2 id="鼠标"><a href="#鼠标" class="headerlink" title="鼠标"></a>鼠标</h2><blockquote>
+<p>修改滑轮速度</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/IMWheel#Run_IMWheel_on_startup_using_a_service">IMWheel</a></p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> imwheel
+<span class="token function">sudo</span> <span class="token function">vim</span> ~/.imwheelrc
+
+<span class="token string">".*"</span>
+None,      Up,   Button4, <span class="token number">5</span> <span class="token comment"># 速度</span>
+None,      Down, Button5, <span class="token number">5</span> <span class="token comment"># 速度</span>
+Control_L, Up,   Control_L<span class="token operator">|</span>Button4
+Control_L, Down, Control_L<span class="token operator">|</span>Button5
+Shift_L,   Up,   Shift_L<span class="token operator">|</span>Button4
+Shift_L,   Down, Shift_L<span class="token operator">|</span>Button5</code></pre>
+
+
+
+<blockquote>
+<p>开机自启</p>
+</blockquote>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> ~/.config/systemd/user
+<span class="token function">vim</span> ~/.config/systemd/user/imwheel.service
+
+<span class="token punctuation">[</span>Unit<span class="token punctuation">]</span>
+<span class="token assign-left variable">Description</span><span class="token operator">=</span>IMWheel
+<span class="token assign-left variable">Wants</span><span class="token operator">=</span>display-manager.service
+<span class="token assign-left variable">After</span><span class="token operator">=</span>display-manager.service
+
+<span class="token punctuation">[</span>Service<span class="token punctuation">]</span>
+<span class="token assign-left variable">Type</span><span class="token operator">=</span>simple
+<span class="token assign-left variable">Environment</span><span class="token operator">=</span><span class="token environment constant">XAUTHORITY</span><span class="token operator">=</span>%h/.Xauthority
+<span class="token assign-left variable">ExecStart</span><span class="token operator">=</span>/usr/bin/imwheel -d
+<span class="token assign-left variable">ExecStop</span><span class="token operator">=</span>/usr/bin/pkill imwheel
+<span class="token assign-left variable">RemainAfterExit</span><span class="token operator">=</span>yes
+
+<span class="token punctuation">[</span>Install<span class="token punctuation">]</span>
+<span class="token assign-left variable">WantedBy</span><span class="token operator">=</span>graphical-session.target
+
+systemctl --user daemon-reload
+systemctl --user <span class="token builtin class-name">enable</span> --now imwheel.service
+journalctl --user --unit imwheel.service</code></pre>
+
+
+
+
+
+<h2 id="网速监控"><a href="#网速监控" class="headerlink" title="网速监控"></a>网速监控</h2><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> add-apt-repository ppa:fossfreedom/indicator-sysmonitor -y
+<span class="token function">sudo</span> <span class="token function">apt</span> update
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> indicator-sysmonitor
+
+<span class="token comment"># 运行</span>
+indicator-sysmonitor
+
+cpu: <span class="token punctuation">(</span><span class="token punctuation">&#123;</span>cpu<span class="token punctuation">&#125;</span> <span class="token punctuation">&#123;</span>cputemp<span class="token punctuation">&#125;</span><span class="token punctuation">)</span> gpu: <span class="token punctuation">(</span><span class="token punctuation">&#123;</span>nvgputemp<span class="token punctuation">&#125;</span><span class="token punctuation">)</span> mem: <span class="token punctuation">(</span><span class="token punctuation">&#123;</span>mem<span class="token punctuation">&#125;</span><span class="token punctuation">)</span> net: <span class="token punctuation">&#123;</span>net<span class="token punctuation">&#125;</span> <span class="token punctuation">&#123;</span>totalnet<span class="token punctuation">&#125;</span></code></pre>
+
+<p><img src="https://img.sanzo.top/img/linux/image-20211008210121275.png" alt="image-20211008210121275" loading="lazy"></p>
+<p><img src="https://img.sanzo.top/img/linux/image-20211008205948437.png" alt="image-20211008205948437" loading="lazy"></p>
+<h2 id="截图"><a href="#截图" class="headerlink" title="截图"></a>截图</h2><p>我在windows上用的<a target="_blank" rel="noopener" href="https://www.snipaste.com/">snipaste</a>，不过linux还没出，有两个方案可以代替：</p>
+<p>1、系统默认的截图工具</p>
+<ul>
+<li><code>PrtSc</code> – 获取整个屏幕的截图并保存到 Pictures 目录。</li>
+<li><code>Shift + PrtSc</code> – 获取屏幕的某个区域截图并保存到 Pictures 目录。</li>
+<li><code>Alt + PrtSc</code> –获取当前窗口的截图并保存到 Pictures 目录。</li>
+<li><code>Ctrl + PrtSc</code> – 获取整个屏幕的截图并存放到剪贴板。</li>
+<li><code>Shift + Ctrl + PrtSc</code> – 获取屏幕的某个区域截图并存放到剪贴板。</li>
+<li><code>Ctrl + Alt + PrtSc</code> – 获取当前窗口的 截图并存放到剪贴板。</li>
+</ul>
+<p>2、<a target="_blank" rel="noopener" href="https://github.com/flameshot-org/flameshot">flameshot</a></p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># install</span>
+<span class="token function">apt</span> <span class="token function">install</span> flameshot
+
+<span class="token comment"># start</span>
+flameshot gui</code></pre>
+
+
+
+<h2 id="显卡"><a href="#显卡" class="headerlink" title="显卡"></a>显卡</h2><p><a target="_blank" rel="noopener" href="https://developer.nvidia.com/zh-cn/cuda-gpus#compute">显卡算力</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html">cuda对应的最低驱动版本</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.mlzhilu.com/archives/ubuntu2004%E5%AE%89%E8%A3%85nvidia%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8">Ubuntu20.04安装NVIDIA显卡驱动+cuda+cudnn配置深度学习环境</a></p>
+<blockquote>
+<p>驱动安装</p>
+</blockquote>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看显卡型号</span>
+lspci <span class="token operator">|</span> <span class="token function">grep</span> -i nvidia</code></pre>
+
+<p><img src="https://img.sanzo.top/img/linux/image-20211008193000787.png" alt="image-20211008193000787" loading="lazy"></p>
+<p><a target="_blank" rel="noopener" href="https://www.nvidia.com/Download/index.aspx?lang=en-us">下载驱动</a></p>
+<p><img src="https://img.sanzo.top/img/linux/image-20211008193044041.png" alt="image-20211008193044041" loading="lazy"></p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> -y lightdm gcc <span class="token function">make</span>
+<span class="token function">sudo</span> <span class="token function">passwd</span> root
+
+<span class="token comment"># 切换桌面，选择lightdm</span>
+<span class="token function">sudo</span> dpkg-reconfigure gdm3
+
+<span class="token comment"># 关闭lightdm桌面</span>
+systemctl stop lightdm
+
+<span class="token function">sudo</span> <span class="token function">chmod</span> a+x NVIDIA-Linux-x86_64-450.80.02.run
+<span class="token function">sudo</span> ./NVIDIA-Linux-x86_64-450.80.02.run -no-x-check -no-nouveau-check -no-opengl-files
+<span class="token comment"># -no-x-check:安装时关闭X服务</span>
+<span class="token comment"># -no-nouveau-check: 安装时禁用nouveau</span>
+<span class="token comment"># -no-opengl-files:只安装驱动文件，不安装OpenGL文件</span>
+<span class="token comment"># 后面出来的提示，选择默认选项</span></code></pre>
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 测试是否成功</span>
+nvidia-smi</code></pre>
+
+<p><img src="https://img.sanzo.top/img/linux/image-20211008204151165.png" alt="image-20211008204151165" loading="lazy"></p>
+<p>如果出现<code>/dev/xxx: clean</code>的问题，进不了桌面，可能是因为驱动不匹配的问题。可以删除<code>/etc/X11/xorg.conf</code>。</p>
+<blockquote>
+<p>安装cuda</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-toolkit-archive">下载cuda</a>，这里我选择的是cuda 11.2。</p>
+<p><img src="https://img.sanzo.top/img/linux/image-20211008204125042.png" alt="image-20211008204125042" loading="lazy"></p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> https://developer.download.nvidia.com/compute/cuda/11.2.0/local_installers/cuda_11.2.0_460.27.04_linux.run
+<span class="token function">sudo</span> <span class="token function">sh</span> cuda_11.2.0_460.27.04_linux.run</code></pre>
+
+
+
+<p>回车取消勾选<code>Driver</code>，因为前面已经装过驱动，然后install，也可以在Options中自定义安装位置。</p>
+<p><img src="https://img.sanzo.top/img/linux/image-20211008204241869.png" alt="image-20211008204241869" loading="lazy"></p>
+<p>在.bashrc文件中配置环境变量</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span>/usr/local/cuda-11.2/bin:<span class="token variable">$&#123;<span class="token environment constant">PATH</span>&#125;</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">LD_LIBRARY_PATH</span><span class="token operator">=</span>/usr/local/cuda-11.2/lib64:<span class="token variable">$&#123;LD_LIBRARY_PATH&#125;</span></code></pre>
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">source</span> ～/.bashrc
+
+<span class="token comment"># 测试cuda</span>
+nvcc -V</code></pre>
+
+<p><img src="https://img.sanzo.top/img/linux/image-20211008204439775.png" alt="image-20211008204439775" loading="lazy"></p>
+<blockquote>
+<p>安装cudnn</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.nvidia.com/rdp/cudnn-download">下载cudnn</a></p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 将文件复制到cuda对应的文件夹下</span>
+<span class="token function">sudo</span> <span class="token function">cp</span> cuda/include/cudnn.h /usr/local/cuda/include/
+<span class="token function">sudo</span> <span class="token function">cp</span> cuda/include/cudnn_version.h /usr/local/cuda/include/ <span class="token comment"># for cudnn v8+</span>
+<span class="token function">sudo</span> <span class="token function">cp</span> cuda/lib64/libcudnn* /usr/local/cuda/lib64/</code></pre>
+
+<blockquote>
+<p>测试</p>
+</blockquote>
+<p>在<code>~/NVIDIA_CUDA-11.2_Samples</code>下编译代码，然后运行cuda提供的例子。</p>
+<p><img src="https://img.sanzo.top/img/linux/image-20211008204814707.png" alt="image-20211008204814707" loading="lazy"></p>
+<p><img src="https://img.sanzo.top/img/linux/image-20211008204917470.png" alt="image-20211008204917470" loading="lazy"></p>
+<blockquote>
+<p>踩坑</p>
+</blockquote>
+<ol>
+<li><p>apt 更新软件包之后，导致显卡驱动失效，这是因为内核版本发生了变化，将内核回退到上一个版本即可。</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5ac8aa703075">https://www.jianshu.com/p/5ac8aa703075</a></p>
+</li>
+</ol>
+<h2 id="显示器"><a href="#显示器" class="headerlink" title="显示器"></a>显示器</h2><p>适用于多个显示器。</p>
+<p>我这里有两块屏幕<code>HDMI-1</code>，<code>HDMI-1-0</code>。</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看当前显示器信息</span>
+xrandr
+
+<span class="token comment"># 设置HDMI-1为主屏幕</span>
+xrandr --output HDMI-1 --primary
+
+<span class="token comment"># 只显示一个屏幕，关闭HDMI-1-0屏幕</span>
+xrandr --output HDMI-1 --auto --output HDMI-1-0 --off
+
+<span class="token comment"># 复制屏幕</span>
+xrandr --output HDMI-1-0 --same-as HDMI-1 --auto
+
+<span class="token comment"># 设置HDMI-1-0为左扩展屏</span>
+xrandr --output HDMI-1-0 --left-of HDMI-1 --auto
+
+<span class="token comment"># 设置HDMI-1-0右扩展屏</span>
+xrandr --output HDMI-1-0 --right-of HDMI-1 --auto</code></pre>
+
+<blockquote>
+<p>开机自启</p>
+</blockquote>
+<p>还没找到合适的开机自启命令，不过可以在系统设置中调。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p><a target="_blank" rel="noopener" href="https://typora.io/#linux">typora</a></p>
+<p><a target="_blank" rel="noopener" href="https://code.visualstudio.com/">vscode</a></p>
+<p><a href="https://sanzo.top/Default/python-env/?highlight=python">python环境</a></p>
+<!-- Q.E.D. -->
+
+</div><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="Donate" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-hand-coin-line"></use></svg></span><div id="reward-comment">Donate me.</div><div id="qr" style="display:none;"><div style="display:inline-block"><a target="_blank" rel="noopener" href="https://img.sanzo.top/img/reward/alipay.jpg"><img loading="lazy" src="https://img.sanzo.top/img/reward/alipay.jpg" alt="支付宝" title="支付宝"></a><div><span style="color:#00A3EE"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-alipay-line"></use></svg></span></div></div><div style="display:inline-block"><a target="_blank" rel="noopener" href="https://img.sanzo.top/img/reward/qqpay.jpg"><img loading="lazy" src="https://img.sanzo.top/img/reward/qqpay.jpg" alt="QQ 支付" title="QQ 支付"></a><div><span style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></span></div></div><div style="display:inline-block"><a target="_blank" rel="noopener" href="https://img.sanzo.top/img/reward/wechat.jpg"><img loading="lazy" src="https://img.sanzo.top/img/reward/wechat.jpg" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-pay-line"></use></svg></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>Post author: </strong>Sanzo</li><li class="post-copyright-link"><strong>Post link: </strong><a href="https://sanzo.top/Linux/ubuntu-setup/" title="ubuntu配置">https://sanzo.top/Linux/ubuntu-setup/</a></li><li class="post-copyright-license"><strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> unless otherwise stated.</li></ul></section></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/AI-Computing-Systems/setup/" rel="prev" title="智能计算系统：实验环境配置"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">智能计算系统：实验环境配置</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/Linux/zsh/" rel="next" title="zsh安装与配置"><span class="post-nav-text">zsh安装与配置</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>Leave me a message.</span><br></div><div id="waline"></div><script>Yun.utils.getScript("https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js", () => {
+  const walineConfig = {"enable":true,"serverURL":"https://pinglun-ten.vercel.app/","comment":true,"visitor":true,"avatar":"mp","avatarCDN":"https://cdn.v2ex.com/gravatar/","placeholder":"填写邮箱，可以收到回复通知哦～","requiredFields":["nick"],"emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/qq"],"emojiCDN":"https://cdn.jsdelivr.net/gh/GamerNoTitle/ValineCDN@master/","langMode":{"nick":"昵称","mail":"邮箱","link":"网址"},"el":"#waline","lang":"en"}
+  walineConfig.path = "/Linux/ubuntu-setup/"
+  new Waline(walineConfig)
+}, window.Waline);</script></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2021 – 2022 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> Sanzo</span></div><div class="footer-support"><span>本网站由</span><a class="footer-support-logo" href="https://www.upyun.com/?utm_source=lianmeng&amp;utm_medium=referral" target="blank" title="又拍云"><img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" alt="又拍云"></a><span>提供云存储服务</span></div></footer><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a><a class="popup-trigger hty-icon-button icon-search" id="search" href="javascript:;" title="Search"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-search-line"></use></svg></span></a><script>window.addEventListener("DOMContentLoaded", () => {
+  // Handle and trigger popup window
+  document.querySelector(".popup-trigger").addEventListener("click", () => {
+    document.querySelector(".popup").classList.add("show");
+    setTimeout(() => {
+      document.querySelector(".search-input").focus();
+    }, 100);
+  });
+
+  // Monitor main search box
+  const onPopupClose = () => {
+    document.querySelector(".popup").classList.remove("show");
+  };
+
+  document.querySelector(".popup-btn-close").addEventListener("click", () => {
+    onPopupClose();
+  });
+
+  window.addEventListener("keyup", event => {
+    if (event.key === "Escape") {
+      onPopupClose();
+    }
+  });
+});
+</script><script src="/js/search/local-search.js" defer></script><div class="popup search-popup"><div class="search-header"><span class="popup-btn-close close-icon hty-icon-button"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-close-line"></use></svg></span></div><div class="search-input-container"><input class="search-input" id="local-search-input" type="text" placeholder="Searching..." value=""></div><div id="local-search-result"></div></div><script>const date = new Date();
+const today = (date.getMonth() + 1) + "-" + date.getDate()
+const mourn_days = ["9-18"]
+if (mourn_days.includes(today)) {
+  document.documentElement.style.filter = "grayscale(1)";
+}</script></div></body></html>

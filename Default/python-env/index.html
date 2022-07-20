@@ -1,0 +1,188 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="Sanzo"><meta name="copyright" content="Sanzo"><meta name="generator" content="Hexo 5.4.2"><meta name="theme" content="hexo-theme-yun"><title>python环境配置 | null</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.25/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_j5gk85dg4pf.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>document.addEventListener("DOMContentLoaded", () => {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+});
+</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"></script><script>document.addEventListener("DOMContentLoaded", () => {
+  Yun.utils.renderKatex();
+});</script><link id="light-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: light)"><link id="dark-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)"><link rel="icon" href="/img/sanzo.ico"><link rel="mask-icon" href="/img/sanzo.ico" color="#0078E7"><link rel="alternate icon" href="/yun.ico"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"hostname":"sanzo.top","root":"/","title":"云游君的小站","version":"1.6.1","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn?c=k&c=h","hitokoto":true},"local_search":{"path":"/search.xml"},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/utils.js"></script><script src="/js/hexo-theme-yun.js"></script><link rel="alternate" href="/atom.xml" title="null" type="application/atom+xml"><link rel="preconnect" href="https://www.google-analytics.com" crossorigin><script async src="https://www.googletagmanager.com/gtag/js?id=G-82SWX0KLXT"></script><script>if (CONFIG.hostname === location.hostname) {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-82SWX0KLXT');
+}</script><meta name="description" content="MinicondaMiniconda是一个轻量级的Conda包管理器 安装包所有安装包：repo.anaconda.com&#x2F;miniconda Linux: python3.8 Miniconda3 Linux 64-bit ​            python3.7 Miniconda3 Linux 32-bit # 以前的版本没有ssh问题 wget https:&#x2F;&#x2F;repo.anac">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python环境配置">
+<meta property="og:url" content="https://sanzo.top/Default/python-env/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="MinicondaMiniconda是一个轻量级的Conda包管理器 安装包所有安装包：repo.anaconda.com&#x2F;miniconda Linux: python3.8 Miniconda3 Linux 64-bit ​            python3.7 Miniconda3 Linux 32-bit # 以前的版本没有ssh问题 wget https:&#x2F;&#x2F;repo.anac">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-06-25T03:37:14.000Z">
+<meta property="article:modified_time" content="2021-06-25T03:37:14.000Z">
+<meta property="article:author" content="Sanzo">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="miniconda">
+<meta property="article:tag" content="venv">
+<meta name="twitter:card" content="summary"><script src="/js/ui/mode.js"></script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="Table of Contents"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="Overview"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="Sanzo"><img width="96" loading="lazy" src="/img/sanzo.png" alt="Sanzo"></a><div class="site-author-name"><a href="/about/">Sanzo</a></div><span class="site-name"></span><sub class="site-subtitle"></sub><div class="site-desciption"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="Home"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="Archives"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">49</span></a></div><div class="site-state-item"><a href="/categories/" title="Categories"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">11</span></a></div><div class="site-state-item"><a href="/tags/" title="Tags"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">70</span></a></div><a class="site-state-item hty-icon-button" href="/about/#comment" title="Messages"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-chat-3-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-rss-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/Sanzo00" title="GitHub" target="_blank" style="color:var(--hty-text-color)"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/297299131" title="Bilibili" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://t.me/Sanzo00" title="Telegram" target="_blank" style="color:#0088CC"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-telegram-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:arrangeman@163.com" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="Friends" style="color:dodgerblue"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-genderless-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Miniconda"><span class="toc-number">1.</span> <span class="toc-text">Miniconda</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">1.1.</span> <span class="toc-text">安装包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-number">1.2.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">1.3.</span> <span class="toc-text">使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rpi"><span class="toc-number">1.4.</span> <span class="toc-text">rpi</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#venv"><span class="toc-number">2.</span> <span class="toc-text">venv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pytorch"><span class="toc-number">3.</span> <span class="toc-text">Pytorch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jupyter-notebook"><span class="toc-number">4.</span> <span class="toc-text">jupyter notebook</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ipykernel"><span class="toc-number">4.1.</span> <span class="toc-text">ipykernel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE"><span class="toc-number">4.2.</span> <span class="toc-text">远程访问</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://sanzo.top/Default/python-env/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="Sanzo"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">python环境配置</h1><div class="post-meta"><div class="post-time" style="display:block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="Created: 2021-06-25 11:37:14" itemprop="dateCreated datePublished" datetime="2021-06-25T11:37:14+08:00">2021-06-25</time></div><span class="post-count"><span class="post-symbolcount"><span class="post-meta-item-icon" title="Word count in article"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-file-word-line"></use></svg></span> <span title="Word count in article">476</span><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="Reading time"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-timer-line"></use></svg></span> <span title="Reading time">2m</span></span></span><span class="leancloud_visitors" id="/Default/python-env/" data-flag-title="python环境配置"><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="Views"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-eye-line"></use></svg> <span class="leancloud-visitors-count"></span></span></span><span class="post-meta-divider">-</span><a href="#comment"><span class="post-meta-item-icon" title="Comments"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-chat-3-line"></use></svg> <span class="waline-comment-count" id="/Default/python-env/"></span></span></a><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/Default/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">Default</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/python/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">python</span></a><a class="tag-item" href="/tags/miniconda/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">miniconda</span></a><a class="tag-item" href="/tags/venv/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">venv</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#0078E7;"><span id="more"></span>
+
+<hr>
+<h2 id="Miniconda"><a href="#Miniconda" class="headerlink" title="Miniconda"></a>Miniconda</h2><p>Miniconda是一个轻量级的Conda包管理器</p>
+<h3 id="安装包"><a href="#安装包" class="headerlink" title="安装包"></a>安装包</h3><p>所有安装包：<a target="_blank" rel="noopener" href="https://repo.anaconda.com/miniconda/">repo.anaconda.com/miniconda</a></p>
+<p>Linux: <a target="_blank" rel="noopener" href="https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh">python3.8 Miniconda3 Linux 64-bit</a></p>
+<p>​            <a target="_blank" rel="noopener" href="https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86.sh">python3.7 Miniconda3 Linux 32-bit</a></p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 以前的版本没有ssh问题</span>
+<span class="token function">wget</span> https://repo.anaconda.com/miniconda/Miniconda3-4.7.12.1-Linux-x86_64.sh</code></pre>
+
+
+
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>初始化终端：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">~/miniconda3/bin/conda init</code></pre>
+
+<p>如果失败可以手动添加<code>bin</code>目录。</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token string">"export PATH=\<span class="token environment constant">$PATH</span>:/home/pi/miniconda3/bin"</span> <span class="token operator">>></span> .bashrc</code></pre>
+
+
+
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><blockquote>
+<p>新建环境</p>
+</blockquote>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 新建名称为test的环境</span>
+conda create --name <span class="token builtin class-name">test</span> <span class="token assign-left variable">python</span><span class="token operator">=</span><span class="token number">3.8</span> -y
+
+<span class="token comment"># arm只能创建python=3.4的环境</span>
+conda create -n <span class="token builtin class-name">test</span> <span class="token assign-left variable">python</span><span class="token operator">=</span><span class="token number">3.4</span> -y</code></pre>
+
+
+
+<blockquote>
+<p>查看所有的环境</p>
+</blockquote>
+<pre class="language-bash" data-language="bash"><code class="language-bash">conda <span class="token function">env</span> list</code></pre>
+
+
+
+<blockquote>
+<p>使用环境</p>
+</blockquote>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 激活环境</span>
+conda activate <span class="token builtin class-name">test</span>
+<span class="token builtin class-name">source</span> activate <span class="token builtin class-name">test</span> <span class="token comment"># arm</span>
+
+<span class="token comment"># 退出当前环境</span>
+conda deactivate
+<span class="token builtin class-name">source</span> deactivate <span class="token comment"># arm</span>
+
+<span class="token comment"># 删除环境</span>
+conda remove -n test1 --all</code></pre>
+
+
+
+<h3 id="rpi"><a href="#rpi" class="headerlink" title="rpi"></a>rpi</h3><p>armv7l: <a target="_blank" rel="noopener" href="https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-armv7l.sh">miniconda3-latest-linux-armv7l.sh</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/jjhelmus/berryconda/releases/download/v2.0.0/Berryconda3-2.0.0-Linux-armv7l.sh">Berryconda3-2.0.0-Linux-armv7l.sh</a></p>
+<p>arm版本的miniconda最高只能安装<code>python3.4</code>，如果需要安装更高版本的<code>python</code>，需要第三方conda，这里使用的是 <a target="_blank" rel="noopener" href="https://github.com/jjhelmus/berryconda">berryconda</a>，目前最高支持到<code>python3.6</code>。</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">conda config --add channels rpi
+
+conda create --name <span class="token builtin class-name">test</span> <span class="token assign-left variable">python</span><span class="token operator">=</span><span class="token number">3.6</span> -y</code></pre>
+
+
+
+
+
+<h2 id="venv"><a href="#venv" class="headerlink" title="venv"></a>venv</h2><p>python自带的虚拟环境模块</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 新建</span>
+python -m venv /path/venv_name
+
+<span class="token comment"># 激活</span>
+<span class="token builtin class-name">source</span> /path/venv_name/bin/activate
+
+<span class="token comment"># 退出</span>
+deactivate</code></pre>
+
+
+
+<p><a target="_blank" rel="noopener" href="https://www.python.org/ftp/python/3.8.5/Python-3.8.5.tgz">https://www.python.org/ftp/python/3.8.5/Python-3.8.5.tgz</a></p>
+<h2 id="Pytorch"><a href="#Pytorch" class="headerlink" title="Pytorch"></a>Pytorch</h2><p>old version lib torch: <a target="_blank" rel="noopener" href="https://github.com/pytorch/pytorch/issues/40961">https://github.com/pytorch/pytorch/issues/40961</a></p>
+<p><a target="_blank" rel="noopener" href="https://pytorch.org/get-started/locally/">Pytorch</a>，选择对应cuda版本。</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">torch.version <span class="token comment"># PyTorch version</span>
+torch.version.cuda <span class="token comment"># Corresponding CUDA version</span>
+torch.backends.cudnn.version<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># Corresponding cuDNN version</span>
+torch.cuda.get_device_name<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token comment"># GPU type</span></code></pre>
+
+
+
+<h2 id="jupyter-notebook"><a href="#jupyter-notebook" class="headerlink" title="jupyter notebook"></a>jupyter notebook</h2><h3 id="ipykernel"><a href="#ipykernel" class="headerlink" title="ipykernel"></a>ipykernel</h3><p>通过ipykernel管理jupyter notebook的内核。</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 激活环境</span>
+activate env_name
+
+<span class="token comment"># 安装ipykernel</span>
+pip <span class="token function">install</span> ipykernel
+
+<span class="token comment"># 添加kernel</span>
+python -m ipykernel <span class="token function">install</span> --name env_name
+
+<span class="token comment"># 删除内核</span>
+jupyter kernelspec remove kernelname
+
+<span class="token comment"># 查看所有内核</span>
+jupyter kernelspec list</code></pre>
+
+
+
+<h3 id="远程访问"><a href="#远程访问" class="headerlink" title="远程访问"></a>远程访问</h3><p>生成密钥</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 通过ipython生成密码</span>
+ipython
+
+In <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>: from notebook.auth <span class="token function">import</span> <span class="token function">passwd</span>
+In <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>: passwd<span class="token punctuation">(</span><span class="token punctuation">)</span>
+Enter password: 
+Verify password: 
+Out<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span>: <span class="token string">'xxxxxxxxxxxxxxxxxxxxxx'</span>
+
+<span class="token comment"># 生成配置文件，并添加如下配置</span>
+jupyter notebook --generate-config
+
+c.NotebookApp.ip<span class="token operator">=</span><span class="token string">'0.0.0.0'</span>
+c.NotebookApp.password <span class="token operator">=</span> u<span class="token string">'xxxxxxxxxxxxxxxxxxxxxx'</span>
+c.NotebookApp.open_browser <span class="token operator">=</span> False
+c.NotebookApp.port <span class="token operator">=</span><span class="token number">8888</span></code></pre>
+
+<p>然后就可以通过[<a href="https://ip:8888远程访问`jupyter](https://ip:8888远程访问`jupyter/)">https://ip:8888远程访问`jupyter](https://ip:8888远程访问`jupyter/)</a> notebook`</p>
+<!-- Q.E.D. -->
+
+</div><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="Donate" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-hand-coin-line"></use></svg></span><div id="reward-comment">Donate me.</div><div id="qr" style="display:none;"><div style="display:inline-block"><a target="_blank" rel="noopener" href="https://img.sanzo.top/img/reward/alipay.jpg"><img loading="lazy" src="https://img.sanzo.top/img/reward/alipay.jpg" alt="支付宝" title="支付宝"></a><div><span style="color:#00A3EE"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-alipay-line"></use></svg></span></div></div><div style="display:inline-block"><a target="_blank" rel="noopener" href="https://img.sanzo.top/img/reward/qqpay.jpg"><img loading="lazy" src="https://img.sanzo.top/img/reward/qqpay.jpg" alt="QQ 支付" title="QQ 支付"></a><div><span style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></span></div></div><div style="display:inline-block"><a target="_blank" rel="noopener" href="https://img.sanzo.top/img/reward/wechat.jpg"><img loading="lazy" src="https://img.sanzo.top/img/reward/wechat.jpg" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-pay-line"></use></svg></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>Post author: </strong>Sanzo</li><li class="post-copyright-link"><strong>Post link: </strong><a href="https://sanzo.top/Default/python-env/" title="python环境配置">https://sanzo.top/Default/python-env/</a></li><li class="post-copyright-license"><strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> unless otherwise stated.</li></ul></section></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/Default/graph/" rel="prev" title="图论基础"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">图论基础</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/Paper/deepwalk/" rel="next" title="DeepWalk: Online Learning of Social Representations"><span class="post-nav-text">DeepWalk: Online Learning of Social Representations</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>Leave me a message.</span><br></div><div id="waline"></div><script>Yun.utils.getScript("https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js", () => {
+  const walineConfig = {"enable":true,"serverURL":"https://pinglun-ten.vercel.app/","comment":true,"visitor":true,"avatar":"mp","avatarCDN":"https://cdn.v2ex.com/gravatar/","placeholder":"填写邮箱，可以收到回复通知哦～","requiredFields":["nick"],"emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/qq"],"emojiCDN":"https://cdn.jsdelivr.net/gh/GamerNoTitle/ValineCDN@master/","langMode":{"nick":"昵称","mail":"邮箱","link":"网址"},"el":"#waline","lang":"en"}
+  walineConfig.path = "/Default/python-env/"
+  new Waline(walineConfig)
+}, window.Waline);</script></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2021 – 2022 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> Sanzo</span></div><div class="footer-support"><span>本网站由</span><a class="footer-support-logo" href="https://www.upyun.com/?utm_source=lianmeng&amp;utm_medium=referral" target="blank" title="又拍云"><img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" alt="又拍云"></a><span>提供云存储服务</span></div></footer><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a><a class="popup-trigger hty-icon-button icon-search" id="search" href="javascript:;" title="Search"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-search-line"></use></svg></span></a><script>window.addEventListener("DOMContentLoaded", () => {
+  // Handle and trigger popup window
+  document.querySelector(".popup-trigger").addEventListener("click", () => {
+    document.querySelector(".popup").classList.add("show");
+    setTimeout(() => {
+      document.querySelector(".search-input").focus();
+    }, 100);
+  });
+
+  // Monitor main search box
+  const onPopupClose = () => {
+    document.querySelector(".popup").classList.remove("show");
+  };
+
+  document.querySelector(".popup-btn-close").addEventListener("click", () => {
+    onPopupClose();
+  });
+
+  window.addEventListener("keyup", event => {
+    if (event.key === "Escape") {
+      onPopupClose();
+    }
+  });
+});
+</script><script src="/js/search/local-search.js" defer></script><div class="popup search-popup"><div class="search-header"><span class="popup-btn-close close-icon hty-icon-button"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-close-line"></use></svg></span></div><div class="search-input-container"><input class="search-input" id="local-search-input" type="text" placeholder="Searching..." value=""></div><div id="local-search-result"></div></div><script>const date = new Date();
+const today = (date.getMonth() + 1) + "-" + date.getDate()
+const mourn_days = ["9-18"]
+if (mourn_days.includes(today)) {
+  document.documentElement.style.filter = "grayscale(1)";
+}</script></div></body></html>

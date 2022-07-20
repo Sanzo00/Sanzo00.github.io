@@ -1,0 +1,903 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="Sanzo"><meta name="copyright" content="Sanzo"><meta name="generator" content="Hexo 5.4.2"><meta name="theme" content="hexo-theme-yun"><title>cmake笔记 | null</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.25/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_j5gk85dg4pf.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>document.addEventListener("DOMContentLoaded", () => {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+});
+</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.css"><script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/copy-tex.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@latest/dist/contrib/auto-render.min.js"></script><script>document.addEventListener("DOMContentLoaded", () => {
+  Yun.utils.renderKatex();
+});</script><link id="light-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: light)"><link id="dark-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)"><link rel="icon" href="/img/sanzo.ico"><link rel="mask-icon" href="/img/sanzo.ico" color="#0078E7"><link rel="alternate icon" href="/yun.ico"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"hostname":"sanzo.top","root":"/","title":"云游君的小站","version":"1.6.1","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn?c=k&c=h","hitokoto":true},"local_search":{"path":"/search.xml"},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/utils.js"></script><script src="/js/hexo-theme-yun.js"></script><link rel="alternate" href="/atom.xml" title="null" type="application/atom+xml"><link rel="preconnect" href="https://www.google-analytics.com" crossorigin><script async src="https://www.googletagmanager.com/gtag/js?id=G-82SWX0KLXT"></script><script>if (CONFIG.hostname === location.hostname) {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-82SWX0KLXT');
+}</script><meta name="description" content="本文的源代码：github.com&#x2F;Sanzo00&#x2F;cmake-examples 参考项目：github.com&#x2F;ttroy50&#x2F;cmake-examples 中文学习地址：cmake-examples-Chinese basichello cmake. ├── CMakeLists.txt └── main.cpp    # CMakeLists.txt # Set the minimum">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cmake笔记">
+<meta property="og:url" content="https://sanzo.top/Default/cmake/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="本文的源代码：github.com&#x2F;Sanzo00&#x2F;cmake-examples 参考项目：github.com&#x2F;ttroy50&#x2F;cmake-examples 中文学习地址：cmake-examples-Chinese basichello cmake. ├── CMakeLists.txt └── main.cpp    # CMakeLists.txt # Set the minimum">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-07-04T14:50:47.000Z">
+<meta property="article:modified_time" content="2021-07-04T14:50:47.000Z">
+<meta property="article:author" content="Sanzo">
+<meta property="article:tag" content="cmake">
+<meta name="twitter:card" content="summary"><script src="/js/ui/mode.js"></script></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="Table of Contents"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="Overview"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="Sanzo"><img width="96" loading="lazy" src="/img/sanzo.png" alt="Sanzo"></a><div class="site-author-name"><a href="/about/">Sanzo</a></div><span class="site-name"></span><sub class="site-subtitle"></sub><div class="site-desciption"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="Home"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="Archives"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">49</span></a></div><div class="site-state-item"><a href="/categories/" title="Categories"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">11</span></a></div><div class="site-state-item"><a href="/tags/" title="Tags"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">70</span></a></div><a class="site-state-item hty-icon-button" href="/about/#comment" title="Messages"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-chat-3-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-rss-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/Sanzo00" title="GitHub" target="_blank" style="color:var(--hty-text-color)"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/297299131" title="Bilibili" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://t.me/Sanzo00" title="Telegram" target="_blank" style="color:#0088CC"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-telegram-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:arrangeman@163.com" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="Friends" style="color:dodgerblue"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-genderless-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#basic"><span class="toc-number">1.</span> <span class="toc-text">basic</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hello-cmake"><span class="toc-number">1.1.</span> <span class="toc-text">hello cmake</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hello-headers"><span class="toc-number">1.2.</span> <span class="toc-text">hello headers</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#static-library"><span class="toc-number">1.3.</span> <span class="toc-text">static library</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shared-library"><span class="toc-number">1.4.</span> <span class="toc-text">shared library</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#installing"><span class="toc-number">1.5.</span> <span class="toc-text">installing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#build-type"><span class="toc-number">1.6.</span> <span class="toc-text">build type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#compile-flags"><span class="toc-number">1.7.</span> <span class="toc-text">compile flags</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#third-party-library"><span class="toc-number">1.8.</span> <span class="toc-text">third party library</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#compiling-with-clang"><span class="toc-number">1.9.</span> <span class="toc-text">compiling with clang</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#building-with-ninja"><span class="toc-number">1.10.</span> <span class="toc-text">building with ninja</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cpp-standard"><span class="toc-number">1.11.</span> <span class="toc-text">cpp standard</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sub-projects"><span class="toc-number">2.</span> <span class="toc-text">sub projects</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#code-generation"><span class="toc-number">3.</span> <span class="toc-text">code generation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#configure-files"><span class="toc-number">3.1.</span> <span class="toc-text">configure files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#protobuf"><span class="toc-number">3.2.</span> <span class="toc-text">protobuf</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://sanzo.top/Default/cmake/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="Sanzo"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">cmake笔记</h1><div class="post-meta"><div class="post-time" style="display:block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="Created: 2021-07-04 22:50:47" itemprop="dateCreated datePublished" datetime="2021-07-04T22:50:47+08:00">2021-07-04</time></div><span class="post-count"><span class="post-symbolcount"><span class="post-meta-item-icon" title="Word count in article"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-file-word-line"></use></svg></span> <span title="Word count in article">2.4k</span><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="Reading time"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-timer-line"></use></svg></span> <span title="Reading time">14m</span></span></span><span class="leancloud_visitors" id="/Default/cmake/" data-flag-title="cmake笔记"><span class="post-meta-divider">-</span><span class="post-meta-item-icon" title="Views"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-eye-line"></use></svg> <span class="leancloud-visitors-count"></span></span></span><span class="post-meta-divider">-</span><a href="#comment"><span class="post-meta-item-icon" title="Comments"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-chat-3-line"></use></svg> <span class="waline-comment-count" id="/Default/cmake/"></span></span></a><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/Default/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">Default</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/cmake/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">cmake</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#0078E7;"><span id="more"></span>
+
+<hr>
+<p>本文的源代码：<a target="_blank" rel="noopener" href="https://github.com/Sanzo00/cmake-examples">github.com/Sanzo00/cmake-examples</a></p>
+<p>参考项目：<a target="_blank" rel="noopener" href="https://github.com/ttroy50/cmake-examples/tree/master/">github.com/ttroy50/cmake-examples</a></p>
+<p>中文学习地址：<a target="_blank" rel="noopener" href="https://sfumecjf.github.io/cmake-examples-Chinese/">cmake-examples-Chinese</a></p>
+<h2 id="basic"><a href="#basic" class="headerlink" title="basic"></a>basic</h2><h3 id="hello-cmake"><a href="#hello-cmake" class="headerlink" title="hello cmake"></a>hello cmake</h3><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">.</span>
+├── CMakeLists.txt
+└── main.cpp</code></pre>
+
+
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># CMakeLists.txt</span>
+<span class="token comment"># Set the minimum version of CMake that can be used</span>
+<span class="token comment"># To find the cmake version run</span>
+<span class="token comment"># $ cmake --version</span>
+cmake_minimum_required<span class="token punctuation">(</span>VERSION <span class="token number">3.5</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Set the project name</span>
+project <span class="token punctuation">(</span>hello_cmake<span class="token punctuation">)</span>
+
+<span class="token comment"># Add an executable</span>
+add_executable<span class="token punctuation">(</span>hello_cmake main.cpp<span class="token punctuation">)</span>
+<span class="token comment"># add_executable($&#123;PROJECT_NAME&#125; main.cpp)</span></code></pre>
+
+<pre class="language-none"><code class="language-none">message(&quot;CMAKE_SOURCE_DIR: $&#123;CMAKE_SOURCE_DIR&#125;&quot;)
+message(&quot;CMAKE_CURRENT_SOURCE_DIR: $&#123;CMAKE_CURRENT_SOURCE_DIR&#125;&quot;)
+message(&quot;PROJECT_SOURCE_DIR: $&#123;PROJECT_SOURCE_DIR&#125;&quot;)
+message(&quot;CMAKE_BINARY_DIR: $&#123;CMAKE_BINARY_DIR&#125;&quot;)
+message(&quot;CMAKE_CURRENT_BINARY_DIR: $&#123;CMAKE_CURRENT_BINARY_DIR&#125;&quot;)
+message(&quot;PROJECT_BINARY_DIR: $&#123;PROJECT_BINARY_DIR&#125;&quot;)</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Info</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CMAKE_SOURCE_DIR</td>
+<td>CMakeLists.txt的根目录</td>
+</tr>
+<tr>
+<td>CMAKE_CURRENT_SOURCE_DIR</td>
+<td>当前处理CMakeLists.txt的目录</td>
+</tr>
+<tr>
+<td>PROJECT_SOURCE_DIR</td>
+<td>项目根目录</td>
+</tr>
+<tr>
+<td>CMAKE_BINARY_DIR</td>
+<td>执行cmake的目录（build）</td>
+</tr>
+<tr>
+<td>CMAKE_CURRENT_BINARY_DIR</td>
+<td>当前所在的build目录</td>
+</tr>
+<tr>
+<td>PROJECT_BINARY_DIR</td>
+<td>项目构建的目录</td>
+</tr>
+</tbody></table>
+<h3 id="hello-headers"><a href="#hello-headers" class="headerlink" title="hello headers"></a>hello headers</h3><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">.</span>
+├── CMakeLists.txt
+├── include
+│   └── Hello.h
+└── src
+    ├── Hello.cpp
+    └── main.cpp
+</code></pre>
+
+
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># CMakeLists.txt</span>
+cmake_minimum_required<span class="token punctuation">(</span>VERSION <span class="token number">3.5</span><span class="token punctuation">)</span>
+project <span class="token punctuation">(</span>hello_headers<span class="token punctuation">)</span>
+
+<span class="token comment"># 创建SOURCES变量，保存所有的源文件</span>
+set<span class="token punctuation">(</span>SOURCES
+  src/Hello.cpp
+  src/main.cpp
+<span class="token punctuation">)</span>
+
+<span class="token comment"># 创建可执行文件</span>
+add_executable<span class="token punctuation">(</span>hello_headers <span class="token variable">$&#123;SOURCES&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 指定头文件</span>
+target_include_directories<span class="token punctuation">(</span><span class="token variable">$&#123;PROJECT_NAME&#125;</span>
+  PRIVATE 
+  <span class="token variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/include
+<span class="token punctuation">)</span></code></pre>
+
+
+
+<h3 id="static-library"><a href="#static-library" class="headerlink" title="static library"></a>static library</h3><pre class="language-bash" data-language="bash"><code class="language-bash">$ tree
+<span class="token builtin class-name">.</span>
+├── CMakeLists.txt
+├── include
+│   └── static
+│       └── Hello.h
+└── src
+    ├── Hello.cpp
+    └── main.cpp</code></pre>
+
+
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># CMakeLists.txt</span>
+cmake_minimum_required<span class="token punctuation">(</span>VERSION <span class="token number">3.5</span><span class="token punctuation">)</span>
+project<span class="token punctuation">(</span>hello_library<span class="token punctuation">)</span>
+
+<span class="token comment">####################################</span>
+<span class="token comment"># Create a library</span>
+<span class="token comment">####################################</span>
+
+add_library<span class="token punctuation">(</span>hello_library STATIC
+  src/Hello.cpp
+<span class="token punctuation">)</span>
+
+target_include_directories<span class="token punctuation">(</span>hello_library
+  PUBLIC
+    <span class="token variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/include
+<span class="token punctuation">)</span>
+
+<span class="token comment">###################################</span>
+<span class="token comment"># Create an executable</span>
+<span class="token comment">###################################</span>
+<span class="token comment"># Add an executable with the above sources</span>
+add_executable<span class="token punctuation">(</span>hello_binary
+  src/main.cpp
+<span class="token punctuation">)</span>
+
+<span class="token comment"># link the new hello_library target with the hello_binary target</span>
+target_link_libraries<span class="token punctuation">(</span> hello_binary
+  PRIVATE
+    hello_library
+<span class="token punctuation">)</span></code></pre>
+
+
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建静态库文件 libhello_library.a</span>
+add_library<span class="token punctuation">(</span>hello_library STATIC
+  src/Hello.cpp
+<span class="token punctuation">)</span></code></pre>
+
+
+
+<h3 id="shared-library"><a href="#shared-library" class="headerlink" title="shared library"></a>shared library</h3><pre class="language-bash" data-language="bash"><code class="language-bash">$ tree
+<span class="token builtin class-name">.</span>
+├── CMakeLists.txt
+├── include
+│   └── shared
+│       └── Hello.h
+└── src
+    ├── Hello.cpp
+    └── main.cpp</code></pre>
+
+
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># CMakeLists.txt</span>
+cmake_minimum_required<span class="token punctuation">(</span>VERSION <span class="token number">3.5</span><span class="token punctuation">)</span>
+project<span class="token punctuation">(</span>hello_library<span class="token punctuation">)</span>
+
+<span class="token comment">#######################################</span>
+<span class="token comment"># Create a library</span>
+<span class="token comment">#######################################</span>
+
+add_library<span class="token punctuation">(</span>hello_library SHARED
+  src/Hello.cpp
+<span class="token punctuation">)</span>
+
+add_library<span class="token punctuation">(</span>hello::library ALIAS hello_library<span class="token punctuation">)</span>
+
+
+target_include_directories<span class="token punctuation">(</span>hello_library 
+  PUBLIC
+    <span class="token variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/include
+<span class="token punctuation">)</span>
+
+
+<span class="token comment">#######################################</span>
+<span class="token comment"># Create an executable</span>
+<span class="token comment">#######################################</span>
+
+add_executable<span class="token punctuation">(</span>hello_binary
+  src/main.cpp
+<span class="token punctuation">)</span>
+
+target_link_libraries<span class="token punctuation">(</span>hello_binary PRIVATE
+  hello::library
+<span class="token punctuation">)</span></code></pre>
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建动态库文件 libhello_library.so</span>
+add_library<span class="token punctuation">(</span>hello_library SHARED
+  src/Hello.cpp
+<span class="token punctuation">)</span>
+
+<span class="token comment"># 对库起别名为hello:library</span>
+add_library<span class="token punctuation">(</span>hello::library ALIAS hello_library<span class="token punctuation">)</span></code></pre>
+
+
+
+<h3 id="installing"><a href="#installing" class="headerlink" title="installing"></a>installing</h3><pre class="language-bash" data-language="bash"><code class="language-bash">$ tree
+<span class="token builtin class-name">.</span>
+├── cmake-examples.conf
+├── CMakeLists.txt
+├── include
+│   └── installing
+│       └── Hello.h
+├── README.adoc
+└── src
+    ├── Hello.cpp
+    └── main.cpp</code></pre>
+
+
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># CMakeLists.txt</span>
+cmake_minimum_required<span class="token punctuation">(</span>VERSION <span class="token number">3.5</span><span class="token punctuation">)</span>
+project<span class="token punctuation">(</span>cmake_install<span class="token punctuation">)</span>
+
+<span class="token comment">############################################</span>
+<span class="token comment"># Create a library</span>
+<span class="token comment">############################################</span>
+add_library<span class="token punctuation">(</span>cmake_inst SHARED
+  src/Hello.cpp
+<span class="token punctuation">)</span>
+
+target_include_directories<span class="token punctuation">(</span>cmake_inst
+  PUBLIC
+    <span class="token variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/include
+<span class="token punctuation">)</span>
+
+<span class="token comment">############################################</span>
+<span class="token comment"># Create an executable</span>
+<span class="token comment">############################################</span>
+add_executable<span class="token punctuation">(</span>cmake_install_bin
+  src/main.cpp
+<span class="token punctuation">)</span>
+
+target_link_libraries<span class="token punctuation">(</span>cmake_install_bin 
+  PRIVATE
+    cmake_inst
+<span class="token punctuation">)</span>
+
+<span class="token comment">############################################</span>
+<span class="token comment"># Install</span>
+<span class="token comment">############################################</span>
+<span class="token comment"># Binaries</span>
+install<span class="token punctuation">(</span>TARGETS cmake_install_bin DESTINATION bin<span class="token punctuation">)</span>
+
+<span class="token comment"># Library</span>
+install<span class="token punctuation">(</span>TARGETS cmake_inst LIBRARY DESTINATION lib<span class="token punctuation">)</span>
+
+<span class="token comment"># Header files</span>
+install<span class="token punctuation">(</span>DIRECTORY <span class="token variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/include/ DESTINATION include<span class="token punctuation">)</span>
+
+<span class="token comment"># Config</span>
+install<span class="token punctuation">(</span>FILES cmake.conf DESTINATION etc<span class="token punctuation">)</span>
+
+<span class="token comment"># set make install directory</span>
+if<span class="token punctuation">(</span>CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT<span class="token punctuation">)</span>
+  set<span class="token punctuation">(</span>CMAKE_INSTALL_PREFIX <span class="token string">"<span class="token variable">$&#123;CMAKE_BINARY_DIR&#125;</span>/install"</span> CACHE <span class="token environment constant">PATH</span> <span class="token string">"The path to use for make install"</span> FORCE<span class="token punctuation">)</span>
+endif<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Debug for CMAKE_INSTALL_PREFIX</span>
+message<span class="token punctuation">(</span><span class="token string">"CMAKE_INSTALL_PREFIX: "</span> <span class="token variable">$&#123;CMAKE_INSTALL_PREFIX&#125;</span><span class="token punctuation">)</span></code></pre>
+
+
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 指定make instal的目录为./install</span>
+cmake <span class="token punctuation">..</span> -D <span class="token assign-left variable">CMAKE_INSTALL_PREFIX</span><span class="token operator">=</span>./install
+
+<span class="token comment"># 在未指定install目录时，可以在CMakeLists.txt中设置make install的目录</span>
+if<span class="token punctuation">(</span>CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT<span class="token punctuation">)</span>
+  set<span class="token punctuation">(</span>CMAKE_INSTALL_PREFIX <span class="token string">"<span class="token variable">$&#123;CMAKE_BINARY_DIR&#125;</span>/install"</span> CACHE <span class="token environment constant">PATH</span> <span class="token string">"The path to use for make install"</span> FORCE<span class="token punctuation">)</span>
+endif<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 在make install也可以通过DESTDIR=/tmp/stage，安装到$&#123;DESTDIR&#125;/$&#123;CMAKE_INSTALL_PREFIX&#125;</span>
+<span class="token function">make</span> <span class="token function">install</span> <span class="token assign-left variable">DESTDIR</span><span class="token operator">=</span>/tmp/stage
+
+<span class="token comment"># Uninstall</span>
+<span class="token function">sudo</span> <span class="token function">xargs</span> <span class="token function">rm</span> <span class="token operator">&lt;</span> install_manifest.txt</code></pre>
+
+
+
+<h3 id="build-type"><a href="#build-type" class="headerlink" title="build type"></a>build type</h3><pre class="language-bash" data-language="bash"><code class="language-bash">$ tree
+<span class="token builtin class-name">.</span>
+├── CMakeLists.txt
+├── main.cpp</code></pre>
+
+
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># CMakeLists.txt</span>
+cmake_minimum_required<span class="token punctuation">(</span>VERSION <span class="token number">3.5</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Set a default build type if none was specified</span>
+<span class="token comment"># Release, Debug, MinSizeRel, RelWithDebInfo</span>
+if<span class="token punctuation">(</span>NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES<span class="token punctuation">)</span>
+  message<span class="token punctuation">(</span><span class="token string">"Setting build type to 'RelWithDebInfo' as none was specified."</span><span class="token punctuation">)</span>
+  set<span class="token punctuation">(</span>CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING <span class="token string">"Choose the type of build."</span> FORCE<span class="token punctuation">)</span>
+  <span class="token comment"># Set the possible values of build type for cmake-gui</span>
+  set_property<span class="token punctuation">(</span>CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS <span class="token string">"Debug"</span> <span class="token string">"Release"</span>
+    <span class="token string">"MinSizeRel"</span> <span class="token string">"RelWithDebInfo"</span><span class="token punctuation">)</span>
+endif<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+project<span class="token punctuation">(</span>build_type<span class="token punctuation">)</span>
+
+add_executable<span class="token punctuation">(</span><span class="token variable">$&#123;PROJECT_NAME&#125;</span>
+  main.cpp
+<span class="token punctuation">)</span></code></pre>
+
+
+
+<p>Cmake提供四种构建类型：</p>
+<ol>
+<li>Release，<code>-O3 -DNDEBUG</code></li>
+<li>Debug，<code>-g</code></li>
+<li>MinSizeRel，<code>-Os -DNDEBUG</code></li>
+<li>RelWithDebInfo，<code>-O2 -g -DNDEBUG</code></li>
+</ol>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 用户在cmake时指定编译类型</span>
+cmake <span class="token punctuation">..</span> -DCMAKE_BUILD_TYPE<span class="token operator">=</span>Release
+
+<span class="token comment"># 设置默认的构建类型</span>
+<span class="token comment"># Release, Debug, MinSizeRel, RelWithDebInfo</span>
+if<span class="token punctuation">(</span>NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES<span class="token punctuation">)</span>
+  message<span class="token punctuation">(</span><span class="token string">"Setting build type to 'RelWithDebInfo' as none was specified."</span><span class="token punctuation">)</span>
+  set<span class="token punctuation">(</span>CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING <span class="token string">"Choose the type of build."</span> FORCE<span class="token punctuation">)</span>
+  <span class="token comment"># Set the possible values of build type for cmake-gui</span>
+  set_property<span class="token punctuation">(</span>CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS <span class="token string">"Debug"</span> <span class="token string">"Release"</span>
+    <span class="token string">"MinSizeRel"</span> <span class="token string">"RelWithDebInfo"</span><span class="token punctuation">)</span>
+endif<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+
+
+
+<h3 id="compile-flags"><a href="#compile-flags" class="headerlink" title="compile flags"></a>compile flags</h3><pre class="language-bash" data-language="bash"><code class="language-bash">$ tree
+<span class="token builtin class-name">.</span>
+├── CMakeLists.txt
+├── main.cpp</code></pre>
+
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// main.cpp</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span> argv<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+
+  std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Hello Compile Flags!"</span> <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
+
+<span class="token comment">// only print if compile flag set</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifdef</span> <span class="token expression">EX2</span></span>
+  std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Hello Compile Flag EX2!"</span> <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifdef</span> <span class="token expression">EX3</span></span>
+  std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Hello Compile Flag EX3!"</span> <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
+
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># CMakeLists.txt</span>
+cmake_minimum_required<span class="token punctuation">(</span>VERSION <span class="token number">3.5</span><span class="token punctuation">)</span>
+project<span class="token punctuation">(</span>compile_flags<span class="token punctuation">)</span>
+
+add_executable<span class="token punctuation">(</span><span class="token variable">$&#123;PROJECT_NAME&#125;</span>
+  main.cpp
+<span class="token punctuation">)</span>
+
+<span class="token comment"># Set a default C++ compile flag</span>
+set<span class="token punctuation">(</span>CMAKE_CXX_FLAGS <span class="token string">"<span class="token variable">$&#123;CMAKE_CXX_FLAGS&#125;</span> -DEX2"</span> CACHE STRING <span class="token string">"Set C++ Compile Flags"</span> FORCE<span class="token punctuation">)</span>
+
+target_compile_definitions<span class="token punctuation">(</span><span class="token variable">$&#123;PROJECT_NAME&#125;</span> PRIVATE EX3<span class="token punctuation">)</span></code></pre>
+
+
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 为特定的可执行文件或库设置compile flags</span>
+target_compile_definitions<span class="token punctuation">(</span><span class="token variable">$&#123;PROJECT_NAME&#125;</span> PRIVATE EX3<span class="token punctuation">)</span>
+
+<span class="token comment"># 设置全局的compile flags</span>
+set<span class="token punctuation">(</span>CMAKE_CXX_FLAGS <span class="token string">"<span class="token variable">$&#123;CMAKE_CXX_FLAGS&#125;</span> -DEX2"</span> CACHE STRING <span class="token string">"Set C++ Compile Flags"</span> FORCE<span class="token punctuation">)</span>
+
+<span class="token comment"># 通过cmake设置</span>
+cmake <span class="token punctuation">..</span> -DCMAKE_CXX_FLAGS<span class="token operator">=</span><span class="token string">"-DEX3"</span></code></pre>
+
+
+
+<h3 id="third-party-library"><a href="#third-party-library" class="headerlink" title="third party library"></a>third party library</h3><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装依赖</span>
+<span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> libboost-system-dev libboost-filesystem-dev</code></pre>
+
+
+
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ tree
+<span class="token builtin class-name">.</span>
+├── CMakeLists.txt
+├── main.cpp</code></pre>
+
+
+
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// main.cpp</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;boost/shared_ptr.hpp></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;boost/filesystem.hpp></span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span> argv<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+
+  std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Hello Third Party Include!"</span> <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
+
+  <span class="token comment">// use a shared ptr</span>
+  boost<span class="token double-colon punctuation">::</span>shared_ptr<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token function">isp</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// trivial use of boost filesystem</span>
+  boost<span class="token double-colon punctuation">::</span>filesystem<span class="token double-colon punctuation">::</span>path path <span class="token operator">=</span> <span class="token string">"/usr/share/cmake/modules"</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>path<span class="token punctuation">.</span><span class="token function">is_relative</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Path is relative"</span> <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+    std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Path is not relative"</span> <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># CMakeLists.txt</span>
+cmake_minimum_required<span class="token punctuation">(</span>VERSION <span class="token number">3.5</span><span class="token punctuation">)</span>
+project<span class="token punctuation">(</span>third_party_library<span class="token punctuation">)</span>
+
+<span class="token comment"># find a boost install with the libraries filesystem and system</span>
+find_package<span class="token punctuation">(</span>Boost <span class="token number">1.46</span>.1 REQUIRED COMPONENTS filesystem system<span class="token punctuation">)</span>
+
+<span class="token comment"># check if boost was found</span>
+if<span class="token punctuation">(</span>Boost_FOUND<span class="token punctuation">)</span>
+  message<span class="token punctuation">(</span><span class="token string">"boost found"</span><span class="token punctuation">)</span>
+else<span class="token punctuation">(</span><span class="token punctuation">)</span>
+  message<span class="token punctuation">(</span>FATAL_ERROR <span class="token string">"Cannot find boost"</span><span class="token punctuation">)</span>
+endif<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+
+add_executable<span class="token punctuation">(</span><span class="token variable">$&#123;PROJECT_NAME&#125;</span>
+  main.cpp
+<span class="token punctuation">)</span>
+
+<span class="token comment"># link against the boost libraries</span>
+target_link_libraries<span class="token punctuation">(</span><span class="token variable">$&#123;PROJECT_NAME&#125;</span>
+  PRIVATE
+    Boost::filesystem
+<span class="token punctuation">)</span></code></pre>
+
+
+
+<blockquote>
+<p>查找库</p>
+</blockquote>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># find package</span>
+find_package<span class="token punctuation">(</span>Boost <span class="token number">1.46</span>.1 REQUIRED COMPONENTS filesystem system<span class="token punctuation">)</span></code></pre>
+
+<p>Boost为库的名称</p>
+<p>1.46.1是最低的版本号</p>
+<p>REQUIRED表示这是必需的库，如果找不到报错。</p>
+<p>COMPONENTS是要查找的库列表</p>
+<blockquote>
+<p>检查库是否存在</p>
+</blockquote>
+<p>大多数被包含的库都会设置变量<code>xxx_FOUND</code></p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># check if boost was found</span>
+if<span class="token punctuation">(</span>Boost_FOUND<span class="token punctuation">)</span>
+  message<span class="token punctuation">(</span><span class="token string">"boost found"</span><span class="token punctuation">)</span>
+else<span class="token punctuation">(</span><span class="token punctuation">)</span>
+  message<span class="token punctuation">(</span>FATAL_ERROR <span class="token string">"Cannot find boost"</span><span class="token punctuation">)</span>
+endif<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+
+<p>如果库存在，一般会设置如下参数用来定位库：</p>
+<ul>
+<li><code>xxx_INCLUDE_DIRS</code> - 头文件位置</li>
+<li><code>xxx_LIBRARY</code> - 库位置</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># Include the boost headers</span>
+target_include_directories<span class="token punctuation">(</span> third_party_include
+    PRIVATE <span class="token variable">$&#123;Boost_INCLUDE_DIRS&#125;</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment"># link against the boost libraries</span>
+target_link_libraries<span class="token punctuation">(</span> third_party_include
+    PRIVATE
+    <span class="token variable">$&#123;Boost_SYSTEM_LIBRARY&#125;</span>
+    <span class="token variable">$&#123;Boost_FILESYSTEM_LIBRARY&#125;</span>
+<span class="token punctuation">)</span></code></pre>
+
+
+
+<blockquote>
+<p>别名</p>
+</blockquote>
+<p>大多数modern CMake库包含别名，例如对于boost来说可以使用：</p>
+<ul>
+<li><code>Boost::boost</code> for header only libraries</li>
+<li><code>Boost::system</code> for the boost system library.</li>
+<li><code>Boost::filesystem</code> for filesystem library.</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash">target_link_libraries<span class="token punctuation">(</span> third_party_include
+	PRIVATE
+		Boost::filesystem
+<span class="token punctuation">)</span></code></pre>
+
+<h3 id="compiling-with-clang"><a href="#compiling-with-clang" class="headerlink" title="compiling with clang"></a>compiling with clang</h3><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># install clang</span>
+<span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> clang</code></pre>
+
+
+
+
+
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ tree
+<span class="token builtin class-name">.</span>
+├── CMakeLists.txt
+├── main.cpp</code></pre>
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># CMakeLists.txt</span>
+cmake_minimum_required<span class="token punctuation">(</span>VERSION <span class="token number">3.5</span><span class="token punctuation">)</span>
+project<span class="token punctuation">(</span>hello_cmake<span class="token punctuation">)</span>
+add_executable<span class="token punctuation">(</span><span class="token variable">$&#123;PROJECT_NAME&#125;</span> main.cpp<span class="token punctuation">)</span></code></pre>
+
+
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+
+<span class="token comment">###################################################</span>
+<span class="token comment"># Delete old build.clang directory</span>
+<span class="token comment">###################################################</span>
+<span class="token assign-left variable">ROOT_DIR</span><span class="token operator">=</span><span class="token variable"><span class="token variable">`</span><span class="token builtin class-name">pwd</span><span class="token variable">`</span></span>
+<span class="token comment">#dir="I-compiling-with-clang"</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">[</span> -d <span class="token string">"<span class="token variable">$ROOT_DIR</span>/build.clang"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+  <span class="token builtin class-name">echo</span> <span class="token string">"deleting <span class="token variable">$ROOT_DIR</span>/build.clang"</span>
+  <span class="token function">rm</span> -rf <span class="token variable">$ROOT_DIR</span>/build.clang
+<span class="token keyword">fi</span>
+
+<span class="token comment">###################################################</span>
+<span class="token comment"># determine the clang binary before calling cmake</span>
+<span class="token comment">###################################################</span>
+<span class="token assign-left variable">clang_bin</span><span class="token operator">=</span><span class="token variable"><span class="token variable">`</span><span class="token function">which</span> clang<span class="token variable">`</span></span>
+<span class="token assign-left variable">clang_xx_bin</span><span class="token operator">=</span><span class="token variable"><span class="token variable">`</span><span class="token function">which</span> clang++<span class="token variable">`</span></span>
+
+<span class="token keyword">if</span> <span class="token punctuation">[</span> -z <span class="token variable">$clang_bin</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+		<span class="token comment"># 获取版本号</span>
+    <span class="token assign-left variable">clang_ver</span><span class="token operator">=</span><span class="token variable"><span class="token variable">`</span>dpkg --get-selections <span class="token operator">|</span> <span class="token function">grep</span> clang <span class="token operator">|</span> <span class="token function">grep</span> -v -m1 libclang <span class="token operator">|</span> <span class="token function">cut</span> -f1 <span class="token operator">|</span> <span class="token function">cut</span> -d <span class="token string">'-'</span> -f2<span class="token variable">`</span></span>
+    <span class="token assign-left variable">clang_bin</span><span class="token operator">=</span><span class="token string">"clang-<span class="token variable">$clang_ver</span>"</span>
+    <span class="token assign-left variable">clang_xx_bin</span><span class="token operator">=</span><span class="token string">"clang++-<span class="token variable">$clang_ver</span>"</span>
+<span class="token keyword">fi</span>
+
+<span class="token builtin class-name">echo</span> <span class="token string">"Will use clang [<span class="token variable">$clang_bin</span>] and clang++ [<span class="token variable">$clang_xx_bin</span>]"</span>
+
+<span class="token function">mkdir</span> -p build.clang <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">cd</span> build.clang <span class="token operator">&amp;&amp;</span> <span class="token punctuation">\</span>
+  cmake <span class="token punctuation">..</span> -DCMAKE_C_COMPILER<span class="token operator">=</span><span class="token variable">$clang_bin</span> -DCMAKE_CXX_COMPILER<span class="token operator">=</span><span class="token variable">$clang_xx_bin</span> <span class="token operator">&amp;&amp;</span> <span class="token function">make</span></code></pre>
+
+<p>CMake的编译器选项：</p>
+<ul>
+<li>CMAKE_C_COMPILER - The program used to compile c code.</li>
+<li>CMAKE_CXX_COMPILER - The program used to compile c++ code.</li>
+<li>CMAKE_LINKER - The program used to link your binary.</li>
+</ul>
+<h3 id="building-with-ninja"><a href="#building-with-ninja" class="headerlink" title="building with ninja"></a>building with ninja</h3><pre class="language-bash" data-language="bash"><code class="language-bash">$ tree
+<span class="token builtin class-name">.</span>
+├── CMakeLists.txt
+├── main.cpp</code></pre>
+
+<p>CMake包含多种生成器：<code>cmake --help</code></p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">Generators
+
+The following generators are available on this platform <span class="token punctuation">(</span>* marks default<span class="token punctuation">)</span>:
+* Unix Makefiles               <span class="token operator">=</span> Generates standard UNIX makefiles.
+  Green Hills MULTI            <span class="token operator">=</span> Generates Green Hills MULTI files
+                                 <span class="token punctuation">(</span>experimental, work-in-progress<span class="token punctuation">)</span>.
+  Ninja                        <span class="token operator">=</span> Generates build.ninja files.
+  Watcom WMake                 <span class="token operator">=</span> Generates Watcom WMake makefiles.
+  CodeBlocks - Ninja           <span class="token operator">=</span> Generates CodeBlocks project files.
+  CodeBlocks - Unix Makefiles  <span class="token operator">=</span> Generates CodeBlocks project files.
+  CodeLite - Ninja             <span class="token operator">=</span> Generates CodeLite project files.
+  CodeLite - Unix Makefiles    <span class="token operator">=</span> Generates CodeLite project files.
+  Sublime Text <span class="token number">2</span> - Ninja       <span class="token operator">=</span> Generates Sublime Text <span class="token number">2</span> project files.
+  Sublime Text <span class="token number">2</span> - Unix Makefiles
+                               <span class="token operator">=</span> Generates Sublime Text <span class="token number">2</span> project files.
+  Kate - Ninja                 <span class="token operator">=</span> Generates Kate project files.
+  Kate - Unix Makefiles        <span class="token operator">=</span> Generates Kate project files.
+  Eclipse CDT4 - Ninja         <span class="token operator">=</span> Generates Eclipse CDT <span class="token number">4.0</span> project files.
+  Eclipse CDT4 - Unix <span class="token assign-left variable">Makefiles</span><span class="token operator">=</span> Generates Eclipse CDT <span class="token number">4.0</span> project files.</code></pre>
+
+<p>接下来使用Ninja进行构建：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># install ninja-build</span>
+<span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> ninja-build
+
+<span class="token function">mkdir</span> ninja.build <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">cd</span> ninja.build
+
+cmake <span class="token punctuation">..</span> -G Ninja
+
+ninja -v</code></pre>
+
+<h3 id="cpp-standard"><a href="#cpp-standard" class="headerlink" title="cpp standard"></a>cpp standard</h3><p>设置c++的编译标准。</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ tree
+<span class="token builtin class-name">.</span>
+├── CMakeLists.txt
+├── main.cpp</code></pre>
+
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// main.cpp</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span> argv<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+
+  <span class="token keyword">auto</span> message <span class="token operator">=</span> <span class="token string">"Hello C++11"</span><span class="token punctuation">;</span>
+
+  std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> message <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># CMakeLists.txt</span>
+cmake_minimum_required<span class="token punctuation">(</span>VERSION <span class="token number">3.5</span><span class="token punctuation">)</span>
+project<span class="token punctuation">(</span>hello_cpp11<span class="token punctuation">)</span>
+
+<span class="token comment"># try conditional compilation</span>
+include<span class="token punctuation">(</span>CheckCXXCompilerFlag<span class="token punctuation">)</span> <span class="token comment"># CHECK_CXX_COMPILER_FLAG的头文件</span>
+CHECK_CXX_COMPILER_FLAG<span class="token punctuation">(</span><span class="token string">"-std=c++11"</span> COMPILER_SUPPORTS_CXX11<span class="token punctuation">)</span> <span class="token comment"># 尝试使用flag进行编译，并把结果保存到变量中</span>
+CHECK_CXX_COMPILER_FLAG<span class="token punctuation">(</span><span class="token string">"-std=c++0x"</span> COMPILER_SUPPORTS_CXX0X<span class="token punctuation">)</span>
+
+<span class="token comment"># check results and add flag</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>COMPILER_SUPPORTS_CXX11<span class="token punctuation">)</span>
+  set<span class="token punctuation">(</span>CMAKE_CXX_FLAGS <span class="token string">"<span class="token variable">$&#123;CMAKE_CXX_FLAGS&#125;</span> -std=c++11"</span><span class="token punctuation">)</span>
+elseif<span class="token punctuation">(</span>COMPILER_SUPPORTS_CXX0X<span class="token punctuation">)</span>
+  set<span class="token punctuation">(</span>CMAKE_CXX_FLAGS <span class="token string">"<span class="token variable">$&#123;CMAKE_CXX_FLAGS&#125;</span> -std=c++0x"</span><span class="token punctuation">)</span>
+else<span class="token punctuation">(</span><span class="token punctuation">)</span>
+  message<span class="token punctuation">(</span>STATUS <span class="token string">"The compiler <span class="token variable">$&#123;CMAKE_CXX_COMPILER&#125;</span> has no C++11 support. Please use a different C++ compiler."</span><span class="token punctuation">)</span>
+endif<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+add_executable<span class="token punctuation">(</span><span class="token variable">$&#123;PROJECT_NAME&#125;</span> main.cpp<span class="token punctuation">)</span></code></pre>
+
+<p>另外还有两种设置c++ standard的方法：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#######################################################################</span>
+<span class="token comment"># Using the CMAKE_CXX_STANDARD variable introduced in CMake v3.1.</span>
+<span class="token comment">#######################################################################</span>
+set<span class="token punctuation">(</span>CMAKE_CXX_STANDARD <span class="token number">11</span><span class="token punctuation">)</span>
+
+
+<span class="token comment">#######################################################################</span>
+<span class="token comment"># Using the target_compile_features function introduced in CMake v3.1.</span>
+<span class="token comment">#######################################################################</span>
+<span class="token comment"># set the C++ standard to the appropriate standard for using auto</span>
+target_compile_features<span class="token punctuation">(</span>hello_cpp11 PUBLIC cxx_auto_type<span class="token punctuation">)</span>
+
+<span class="token comment"># print the list of known compile features for this version of CMake</span>
+message<span class="token punctuation">(</span><span class="token string">"List of compile features: <span class="token variable">$&#123;CMAKE_CXX_COMPILE_FEATURES&#125;</span>"</span><span class="token punctuation">)</span></code></pre>
+
+
+
+
+
+
+
+<h2 id="sub-projects"><a href="#sub-projects" class="headerlink" title="sub projects"></a>sub projects</h2><ul>
+<li>sublibrary1 - A static library</li>
+<li>sublibrary2 - A header only library</li>
+<li>subbinary - An executable</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ tree
+<span class="token builtin class-name">.</span>
+├── CMakeLists.txt
+├── subbinary
+│   ├── CMakeLists.txt
+│   └── main.cpp
+├── sublibrary1
+│   ├── CMakeLists.txt
+│   ├── include
+│   │   └── sublib1
+│   │       └── sublib1.h
+│   └── src
+│       └── sublib1.cpp
+└── sublibrary2
+    ├── CMakeLists.txt
+    └── include
+        └── sublib2
+            └── sublib2.h</code></pre>
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># CMakeLists.txt</span>
+cmake_minimum_required<span class="token punctuation">(</span>VERSION <span class="token number">3.5</span><span class="token punctuation">)</span>
+project<span class="token punctuation">(</span>sub_projects<span class="token punctuation">)</span>
+
+<span class="token comment"># add sub directories</span>
+add_subdirectory<span class="token punctuation">(</span>subbinary<span class="token punctuation">)</span>
+add_subdirectory<span class="token punctuation">(</span>sublibrary1<span class="token punctuation">)</span>
+add_subdirectory<span class="token punctuation">(</span>sublibrary2<span class="token punctuation">)</span></code></pre>
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># sublibrary1/CMakeLists.txt</span>
+<span class="token comment"># set project name</span>
+project<span class="token punctuation">(</span>sublibrary1<span class="token punctuation">)</span>
+
+<span class="token comment"># add a library with the above sources</span>
+add_library<span class="token punctuation">(</span><span class="token variable">$&#123;PROJECT_NAME&#125;</span> src/sublib1.cpp<span class="token punctuation">)</span>
+add_library<span class="token punctuation">(</span>sub::lib1 ALIAS <span class="token variable">$&#123;PROJECT_NAME&#125;</span><span class="token punctuation">)</span>
+
+target_include_directories<span class="token punctuation">(</span><span class="token variable">$&#123;PROJECT_NAME&#125;</span>
+  PUBLIC <span class="token variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/include
+<span class="token punctuation">)</span></code></pre>
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># sublibrary2/CMakeLists.txt</span>
+<span class="token comment"># set the project name</span>
+project<span class="token punctuation">(</span>sublibrary2<span class="token punctuation">)</span>
+
+add_library<span class="token punctuation">(</span><span class="token variable">$&#123;PROJECT_NAME&#125;</span> INTERFACE<span class="token punctuation">)</span>
+add_library<span class="token punctuation">(</span>sub::lib2 ALIAS <span class="token variable">$&#123;PROJECT_NAME&#125;</span><span class="token punctuation">)</span>
+
+target_include_directories<span class="token punctuation">(</span><span class="token variable">$&#123;PROJECT_NAME&#125;</span>
+  INTERFACE
+    <span class="token variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/include
+<span class="token punctuation">)</span></code></pre>
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># subbinary/CMakeLists.txt</span>
+<span class="token comment"># set project name</span>
+project<span class="token punctuation">(</span>subbinary<span class="token punctuation">)</span>
+
+<span class="token comment"># create the executable</span>
+add_executable<span class="token punctuation">(</span><span class="token variable">$&#123;PROJECT_NAME&#125;</span> main.cpp<span class="token punctuation">)</span>
+
+<span class="token comment"># link the static library from sublibrary1 using it's alias sub::lib1</span>
+<span class="token comment"># link the header only library from sublibrary2 using it's alias sub::lib2</span>
+<span class="token comment"># this will cause the include directories for that target to be added to this project</span>
+target_link_libraries<span class="token punctuation">(</span><span class="token variable">$&#123;PROJECT_NAME&#125;</span>
+  sub::lib1
+  sub::lib2
+<span class="token punctuation">)</span></code></pre>
+
+
+
+<h2 id="code-generation"><a href="#code-generation" class="headerlink" title="code generation"></a>code generation</h2><h3 id="configure-files"><a href="#configure-files" class="headerlink" title="configure files"></a>configure files</h3><ul>
+<li>CMakeLists.txt - Contains the CMake commands you wish to run</li>
+<li>main.cpp - The source file with main</li>
+<li>path.h.in - File to contain a path to the build directory</li>
+<li>ver.h.in - File to contain the version of the project</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ tree
+<span class="token builtin class-name">.</span>
+├── CMakeLists.txt
+├── main.cpp
+├── path.h.in
+├── ver.h.in</code></pre>
+
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// main.cpp</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"ver.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"path.h"</span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span>argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Hello Version "</span> <span class="token operator">&lt;&lt;</span> ver <span class="token operator">&lt;&lt;</span> <span class="token string">"!"</span> <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
+    std<span class="token double-colon punctuation">::</span>cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Path is "</span> <span class="token operator">&lt;&lt;</span> path <span class="token operator">&lt;&lt;</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
+   <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>通过CMake的<code>configure_file()</code>自动生成代码。</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># CMakeLists.txt</span>
+cmake_minimum_required<span class="token punctuation">(</span>VERSION <span class="token number">3.5</span><span class="token punctuation">)</span>
+project<span class="token punctuation">(</span>cf_example<span class="token punctuation">)</span>
+
+<span class="token comment"># set a project version</span>
+set<span class="token punctuation">(</span>cf_example_VERSION_MAJOR <span class="token number">0</span><span class="token punctuation">)</span>
+set<span class="token punctuation">(</span>cf_example_VERSION_MINOR <span class="token number">2</span><span class="token punctuation">)</span>
+set<span class="token punctuation">(</span>cf_example_VERSION_PATCH <span class="token number">1</span><span class="token punctuation">)</span>
+set<span class="token punctuation">(</span>cf_example_VERSION <span class="token string">"<span class="token variable">$&#123;cf_example_VERSION_MAJOR&#125;</span>.<span class="token variable">$&#123;cf_example_VERSION_MINOR&#125;</span>.<span class="token variable">$&#123;cf_example_VERSION_PATCH&#125;</span>"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># call configure files on ver.h to set the version</span>
+<span class="token comment"># uses the standard $&#123;VARIABLE&#125; syntax in the file</span>
+configure_file<span class="token punctuation">(</span>ver.h.in <span class="token variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/ver.h<span class="token punctuation">)</span>
+
+<span class="token comment"># this file can only use the @VARIABLE syntax in the file</span>
+configure_file<span class="token punctuation">(</span>path.h.in <span class="token variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/path.h @ONLY<span class="token punctuation">)</span>
+
+add_executable<span class="token punctuation">(</span><span class="token variable">$&#123;PROJECT_NAME&#125;</span> main.cpp<span class="token punctuation">)</span>
+
+target_include_directories<span class="token punctuation">(</span><span class="token variable">$&#123;PROJECT_NAME&#125;</span>
+  PRIVATE
+    <span class="token variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>
+<span class="token punctuation">)</span></code></pre>
+
+
+
+<h3 id="protobuf"><a href="#protobuf" class="headerlink" title="protobuf"></a>protobuf</h3><p>protobuf是google开源的对字符串进行序列化的库，将要序列化的数据定义写在原始文件<code>.proto</code>配置文件中，protobuf将数据序列化为二进制格式，节省内存，加快了数据的传输，但是降低了可读性。</p>
+<ul>
+<li>AddressBook.proto - proto file from main protocol buffer <a target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/docs/cpptutorial">example</a></li>
+<li>CMakeLists.txt - Contains the CMake commands you wish to run</li>
+<li>main.cpp - The source file from the protobuf example.</li>
+</ul>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ tree
+<span class="token builtin class-name">.</span>
+├── AddressBook.proto
+├── CMakeLists.txt
+├── main.cpp</code></pre>
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># CMakeLists.txt</span>
+<span class="token comment"># set cmake minimum version</span>
+cmake_minimum_required<span class="token punctuation">(</span>VERSION <span class="token number">3.5</span><span class="token punctuation">)</span>
+
+<span class="token comment"># set the project name</span>
+project<span class="token punctuation">(</span>protobuf_exmaple<span class="token punctuation">)</span>
+
+<span class="token comment"># find the protobuf compiler and libraries</span>
+find_package<span class="token punctuation">(</span>Protobuf REQUIRED<span class="token punctuation">)</span>
+
+<span class="token comment"># check if protobuf was found</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>PROTOBUF_FOUND<span class="token punctuation">)</span>
+  message<span class="token punctuation">(</span><span class="token string">"protobuf found"</span><span class="token punctuation">)</span>
+else<span class="token punctuation">(</span><span class="token punctuation">)</span>
+  message<span class="token punctuation">(</span>FATAL_ERROR <span class="token string">"Cannot find protobuf"</span><span class="token punctuation">)</span>
+endif<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment"># generate the .h and .cxx files</span>
+PROTOBUF_GENERATE_CPP<span class="token punctuation">(</span>PROTO_SRCS PROTO_HDRS AddressBook.proto<span class="token punctuation">)</span>
+
+<span class="token comment"># print path </span>
+message<span class="token punctuation">(</span><span class="token string">"PROTO_SRCS = <span class="token variable">$&#123;PROTO_SRCS&#125;</span>"</span><span class="token punctuation">)</span>
+message<span class="token punctuation">(</span><span class="token string">"PROTO_HDRS = <span class="token variable">$&#123;PROTO_HDRS&#125;</span>"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># add an executable</span>
+add_executable<span class="token punctuation">(</span><span class="token variable">$&#123;PROJECT_NAME&#125;</span> 
+  main.cpp
+  <span class="token variable">$&#123;PROTO_SRCS&#125;</span>
+  <span class="token comment"># $&#123;PROTO_HDRS&#125;  </span>
+<span class="token punctuation">)</span>
+
+target_include_directories<span class="token punctuation">(</span><span class="token variable">$&#123;PROJECT_NAME&#125;</span>
+  PUBLIC
+    <span class="token variable">$&#123;PROTOBUF_INCLUDE_DIRS&#125;</span>
+    <span class="token variable">$&#123;CMAKE_CURRENT_BINARY_DIR&#125;</span>
+<span class="token punctuation">)</span>
+
+target_link_libraries<span class="token punctuation">(</span><span class="token variable">$&#123;PROJECT_NAME&#125;</span>
+  PUBLIC <span class="token variable">$&#123;PROTOBUF_LIBRARIES&#125;</span>
+<span class="token punctuation">)</span></code></pre>
+
+
+
+
+
+<!-- Q.E.D. --></div><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="Donate" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-hand-coin-line"></use></svg></span><div id="reward-comment">Donate me.</div><div id="qr" style="display:none;"><div style="display:inline-block"><a target="_blank" rel="noopener" href="https://img.sanzo.top/img/reward/alipay.jpg"><img loading="lazy" src="https://img.sanzo.top/img/reward/alipay.jpg" alt="支付宝" title="支付宝"></a><div><span style="color:#00A3EE"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-alipay-line"></use></svg></span></div></div><div style="display:inline-block"><a target="_blank" rel="noopener" href="https://img.sanzo.top/img/reward/qqpay.jpg"><img loading="lazy" src="https://img.sanzo.top/img/reward/qqpay.jpg" alt="QQ 支付" title="QQ 支付"></a><div><span style="color:#12B7F5"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-qq-line"></use></svg></span></div></div><div style="display:inline-block"><a target="_blank" rel="noopener" href="https://img.sanzo.top/img/reward/wechat.jpg"><img loading="lazy" src="https://img.sanzo.top/img/reward/wechat.jpg" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-pay-line"></use></svg></span></div></div></div></div><ul class="post-copyright"><li class="post-copyright-author"><strong>Post author: </strong>Sanzo</li><li class="post-copyright-link"><strong>Post link: </strong><a href="https://sanzo.top/Default/cmake/" title="cmake笔记">https://sanzo.top/Default/cmake/</a></li><li class="post-copyright-license"><strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> unless otherwise stated.</li></ul></section></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/RaspberryPi/car/" rel="prev" title="树莓派小车"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">树莓派小车</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/Paper/grape/" rel="next" title="Grape: Parallelizing Sequential Graph Computations"><span class="post-nav-text">Grape: Parallelizing Sequential Graph Computations</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>Leave me a message.</span><br></div><div id="waline"></div><script>Yun.utils.getScript("https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js", () => {
+  const walineConfig = {"enable":true,"serverURL":"https://pinglun-ten.vercel.app/","comment":true,"visitor":true,"avatar":"mp","avatarCDN":"https://cdn.v2ex.com/gravatar/","placeholder":"填写邮箱，可以收到回复通知哦～","requiredFields":["nick"],"emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/qq"],"emojiCDN":"https://cdn.jsdelivr.net/gh/GamerNoTitle/ValineCDN@master/","langMode":{"nick":"昵称","mail":"邮箱","link":"网址"},"el":"#waline","lang":"en"}
+  walineConfig.path = "/Default/cmake/"
+  new Waline(walineConfig)
+}, window.Waline);</script></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2021 – 2022 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> Sanzo</span></div><div class="footer-support"><span>本网站由</span><a class="footer-support-logo" href="https://www.upyun.com/?utm_source=lianmeng&amp;utm_medium=referral" target="blank" title="又拍云"><img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" alt="又拍云"></a><span>提供云存储服务</span></div></footer><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a><a class="popup-trigger hty-icon-button icon-search" id="search" href="javascript:;" title="Search"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-search-line"></use></svg></span></a><script>window.addEventListener("DOMContentLoaded", () => {
+  // Handle and trigger popup window
+  document.querySelector(".popup-trigger").addEventListener("click", () => {
+    document.querySelector(".popup").classList.add("show");
+    setTimeout(() => {
+      document.querySelector(".search-input").focus();
+    }, 100);
+  });
+
+  // Monitor main search box
+  const onPopupClose = () => {
+    document.querySelector(".popup").classList.remove("show");
+  };
+
+  document.querySelector(".popup-btn-close").addEventListener("click", () => {
+    onPopupClose();
+  });
+
+  window.addEventListener("keyup", event => {
+    if (event.key === "Escape") {
+      onPopupClose();
+    }
+  });
+});
+</script><script src="/js/search/local-search.js" defer></script><div class="popup search-popup"><div class="search-header"><span class="popup-btn-close close-icon hty-icon-button"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-close-line"></use></svg></span></div><div class="search-input-container"><input class="search-input" id="local-search-input" type="text" placeholder="Searching..." value=""></div><div id="local-search-result"></div></div><script>const date = new Date();
+const today = (date.getMonth() + 1) + "-" + date.getDate()
+const mourn_days = ["9-18"]
+if (mourn_days.includes(today)) {
+  document.documentElement.style.filter = "grayscale(1)";
+}</script></div></body></html>
