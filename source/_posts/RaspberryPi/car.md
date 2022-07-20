@@ -4,6 +4,7 @@ katex: true
 typora-copy-images-to: ..\..\img\
 date: 2021-07-07 22:24:52
 updated: 2021-07-07 22:24:52
+sticky: 9
 tags:
 	- pi
 	- car
@@ -17,6 +18,8 @@ categories: RaspberryPi
 
 
 代码地址：[github.com/Sanzo00/pi-car](https://github.com/Sanzo00/pi-car)
+
+树莓派配置：[sanzo.top/RaspberryPi/raspi-setup](https://sanzo.top/RaspberryPi/raspi-setup)
 
 ![](https://img.sanzo.top/img/pi/car.jpg)
 
