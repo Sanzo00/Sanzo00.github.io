@@ -108,6 +108,15 @@ MLC实际上是在相同或不同抽象下，转换和组装张量函数的过�
 
 
 
+> 总结
+
+- 元张量函数表示机器学习模型计算中的单个单元计算。
+  - 一个机器学习编译过程可以有选择地转换元张量函数的实现。
+- 张量程序是一个表示元张量函数的有效抽象。
+  - 关键成分包括: 多维数组，循环嵌套，计算语句。
+  - 程序变换可以被用于加速张量程序的执行。
+  - 张量程序中额外的结构能够为程序变换提供更多的信息。
+
 
 
 ## TensorIR
@@ -543,10 +552,20 @@ MLC流程：开发、变换、构建。
 
 
 
+[2.4 TensorIR: 张量程序抽象案例研究.](https://github.com/Sanzo00/mlc-summer22/blob/master/2.4_case-study.ipynb)
+
+[2.5 TensorIR 练习](https://github.com/Sanzo00/mlc-summer22/blob/master/2.5_tensorir-exercises.ipynb)
 
 
 
+> 总结
 
+- TensorIR 抽象
+  - 包含循环、多维缓冲区等常用元素
+  - 引入了一个封装循环计算要求的新结构**块**。
+  - 可以在 Python AST 中构建（通过 TVMScript）
+- 我们可以使用变换来创建不同的 TensorIR 变体。
+- 通用 MLC 流程：开发、变换、构建。
 
 
 
@@ -554,23 +573,412 @@ MLC流程：开发、变换、构建。
 
 ## 端到端模型整合
 
+以一个简单的模型为例子：
+
+![image-20220814222435282](../../img/default/mlc/image-20220814222435282.png)
+
+
+
+在TVMScript中构建端到端的IRModule：
+
+```python
+@tvm.script.ir_module
+class MyModule:
+    @T.prim_func
+    def relu0(X: T.Buffer[(1, 128), "float32"],
+              Y: T.Buffer[(1, 128), "float32"]):
+        # function attr dict
+        T.func_attr({"global_symbol": "relu0", "tir.noalias": True})
+        for i, j in T.grid(1, 128):
+            with T.block("Y"):
+                vi, vj = T.axis.remap("SS", [i, j])
+                Y[vi, vj] = T.max(X[vi, vj], T.float32(0))
+
+    @T.prim_func
+    def linear0(X: T.Buffer[(1, 784), "float32"],
+                W: T.Buffer[(128, 784), "float32"],
+                B: T.Buffer[(128,), "float32"],
+                Z: T.Buffer[(1, 128), "float32"]):
+        T.func_attr({"global_symbol": "linear0", "tir.noalias": True})
+        Y = T.alloc_buffer((1, 128), "float32")
+        for i, j, k in T.grid(1, 128, 784):
+            with T.block("Y"):
+                vi, vj, vk = T.axis.remap("SSR", [i, j, k])
+                with T.init():
+                    Y[vi, vj] = T.float32(0)
+                Y[vi, vj] = Y[vi, vj] + X[vi, vk] * W[vj, vk]
+
+        for i, j in T.grid(1, 128):
+            with T.block("Z"):
+                vi, vj = T.axis.remap("SS", [i, j])
+                Z[vi, vj] =  Y[vi, vj] + B[vj]
+
+    @T.prim_func
+    def linear1(X: T.Buffer[(1, 128), "float32"],
+                W: T.Buffer[(10, 128), "float32"],
+                B: T.Buffer[(10,), "float32"],
+                Z: T.Buffer[(1, 10), "float32"]):
+        T.func_attr({"global_symbol": "linear1", "tir.noalias": True})
+        Y = T.alloc_buffer((1, 10), "float32")
+        for i, j, k in T.grid(1, 10, 128):
+            with T.block("Y"):
+                vi, vj, vk = T.axis.remap("SSR", [i, j, k])
+                with T.init():
+                    Y[vi, vj] = T.float32(0)
+                Y[vi, vj] = Y[vi, vj] + X[vi, vk] * W[vj, vk]
+
+        for i, j in T.grid(1, 10):
+            with T.block("Z"):
+                vi, vj = T.axis.remap("SS", [i, j])
+                Z[vi, vj] = Y[vi, vj] + B[vj]
+
+    @R.function
+    def main(x: Tensor((1, 784), "float32"),
+             w0: Tensor((128, 784), "float32"),
+             b0: Tensor((128,), "float32"),
+             w1: Tensor((10, 128), "float32"),
+             b1: Tensor((10,), "float32")):
+        with R.dataflow():
+            lv0 = R.call_tir(linear0, (x, w0, b0), (1, 128), dtype="float32")
+            lv1 = R.call_tir(relu0, (lv0,), (1, 128), dtype="float32")
+            out = R.call_tir(linear1, (lv1, w1, b1), (1, 10), dtype="float32")
+            R.output(out)
+        return out
+```
+
+
+
+和之前不同的是，这里的IRModule有个新的函数，R.function，他是一个Relax函数，表示上层神经网络执行的全新抽象。
+
+
+
+下面这个图是使用计算图表示模型执行的过程：
+
+![image-20220814222849062](../../img/default/mlc/image-20220814222849062.png)
+
+
+
+> R.call_tir
+
+计算图中的每一个操作都包含一个R.call_tir操作。
+
+```python
+lv0 = R.call_tir(linear0, (x, w0, b0), (1, 128), dtype="float32")
+```
+
+
+
+和R.call_tir对应的numpy实现为：
+
+```python
+def lnumpy_call_tir(prim_func, inputs, shape, dtype):
+    res = np.empty(shape, dtype=dtype)
+    prim_func(*inputs, res)
+    return res
+```
+
+简单来说，cal_tir接受一个元函数（prim_func）的输入列表，分配一个输出张量res，然后将输入和输出传递给prim_func，执行prim_func之后，结果填充到res，然后返回结果。
+
+这种规定称为**目标传递（destination passing）**，将输入和输出在外部显示的分配并传递给底层元函数，这种风格通常用于底层库的实现，并不是所有的函数都可以写成这种形式，例如一些操作的输出形状取决于输入。这样写的一个好处是可以让高层框架处理内存分配。
+
+当然也可以通过显示的分配中间结果并调用每个函数讲目标传递的函数组装在一起，但是很难将以下代码转换为计算图。
+
+```python
+def lnumpy_mlp(data, w0, b0, w1, b1):
+    lv0 = np.empty((1, 128), dtype="float32")
+    lnumpy_linear0(data, w0, b0, lv0)
+
+    lv1 = np.empty((1, 128), dtype="float32")
+    lnumpy_relu0(lv0, lv1)
+
+    out = np.empty((1, 10), dtype="float32")
+    lnumpy_linear1(lv1, w1, b1, out)
+    return out
+```
+
+
+
+![image-20220814223828564](../../img/default/mlc/image-20220814223828564.png)
+
+
+
+call_tir的关键思想是想要隐藏可能的分配或对函数的显式写入。 用更正式的术语来说，我们希望函数是 **pure** 或 **side-effect free**。
+
+
+
+> Dataflow Block
+
+
+
+```python
+with R.dataflow():
+    lv0 = R.call_tir(linear0, (x, w0, b0), (1, 128), dtype="float32")
+    lv1 = R.call_tir(relu0, (lv0,), (1, 128), dtype="float32")
+    out = R.call_tir(linear1, (lv1, w1, b1), (1, 10), dtype="float32")
+    R.output(out)
+```
+
+dataflow block是标记程序计算图区域的一种方式，在dataflow block中，所有操作都需要side-effect free。 在dataflow block之外，操作可能包含side-effect。 下面的程序是一个包含两个dataflow block的示例程序。
+
+```python
+@R.function
+def main(x: Tensor((1, 784), "float32"),
+         w0: Tensor((128, 784), "float32"),
+         b0: Tensor((128,), "float32"),
+         w1: Tensor((10, 128), "float32"),
+         b1: Tensor((10,), "float32")):
+
+    with R.dataflow():
+        lv0 = R.call_tir(linear0, (x, w0, b0), (1, 128), dtype="float32")
+        gv0 = R.call_tir(relu0, (lv0,), (1, 128), dtype="float32")
+        R.output(gv0)
+
+    gv1 = R.alloc_tensor((1, 128), dtype="float32")
+
+    with R.dataflow():
+        out = R.call_tir(linear1, (gv0, gv1, b0), (1, 128), dtype="float32")
+        R.output(out)
+    return out
+```
+
+
+
+> 模型构建
+
+build 函数会给我们一个可执行文件（是针对Relax VM设计的一种文件格式）。
+
+```python
+ex = relax.vm.build(MyModule, target="llvm")
+type(ex)
+```
+
+
+
+初始化一个虚拟机执行器
+
+```python
+vm = relax.VirtualMachine(ex, tvm.cpu())
+```
+
+
+
+构建输入和权重数组
+
+```python
+data_nd = tvm.nd.array(img.reshape(1, 784))
+nd_params = {k: tvm.nd.array(v) for k, v in mlp_params.items()}
+```
+
+
+
+传入输入参数和权重来运行 `main` 函数
+
+```python
+nd_res = vm["main"](data_nd,
+                    nd_params["w0"],
+                    nd_params["b0"],
+                    nd_params["w1"],
+                    nd_params["b1"])
+print(nd_res)
+```
+
+
+
+> 集成现有的运行库
+
+```python
+@tvm.script.ir_module
+class MyModuleWithExternCall:
+    @R.function
+    def main(x: Tensor((1, 784), "float32"),
+             w0: Tensor((128, 784), "float32"),
+             b0: Tensor((128,), "float32"),
+             w1: Tensor((10, 128), "float32"),
+             b1: Tensor((10,), "float32")):
+        # block 0
+        with R.dataflow():
+            lv0 = R.call_tir("env.linear", (x, w0, b0), (1, 128), dtype="float32")
+            lv1 = R.call_tir("env.relu", (lv0,), (1, 128), dtype="float32")
+            out = R.call_tir("env.linear", (lv1, w1, b1), (1, 10), dtype="float32")
+            R.output(out)
+        return out
+```
+
+
+
+注册相应的函数:
+
+```python
+@tvm.register_func("env.linear", override=True)
+def torch_linear(x: tvm.nd.NDArray,
+                 w: tvm.nd.NDArray,
+                 b: tvm.nd.NDArray,
+                 out: tvm.nd.NDArray):
+    x_torch = torch.from_dlpack(x)
+    w_torch = torch.from_dlpack(w)
+    b_torch = torch.from_dlpack(b)
+    out_torch = torch.from_dlpack(out)
+    torch.mm(x_torch, w_torch.T, out=out_torch)
+    torch.add(out_torch, b_torch, out=out_torch)
+
+@tvm.register_func("env.relu", override=True)
+def lnumpy_relu(x: tvm.nd.NDArray,
+                out: tvm.nd.NDArray):
+    x_torch = torch.from_dlpack(x)
+    out_torch = torch.from_dlpack(out)
+    torch.maximum(x_torch, torch.Tensor([0.0]), out=out_torch)
+```
+
+
+
+在上面的代码中，我们使用 `from_dlpack` 将 TVM NDArray 转换为 torch NDArray。 请注意，这是一个零拷贝转换，这意味着 Torch 阵列与 TVM NDArray 共享底层内存。 DLPack 是一种通用的交换标准，允许不同的框架交换 Tensor/NDArray 而无需参与数据复制
+
+
+
+构建运行：
+
+```python
+ex = relax.vm.build(MyModuleWithExternCall, target="llvm")
+vm = relax.VirtualMachine(ex, tvm.cpu())
+
+nd_res = vm["main"](data_nd,
+                    nd_params["w0"],
+                    nd_params["b0"],
+                    nd_params["w1"],
+                    nd_params["b1"])
+
+pred_kind = np.argmax(nd_res.numpy(), axis=1)
+print("MyModuleWithExternCall Prediction:", class_names[pred_kind[0]])
+```
+
+
+
+另外TensorIR也支持混合的表示形式：
+
+```python
+@tvm.script.ir_module
+class MyModuleMixture:
+    @T.prim_func
+    def linear0(X: T.Buffer[(1, 784), "float32"],
+                W: T.Buffer[(128, 784), "float32"],
+                B: T.Buffer[(128,), "float32"],
+                Z: T.Buffer[(1, 128), "float32"]):
+        T.func_attr({"global_symbol": "linear0", "tir.noalias": True})
+        Y = T.alloc_buffer((1, 128), "float32")
+        for i, j, k in T.grid(1, 128, 784):
+            with T.block("Y"):
+                vi, vj, vk = T.axis.remap("SSR", [i, j, k])
+                with T.init():
+                    Y[vi, vj] = T.float32(0)
+                Y[vi, vj] = Y[vi, vj] + X[vi, vk] * W[vj, vk]
+
+        for i, j in T.grid(1, 128):
+            with T.block("Z"):
+                vi, vj = T.axis.remap("SS", [i, j])
+                Z[vi, vj] =  Y[vi, vj] + B[vj]
+
+    @R.function
+    def main(x: Tensor((1, 784), "float32"),
+             w0: Tensor((128, 784), "float32"),
+             b0: Tensor((128,), "float32"),
+             w1: Tensor((10, 128), "float32"),
+             b1: Tensor((10,), "float32")):
+        with R.dataflow():
+            lv0 = R.call_tir(linear0, (x, w0, b0), (1, 128), dtype="float32")
+            lv1 = R.call_tir("env.relu", (lv0,), (1, 128), dtype="float32")
+            out = R.call_tir("env.linear", (lv1, w1, b1), (1, 10), dtype="float32")
+            R.output(out)
+        return out
+```
 
 
 
 
 
+> 绑定参数
 
 
 
+在许多情况下，将参数绑定为附加到 IRModule 的常量通常会降低API的复杂程度。 以下代码通过将参数名称与 nd_params 中的键匹配来创建绑定。
 
+```python
+MyModuleWithParams = relax.transform.BindParams("main", nd_params)(MyModuleMixture)
+IPython.display.Code(MyModuleWithParams.script(), language="python")
+```
+
+
+
+`meta[relay.Constant][0]`  对应于一个存储常量的隐式字典：
+
+```python
+@tvm.script.ir_module
+class Module:
+    @R.function
+    def main(x: Tensor((1, 784), "float32")) -> Tensor(None, "float32", ndim = 2):
+        # block 0
+        with R.dataflow():
+            lv0 = R.call_tir(linear0, (x, meta[relay.Constant][0], meta[relay.Constant][1]), (1, 128), dtype="float32")
+            lv1 = R.call_tir("env.relu", (lv0,), (1, 128), dtype="float32")
+            out = R.call_tir("env.linear", (lv1, meta[relay.Constant][2], meta[relay.Constant][3]), (1, 10), dtype="float32")
+            R.output(out)
+        return out
+
+    @T.prim_func
+    def linear0(X: T.Buffer[(1, 784), "float32"], W: T.Buffer[(128, 784), "float32"], B: T.Buffer[128, "float32"], Z: T.Buffer[(1, 128), "float32"]) -> None:
+        # function attr dict
+        T.func_attr({"global_symbol": "linear0", "tir.noalias": True})
+        # body
+        # with T.block("root")
+        Y = T.alloc_buffer([1, 128], dtype="float32")
+        for i, j, k in T.grid(1, 128, 784):
+            with T.block("Y"):
+                vi, vj, vk = T.axis.remap("SSR", [i, j, k])
+                T.reads(X[vi, vk], W[vj, vk])
+                T.writes(Y[vi, vj])
+                with T.init():
+                    Y[vi, vj] = T.float32(0)
+                Y[vi, vj] = Y[vi, vj] + X[vi, vk] * W[vj, vk]
+        for i, j in T.grid(1, 128):
+            with T.block("Z"):
+                vi, vj = T.axis.remap("SS", [i, j])
+                T.reads(Y[vi, vj], B[vj])
+                T.writes(Z[vi, vj])
+                Z[vi, vj] = Y[vi, vj] + B[vj]
+```
+
+
+
+现在可以通过传入输入数据来调用该函数:
+
+```python
+ex = relax.vm.build(MyModuleWithParams, target="llvm")
+vm = relax.VirtualMachine(ex, tvm.cpu())
+
+nd_res = vm["main"](data_nd)
+
+pred_kind = np.argmax(nd_res.numpy(), axis=1)
+print("MyModuleWithParams Prediction:", class_names[pred_kind[0]])
+```
+
+
+
+> 总结
+
+- 计算图抽象有助于将元张量函数拼接在一起以进行端到端执行。
+- Relax 抽象的关键要素包括
+  - call_tir 构造，将目标传递规范的元函数嵌入到计算图中
+  - Dataflow block
+- 计算图允许调用环境库函数和 `TensorIR` 函数。
+
+
+
+[MLC 作业 1: 端到端模型执行](https://github.com/Sanzo00/mlc-summer22/blob/master/assignment1_zh.ipynb)
 
 
 
 ## 自动化程序优化
 
-
-
-
+https://mlc.ai/zh/chapter_auto_program_optimization/index.html
 
 
 
@@ -594,7 +1002,7 @@ MLC流程：开发、变换、构建。
 
 
 
-
+https://github.com/NVIDIA/cutlass/blob/master/media/docs/efficient_gemm.md
 
 
 
