@@ -978,17 +978,186 @@ print("MyModuleWithParams Prediction:", class_names[pred_kind[0]])
 
 ## 自动化程序优化
 
-https://mlc.ai/zh/chapter_auto_program_optimization/index.html
+
+
+手动指定变换规则：
+
+```python
+def schedule_mm(sch: tvm.tir.Schedule, jfactor=4):
+    block_C = sch.get_block("C", "main")
+    i, j, k = sch.get_loops(block=block_C)
+    j_0, j_1 = sch.split(loop=j, factors=[None, jfactor])
+    sch.reorder(i, j_0, k, j_1)
+    sch.decompose_reduction(block_C, k)
+    return sch
+```
 
 
 
+随机指定变换规则：
 
+```python
+def stochastic_schedule_mm(sch: tvm.tir.Schedule):
+    block_C = sch.get_block("C", "main")
+    i, j, k = sch.get_loops(block=block_C)
+    j_factors = sch.sample_perfect_tile(loop=j, n=2)
+    j_0, j_1 = sch.split(loop=j, factors=j_factors)
+    sch.reorder(i, j_0, k, j_1)
+    sch.decompose_reduction(block_C, k)
+    return sch
+```
+
+
+
+上面两段代码的主要的区别在j_factors的确定上，下面代码通过`sch.sample_perfect_tile(loop=j, n=2)`随机的生成两个factors。
+
+
+
+追踪变换的过程：
+
+```python
+print(sch.trace)
+```
+
+
+
+`stochastic_schedule_mm` 创建了一个**可能程序的搜索空间**，具体取决于在每个采样步骤中做出的具体决定。
+
+
+
+![image-20220816113603845](../../img/default/mlc/image-20220816113603845.png)
+
+
+
+可以多次调用随机变换程序，记录运行时间最少的IRModule.
+
+```python
+def random_search(mod: tvm.IRModule, num_trials=5):
+    best_result = None
+    best_sch = None
+
+    for i in range(num_trials):
+        sch = stochastic_schedule_mm(tvm.tir.Schedule(mod))
+        lib = tvm.build(sch.mod, target="llvm")
+        f_timer_after = lib.time_evaluator("main", tvm.cpu())
+        result = f_timer_after(a_nd, b_nd, c_nd).mean
+
+        print("=====Attempt %d, time-cost: %.3f ms====" % (i, result * 1000))
+        print(sch.trace)
+
+        # book keep the best result so far
+        if best_result is None or result < best_result:
+            best_result = result
+            best_sch = sch
+
+    return best_sch
+
+sch = random_search(MyModule)
+```
+
+
+
+TVM提供了更加智能的解决方法，`meta_schedule` 是支持搜索可能变换空间的命名空间。Meta-Schedule 在幕后做了很多额外的事情：
+
+- 跨越多个进程的并行基准测试。
+- 使用**代价模型** (cost model) 来避免每次都进行基准测试。
+- 基于历史轨迹进行**遗传搜索** (evolutionary search)，而不是每次都随机采样。
+
+关键思想是保持不变的：**使用随机变换来指定好的程序的搜索空间，使用 ``tune_tir`` API 帮助在搜索空间内搜索并找到最优的调度变换**。
+
+
+
+```python
+from tvm import meta_schedule as ms
+
+sch_tuned = ms.tune_tir(
+    mod=MyModule,
+    target="llvm --num-cores=1",
+    config=ms.TuneConfig(
+      max_trials_global=64,
+      num_trials_per_iter=64,
+    ),
+    space=ms.space_generator.ScheduleFn(stochastic_schedule_mm),
+    work_dir="./tune_tmp",
+    task_name="main"
+)
+```
+
+
+
+其中space是用户定义的搜索空间，TVM内置了通用随机变换集合，称为自动调度，通过删除行 `space=ms.space_generator.ScheduleFn(stochastic_schedule_mm)` 来运行它。
+
+
+
+```python
+sch_tuned = ms.tune_tir(
+    mod=MyModule,
+    target="llvm --num-cores=1",
+    config=ms.TuneConfig(
+      max_trials_global=64,
+      num_trials_per_iter=64,
+    ),
+    work_dir="./tune_tmp",
+    task_name="main",
+)
+```
+
+
+
+> 端到端模型执行
+
+随机变换可以用于优化端到端的模型部署，我们可以针对某个元张量函数，进行搜索优化，然后替换掉之前的实现。
+
+![image-20220816114140830](../../img/default/mlc/image-20220816114140830.png)
+
+
+
+调优 API 只接受一个带有一个 `main` 函数的 IRModule，所以首先将 `linear0` 取出到另一个模块的 main 函数中并将其传递给 `tune_tir`。
+
+```python
+mod_linear = tvm.IRModule.from_expr(MyModuleMixture["linear0"].with_attr("global_symbol", "main"))
+
+sch_tuned_linear = ms.tune_tir(
+    mod=mod_linear,
+    target="llvm --num-cores=1",
+    config=ms.TuneConfig(
+      max_trials_global=64,
+      num_trials_per_iter=64,
+    ),
+    work_dir="./tune_tmp",
+    task_name="main",
+)
+```
+
+现在我们需要在调优后用新函数替换原来的 `linear0`。我们可以通过首先获得一个 `global_var`（一个指向 IRModule 中函数的 `pointer` 引用），然后调用 `update_func` 来用新的函数替换原本的函数。
+
+```python
+MyModuleWithParams2 = relax.transform.BindParams("main", nd_params)(MyModuleMixture)
+new_func = sch_tuned_linear.mod["main"].with_attr("global_symbol", "linear0")
+gv = MyModuleWithParams2.get_global_var("linear0")
+MyModuleWithParams2.update_func(gv, new_func)
+IPython.display.HTML(code2html(MyModuleWithParams2.script()))
+```
+
+
+
+> 总结
+
+![image-20220816114356988](../../img/default/mlc/image-20220816114356988.png)
+
+
+
+前两章关注的是**抽象**，而本章开始关注**变换**。随机变换指定了可以优化的内容，而无需显式地确定所有选择。Meta-Schedule API 帮助我们搜索可能的变换空间并选择最佳变换。
+
+- 随机变换帮助我们指定可能程序的搜索空间。
+- Meta-Schedule 在搜索空间中搜索，并找到优化后的程序。
+- 我们可以使用另一种变换，将初始的元张量函数替换为优化后的函数，并更新的端到端执行流程。
 
 
 
 ## 与机器学习框架整合
 
-
+https://mlc.ai/zh/chapter_integration/index.html
 
 
 
