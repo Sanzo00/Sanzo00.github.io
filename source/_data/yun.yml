@@ -15,12 +15,17 @@ avatar:
 favicon: /img/sanzo.ico
 
 sidebar:
-  bg_image: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/bg/stars-timing-1.jpg
+  # bg_image: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/bg/stars-timing-1.jpg
+  bg_image: 
   bg_position: bottom 3rem center
   tagcloud:
     enable: false
     amount: 20
 
+albums:
+  enable: false
+  icon: icon-gallery-line
+  src: /js/gallery-decrypt.js
 
 # Social Links.
 social:
@@ -60,7 +65,6 @@ social:
     icon: icon-telegram-line
     color: "#0088CC"
   - name: E-Mail
-    # link: mailto:me@yunyoujun.cn
     link: mailto:arrangeman@163.com
     icon: icon-mail-line
     color: "#8E71C1"
@@ -75,8 +79,6 @@ reward:
   # url: https://github.com/YunYouJun/yunyoujun.github.io/issues/96
   methods:
     - name: 支付宝
-      # path: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/alipay-qrcode.jpg
-      # path: /img/reward/alipay.jpg
       # path: https://cdn.jsdelivr.net/gh/sanzo00/sanzo00.github.io@master/img/reward/alipay.jpg
       path: https://img.sanzo.top/img/reward/alipay.jpg
       color: "#00A3EE"
@@ -229,6 +231,9 @@ menu:
     - type: tags
       path: /tags/
       icon: icon-price-tag-3-line
+    # - type: albums
+    #   path: /albums/
+    #   icon: /js/gallery-decrypt.js
   custom:
     title: Messages
     path: /about/#comment

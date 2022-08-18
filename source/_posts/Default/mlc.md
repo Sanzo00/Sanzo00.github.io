@@ -1157,19 +1157,533 @@ IPython.display.HTML(code2html(MyModuleWithParams2.script()))
 
 ## 与机器学习框架整合
 
-https://mlc.ai/zh/chapter_integration/index.html
+本章主要讨论如何将机器学习模型从现有的机器学习框架引入到MLC流程。
+
+
+
+### 张量表达式构造TensorIR
+
+```python
+from tvm import te
+
+A = te.placeholder((128, 128), name="A", dtype="float32")
+B = te.placeholder((128, 128), name="B", dtype="float32")
+
+def te_matmul(A: te.Tensor, B: te.Tensor) -> te.Tensor:
+    assert A.shape[1] == B.shape[0]
+    n = A.shape[0]
+    m = B.shape[1]
+    k = te.reduce_axis((0, A.shape[1]), name="k")
+    return te.compute((n, m), lambda i, j: te.sum(A[i, k] * B[k, j], axis=k), name="matmul")
+```
+
+
+
+调用 `te.create_prim_func` 并传入输入和输出值，来创建对应TensorIR函数。
+
+```python
+C = te_matmul(A, B)
+te.create_prim_func([A, B, C]).show()
+```
+
+```bash
+# from tvm.script import tir as T
+@T.prim_func
+def func(A: T.Buffer[(128, 128), "float32"], B: T.Buffer[(128, 128), "float32"], matmul: T.Buffer[(128, 128), "float32"]) -> None:
+    # function attr dict
+    T.func_attr({"global_symbol": "main", "tir.noalias": True})
+    # body
+    # with T.block("root")
+    for i0, i1, i2 in T.grid(128, 128, 128):
+        with T.block("matmul"):
+            i, j, k = T.axis.remap("SSR", [i0, i1, i2])
+            T.reads(A[i, k], B[k, j])
+            T.writes(matmul[i, j])
+            with T.init():
+                matmul[i, j] = T.float32(0)
+            matmul[i, j] = matmul[i, j] + A[i, k] * B[k, j]
+```
+
+
+
+
+
+relu的例子：
+
+```python
+def te_relu(A: te.Tensor) -> te.Tensor:
+    return te.compute(A.shape, lambda *i: te.max(A(*i), 0), name="relu")
+```
+
+
+
+te API支持算子的融合，可以将matmul的结果再次应用到relu。
+
+```python
+C = te_matmul(A, B)
+D = te_relu(C)
+te.create_prim_func([A, B, D]).show()
+```
+
+
+
+```bash
+# from tvm.script import tir as T
+@T.prim_func
+def func(A: T.Buffer[(128, 128), "float32"], B: T.Buffer[(128, 128), "float32"], relu: T.Buffer[(128, 128), "float32"]) -> None:
+    # function attr dict
+    T.func_attr({"global_symbol": "main", "tir.noalias": True})
+    # body
+    # with T.block("root")
+    matmul = T.alloc_buffer([128, 128], dtype="float32")
+    for i0, i1, i2 in T.grid(128, 128, 128):
+        with T.block("matmul"):
+            i, j, k = T.axis.remap("SSR", [i0, i1, i2])
+            T.reads(A[i, k], B[k, j])
+            T.writes(matmul[i, j])
+            with T.init():
+                matmul[i, j] = T.float32(0)
+            matmul[i, j] = matmul[i, j] + A[i, k] * B[k, j]
+    for i0, i1 in T.grid(128, 128):
+        with T.block("relu"):
+            i0_1, i1_1 = T.axis.remap("SS", [i0, i1])
+            T.reads(matmul[i0_1, i1_1])
+            T.writes(relu[i0_1, i1_1])
+            relu[i0_1, i1_1] = T.max(matmul[i0_1, i1_1], T.float32(0))
+```
+
+
+
+当然也可以穿入中间变量C，但是建议只传入输入和输出，这样可以在里面进行更高级的融合。
+
+```python
+te.create_prim_func([A, B, C, D]).show()
+```
+
+```bash
+# from tvm.script import tir as T
+@T.prim_func
+def func(A: T.Buffer[(128, 128), "float32"], B: T.Buffer[(128, 128), "float32"], matmul: T.Buffer[(128, 128), "float32"], relu: T.Buffer[(128, 128), "float32"]) -> None:
+    # function attr dict
+    T.func_attr({"global_symbol": "main", "tir.noalias": True})
+    # body
+    # with T.block("root")
+    for i0, i1, i2 in T.grid(128, 128, 128):
+        with T.block("matmul"):
+            i, j, k = T.axis.remap("SSR", [i0, i1, i2])
+            T.reads(A[i, k], B[k, j])
+            T.writes(matmul[i, j])
+            with T.init():
+                matmul[i, j] = T.float32(0)
+            matmul[i, j] = matmul[i, j] + A[i, k] * B[k, j]
+    for i0, i1 in T.grid(128, 128):
+        with T.block("relu"):
+            i0_1, i1_1 = T.axis.remap("SS", [i0, i1])
+            T.reads(matmul[i0_1, i1_1])
+            T.writes(relu[i0_1, i1_1])
+            relu[i0_1, i1_1] = T.max(matmul[i0_1, i1_1], T.float32(0))
+```
+
+
+
+### BlockBuilder构造IRModule
+
+到目前为止我们有了若干个TensorIR函数，为了构建端到端的模型执行，需要通过计算图来链接多个TensorIR函数。
+
+```python
+A = relax.Var("A", (128, 128), relax.DynTensorType(2, "float32"))
+B = relax.Var("B", (128, 128), relax.DynTensorType(2, "float32"))
+
+bb = relax.BlockBuilder()
+with bb.function("main"):
+    with bb.dataflow():
+        C = bb.emit_te(te_matmul, A, B)
+        D = bb.emit_te(te_relu, C)
+        R = bb.emit_output(D)
+    bb.emit_func_output(R, params=[A, B])
+
+MyModule = bb.get()
+MyModule.show()
+```
+
+
+
+`bb.dataflow()` 创建一个 dataflow block，其中所有对 BlockBuilder 的调用都处在 dataflow block 的作用域中。
+
+`bb.emit_te` 做了以下事情：
+
+- 为 A 和 B 创建一个输入 `te.placeholder`，
+- 通过 `te_matmul` 函数运行它们。
+- 调用 `te.create_prim_func` 来创建一个 TensorIR 函数。
+- 通过 `call_tir` 生成对函数的调用。
+
+
+
+`bb.emit_output` 创建每个 dataflow block 的输出变量，表示这个变量可以被dataflow block之外引用。
+
+最后，函数输出由 `bb.emit_func_output` 标记。可以在输出阶段指定函数的参数列表。 这样做在我们动态收集参数列表的情况下会有帮助。
+
+```python
+# method 1
+with bb.function("main"):
+    ...
+    # specify parameters in the end
+    bb.emit_func_output(R, params=[A, B])
+    
+    
+# method 2
+# specify parameters in the beginning.
+with bb.function("main", params=[A, B]):
+    ...
+    bb.emit_func_output(R)    
+```
 
 
 
 
 
 
+
+```bash
+@tvm.script.ir_module
+class Module:
+    @T.prim_func
+    def te_matmul(rxplaceholder: T.Buffer[(128, 128), "float32"], rxplaceholder_1: T.Buffer[(128, 128), "float32"], matmul: T.Buffer[(128, 128), "float32"]) -> None:
+        # function attr dict
+        T.func_attr({"global_symbol": "te_matmul", "tir.noalias": True})
+        # body
+        # with T.block("root")
+        for i0, i1, i2 in T.grid(128, 128, 128):
+            with T.block("matmul"):
+                i, j, k = T.axis.remap("SSR", [i0, i1, i2])
+                T.reads(rxplaceholder[i, k], rxplaceholder_1[k, j])
+                T.writes(matmul[i, j])
+                with T.init():
+                    matmul[i, j] = T.float32(0)
+                matmul[i, j] = matmul[i, j] + rxplaceholder[i, k] * rxplaceholder_1[k, j]
+
+    @T.prim_func
+    def te_relu(rxplaceholder: T.Buffer[(128, 128), "float32"], relu: T.Buffer[(128, 128), "float32"]) -> None:
+        # function attr dict
+        T.func_attr({"global_symbol": "te_relu", "tir.noalias": True})
+        # body
+        # with T.block("root")
+        for i0, i1 in T.grid(128, 128):
+            with T.block("relu"):
+                i0_1, i1_1 = T.axis.remap("SS", [i0, i1])
+                T.reads(rxplaceholder[i0_1, i1_1])
+                T.writes(relu[i0_1, i1_1])
+                relu[i0_1, i1_1] = T.max(rxplaceholder[i0_1, i1_1], T.float32(0))
+
+    @R.function
+    def main(A: Tensor((128, 128), "float32"), B: Tensor((128, 128), "float32")) -> Tensor(None, "float32", ndim = 2):
+        # block 0
+        with R.dataflow():
+            lv = R.call_tir(te_matmul, (A, B), (128, 128), dtype="float32")
+            lv1 = R.call_tir(te_relu, (lv,), (128, 128), dtype="float32")
+            gv: Tensor((128, 128), "float32") = lv1
+            R.output(gv)
+        return gv
+```
+
+
+
+### 从Pytorch导入模型
+
+一个简单的nn.Module的例子：
+
+```python
+class MyModel(nn.Module):
+    def __init__(self):
+        super(MyModel, self).__init__()
+        self.weight = nn.Parameter(torch.randn(128, 128))
+
+    def forward(self, x):
+        x = torch.matmul(x, self.weight)
+        x = torch.relu(x)
+        return x
+```
+
+
+
+通过TorchFX来表示Pytorch模型中的计算图。
+
+```python
+model = MyModel()
+fx_module = fx.symbolic_trace(model)
+fx_module.graph.print_tabular()
+```
+
+```bash
+opcode         name    target                                                     args         kwargs
+-------------  ------  ---------------------------------------------------------  -----------  --------
+placeholder    x       x                                                          ()           {}
+get_attr       weight  weight                                                     ()           {}
+call_function  matmul  <built-in method matmul of type object at 0x7fe7fb16f980>  (x, weight)  {}
+call_function  relu    <built-in method relu of type object at 0x7fe7fb16f980>    (matmul,)    {}
+output         output  output                                                     (relu,)      {}
+```
+
+
+
+构建映射函数的过程，主要为：
+
+- 创建一个 `node_map`，将 `fx.Node` 映射到相应的 `relax.Var`，该 `relax.Var` 代表 IRModule 中的已翻译节点。
+- 以拓扑顺序迭代 FX 图中的节点。
+- 给定映射输入，获取节点的映射输出。
+
+
+
+```python
+# 计算图中顶点的映射
+def map_param(param: nn.Parameter):
+    ndim = len(param.data.shape)
+    return relax.const(
+        param.data.cpu().numpy(), relax.DynTensorType(ndim, "float32")
+    )
+
+# 获取权重参数
+def fetch_attr(fx_mod, target: str):
+    """Helper function to fetch an attr"""
+    target_atoms = target.split('.')
+    attr_itr = fx_mod
+    for i, atom in enumerate(target_atoms):
+        if not hasattr(attr_itr, atom):
+            raise RuntimeError(f"Node referenced nonexistant target {'.'.join(target_atoms[:i])}")
+        attr_itr = getattr(attr_itr, atom)
+    return attr_itr
+
+# 具体的翻译逻辑，根据pytorch中不同的计算图节点，执行不同的翻译函数
+def from_fx(fx_mod, input_shapes, call_function_map, call_module_map):
+    input_index = 0
+    node_map = {}
+    named_modules = dict(fx_mod.named_modules())
+
+    bb = relax.BlockBuilder()
+
+    fn_inputs = []
+    fn_output = None
+    with bb.function("main"):
+        with bb.dataflow():
+            for node in fx_mod.graph.nodes:
+                if node.op == "placeholder":
+                    # create input placeholder
+                    shape = input_shapes[input_index]
+                    input_index += 1
+                    input_var = relax.Var(
+                        node.target, shape, relax.DynTensorType(len(shape), "float32")
+                    )
+                    fn_inputs.append(input_var)
+                    node_map[node] = input_var
+                elif node.op == "get_attr":
+                    node_map[node] = map_param(fetch_attr(fx_mod, node.target))
+                elif node.op == "call_function":
+                    node_map[node] = call_function_map[node.target](bb, node_map, node)
+                elif node.op == "call_module":
+                    named_module = named_modules[node.target]
+                    node_map[node] = call_module_map[type(named_module)](bb, node_map, node, named_module)
+                elif node.op == "output":
+                    output = node_map[node.args[0]]
+                    assert fn_output is None
+                    fn_output = bb.emit_output(output)
+        # output and finalize the function
+        bb.emit_func_output(output, fn_inputs)
+    return bb.get()
+```
+
+
+
+通过emit_te API为每一个torch function指定对应的翻译规则。
+
+```python
+def map_matmul(bb, node_map, node: fx.Node):
+    A = node_map[node.args[0]]
+    B = node_map[node.args[1]]
+    return bb.emit_te(te_matmul, A, B)
+
+def map_relu(bb, node_map, node: fx.Node):
+    A = node_map[node.args[0]]
+    return bb.emit_te(te_relu, A)
+
+MyModule = from_fx(
+    fx_module,
+    input_shapes = [(1, 128)],
+    call_function_map = {
+      torch.matmul: map_matmul,
+      torch.relu: map_relu,
+    },
+    call_module_map={},
+)
+
+MyModule.show()
+```
+
+```bash
+@tvm.script.ir_module
+class Module:
+    @T.prim_func
+    def te_matmul(rxplaceholder: T.Buffer[(1, 128), "float32"], rxplaceholder_1: T.Buffer[(128, 128), "float32"], matmul: T.Buffer[(1, 128), "float32"]) -> None:
+        # function attr dict
+        T.func_attr({"global_symbol": "te_matmul", "tir.noalias": True})
+        # body
+        # with T.block("root")
+        for i0, i1, i2 in T.grid(1, 128, 128):
+            with T.block("matmul"):
+                i, j, k = T.axis.remap("SSR", [i0, i1, i2])
+                T.reads(rxplaceholder[i, k], rxplaceholder_1[k, j])
+                T.writes(matmul[i, j])
+                with T.init():
+                    matmul[i, j] = T.float32(0)
+                matmul[i, j] = matmul[i, j] + rxplaceholder[i, k] * rxplaceholder_1[k, j]
+
+    @T.prim_func
+    def te_relu(rxplaceholder: T.Buffer[(1, 128), "float32"], relu: T.Buffer[(1, 128), "float32"]) -> None:
+        # function attr dict
+        T.func_attr({"global_symbol": "te_relu", "tir.noalias": True})
+        # body
+        # with T.block("root")
+        for i0, i1 in T.grid(1, 128):
+            with T.block("relu"):
+                i0_1, i1_1 = T.axis.remap("SS", [i0, i1])
+                T.reads(rxplaceholder[i0_1, i1_1])
+                T.writes(relu[i0_1, i1_1])
+                relu[i0_1, i1_1] = T.max(rxplaceholder[i0_1, i1_1], T.float32(0))
+
+    @R.function
+    def main(x: Tensor((1, 128), "float32")) -> Tensor(None, "float32", ndim = 2):
+        # block 0
+        with R.dataflow():
+            lv = R.call_tir(te_matmul, (x, meta[relay.Constant][0]), (1, 128), dtype="float32")
+            lv1 = R.call_tir(te_relu, (lv,), (1, 128), dtype="float32")
+            gv: Tensor((1, 128), "float32") = lv1
+            R.output(gv)
+        return lv1
+```
+
+
+
+下面是一个nn module的映射示例：
+
+```python
+class MLP(nn.Module):
+    def __init__(self):
+        super(MLP, self).__init__()
+        self.linear0 = nn.Linear(784, 128, bias=True)
+        self.relu = nn.ReLU()
+        self.linear1 = nn.Linear(128, 10, bias=True)
+
+    def forward(self, x):
+        x = self.linear0(x)
+        x = self.relu(x)
+        x = self.linear1(x)
+        return x
+      
+```
+
+
+
+```python
+from tvm import topi
+
+def map_nn_linear(bb, node_map, node, nn_mod):
+    x = node_map[node.args[0]]
+    w = map_param(nn_mod.weight)
+    if nn_mod.bias is not None:
+        b = map_param(nn_mod.bias)
+    y = bb.emit_te(topi.nn.dense, x, w)
+    return bb.emit_te(topi.add, y, b)
+
+def map_nn_relu(bb, node_map, node, nn_mod):
+    return map_relu(bb, node_map, node)
+
+
+MLPModule = from_fx(
+    fx.symbolic_trace(mlp_model),
+    input_shapes = [(1, 784)],
+    call_function_map={
+    },
+    call_module_map={
+        torch.nn.Linear: map_nn_linear,
+        torch.nn.ReLU: map_nn_relu,
+    },
+)
+
+MLPModule.show()
+```
+
+
+
+### 翻译为高层算子
+
+我们可以使用那些内置的算子将模型导入为 IRModule 后的结果。这些内置算子是 **比 TensorIR 函数更高级别的抽象**。
+
+
+
+```python
+def map_nn_relu_op(bb, node_map, node, nn_mod):
+    A = node_map[node.args[0]]
+    return bb.emit(relax.op.relu(A))
+
+def map_nn_linear_op(bb, node_map, node, nn_mod):
+    x = node_map[node.args[0]]
+    w = map_param(nn_mod.weight)
+    if nn_mod.bias is not None:
+        b = map_param(nn_mod.bias)
+    y = bb.emit(relax.op.dense(x, w))
+    return bb.emit(relax.op.add(y, b))
+
+MLPModuleHighLevel = from_fx(
+    fx.symbolic_trace(mlp_model),
+    input_shapes = [(1, 784)],
+    call_function_map={
+    },
+    call_module_map={
+        torch.nn.Linear: map_nn_linear_op,
+        torch.nn.ReLU: map_nn_relu_op,
+    },
+)
+
+MLPModuleHighLevel.show()
+```
+
+
+
+```bash
+@tvm.script.ir_module
+class Module:
+    @R.function
+    def main(x: Tensor((1, 784), "float32")) -> Tensor(None, "float32", ndim = 2):
+        # block 0
+        with R.dataflow():
+            lv: Tensor((1, 128), "float32") = relax.nn.dense(x, meta[relay.Constant][0])
+            lv1: Tensor((1, 128), "float32") = relax.add(lv, meta[relay.Constant][1])
+            lv2: Tensor((1, 128), "float32") = relax.nn.relu(lv1)
+            lv3: Tensor((1, 10), "float32") = relax.nn.dense(lv2, meta[relay.Constant][2])
+            lv4: Tensor((1, 10), "float32") = relax.add(lv3, meta[relay.Constant][3])
+            gv: Tensor((1, 10), "float32") = lv4
+            R.output(gv)
+        return lv4
+```
+
+
+
+### 总结
+
+![image-20220818124408462](../../img/default/mlc/image-20220818124408462.png)
+
+
+
+本章重点关注了 MLC 流程的 **开发** 部分。
+
+- 张量表达式 API 允许我们创建原始的 TensorIR 函数。
+- BlockBuilder API 通过 `emit_te` 和其他函数创建 IRModule。
+- 通过将模型转换为 IRModule，实现与现有的机器学习框架的整合。
 
 
 
 ## GPU硬件加速
 
-
+https://mlc.ai/zh/chapter_gpu_acceleration/part1.html
 
 https://github.com/NVIDIA/cutlass/blob/master/media/docs/efficient_gemm.md
 
