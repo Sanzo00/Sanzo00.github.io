@@ -63,6 +63,14 @@ categories: Life
 
 在第一段感情，编号233在收到女杀手留给他的“生日快乐”之后，有一句台词：“如果记忆也是一个罐头的话，我希望这罐罐头不会过期，如果一定要加一个日子的话，我希望它是一万年”。
 
+![image-20220819234724684](https://img.sanzo.top/img/life/movies/Chungking-Express-1994/image-20220819234724684.png)
+
+![image-20220819234824559](https://img.sanzo.top/img/life/movies/Chungking-Express-1994/image-20220819234824559.png)
+
+![image-20220819234835684](https://img.sanzo.top/img/life/movies/Chungking-Express-1994/image-20220819234835684.png)
+
+
+
 这个两句台词跟《大话西游之大圣娶亲》的两句非常像，后来查了下大话西游里的这句台词是刘镇伟用来嘲讽王家卫的，哈哈哈。
 
 ![image-20220819223003401](https://img.sanzo.top/img/life/movies/Chungking-Express-1994/image-20220819223003401.png)
