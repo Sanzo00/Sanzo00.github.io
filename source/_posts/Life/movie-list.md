@@ -18,7 +18,7 @@ categories: Life
 
 ---
 
-清理下云盘下新电影用，这里记录下之前看过的电影和电视剧，避免遗忘。
+清理下云盘下新电影用，这里记录下清理掉的电影和电视剧，避免遗忘。
 
 ## 电视剧
 
@@ -97,6 +97,14 @@ categories: Life
 
 
 ## 电影
+
+[魔女 마녀](https://movie.douban.com/subject/26602900//)
+
+[模仿游戏 The Imitation Game](https://movie.douban.com/subject/10463953/)
+
+
+
+
 
 
 

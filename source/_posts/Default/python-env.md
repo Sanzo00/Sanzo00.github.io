@@ -138,6 +138,7 @@ old version lib torch: [https://github.com/pytorch/pytorch/issues/40961](https:/
 
 ```shell
 torch.version # PyTorch version
+torch.cuda.is_available()
 torch.version.cuda # Corresponding CUDA version
 torch.backends.cudnn.version() # Corresponding cuDNN version
 torch.cuda.get_device_name(0) # GPU type

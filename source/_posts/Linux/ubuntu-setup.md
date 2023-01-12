@@ -339,7 +339,7 @@ sudo dpkg-reconfigure gdm3
 systemctl stop lightdm
 
 sudo chmod a+x NVIDIA-Linux-x86_64-450.80.02.run
-sudo ./NVIDIA-Linux-x86_64-450.80.02.run -no-x-check -no-nouveau-check -no-opengl-files
+sudo ./NVIDIA-Linux-x86_64-450.80.02.run -no-x-check -no-nouveau-check -no-opengl-files --no-kernel-module
 # -no-x-check:安装时关闭X服务
 # -no-nouveau-check: 安装时禁用nouveau
 # -no-opengl-files:只安装驱动文件，不安装OpenGL文件
@@ -360,6 +360,19 @@ nvidia-smi
 如果出现`/dev/xxx: clean`的问题，进不了桌面，可能是因为驱动不匹配的问题。可以删除`/etc/X11/xorg.conf`。
 
 
+
+如果出现`An NVIDIA kernel module 'nvidia-drm' appears to already be loaded in your kernel. This may be because it is in use (for example, by an X server, a CUDA program, or the NVIDIA Persistence Daemon), but this may also happen if your kernel was configured without support for module unloading.`
+
+```bash
+# https://unix.stackexchange.com/questions/440840/how-to-unload-kernel-module-nvidia-drm
+
+sudo systemctl isolate multi-user.target
+modprobe -r nvidia-drm
+
+# reinstall you nvidia driver
+# then
+sudo systemctl start graphical.target
+```
 
 
 
@@ -463,11 +476,29 @@ xrandr --output HDMI-1-0 --right-of HDMI-1 --auto
 
 
 
+## VSCode
+
+[vscode](https://code.visualstudio.com/)
+
+
+
+> server端网络不好，“Downloading VS Code Server”
+
+进入`~/.vscode-server/bin/`查看vscode server的commit id，然后手动下载上传到服务器。
+
+下载链接：`https://update.code.visualstudio.com/commit:${commit_id}/server-linux-x64/stable`
+
+解压之后重命名为commit id，然后放到`~/.vscode-server/bin/`
+
+
+
+
+
 ## 其他
 
 [typora](https://typora.io/#linux)
 
-[vscode](https://code.visualstudio.com/)
+
 
 [python环境](https://sanzo.top/Default/python-env/?highlight=python)
 

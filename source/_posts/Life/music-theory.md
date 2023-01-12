@@ -3,7 +3,7 @@ title: 乐理
 hidden: false
 katex: true
 sticky: 0
-typora-copy-images-to: ../../img/music
+typora-copy-images-to: ../../img/life/music_theory
 date: 2022-07-24 21:43:54
 updated: 2022-07-24 21:43:54
 tags:
@@ -114,25 +114,25 @@ CDEFGAB是白键的音名：
 
 拍号通常使用分数表示：
 
-![image-20220725142051265](https://img.sanzo.top/img/life/music_theory/image-20220725142051265.png)
+![image-20220830215552533](../../img/life/music_theory/image-20220830215552533.png)
 
 
 
 由4/4可以得到对应的音符的拍数：
 
-<img src="https://img.sanzo.top/img/life/music_theory/image-20220725142156484.png" alt="image-20220725142156484" style="zoom:67%;" />
+![image-20220830215611885](../../img/life/music_theory/image-20220830215611885.png)
 
 
 
 同理6/8对应各个音符的拍数量：
 
-<img src="https://img.sanzo.top/img/life/music_theory/image-20220725142231389.png" alt="image-20220725142231389" style="zoom:67%;" />
+![image-20220830215620536](../../img/life/music_theory/image-20220830215620536.png)
 
 
 
 下面是一个练习，这个小节的拍数是错的。
 
-<img src="https://img.sanzo.top/img/life/music_theory/image-20220725142251929.png" alt="image-20220725142251929" style="zoom: 50%;" />
+![image-20220830215525869](../../img/life/music_theory/image-20220830215525869.png)
 
 
 
@@ -178,13 +178,17 @@ $$
 
 四分音符三连音是把二分音符平等分成3份。
 
-<img src="https://img.sanzo.top/img/life/music_theory/image-20220810121809911.png" alt="image-20220810121809911" style="zoom:33%;" />
+
+
+![image-20220830215435467](../../img/life/music_theory/image-20220830215435467.png)
 
 
 
 八分音符三链音是吧四分音符平等分成3份。 
 
-<img src="https://img.sanzo.top/img/life/music_theory/image-20220810121819084.png" alt="image-20220810121819084" style="zoom:33%;" />
+
+
+![image-20220830215450619](../../img/life/music_theory/image-20220830215450619.png)
 
  
 
@@ -224,7 +228,7 @@ $$
 
 
 
-根据这个规律我看可以得出任意大调的排列
+根据这个规律我们可以得出任意大调的排列
 
 > G大调
 
@@ -264,7 +268,7 @@ $$
 
 
 
-<img src="https://img.sanzo.top/img/life/music_theory/image-20220810124212295.png" alt="image-20220810124212295" style="zoom: 33%;" />
+![image-20220830215822397](../../img/life/music_theory/image-20220830215822397.png)
 
 
 
@@ -274,7 +278,7 @@ $$
 
 自然小调的音名排列可以从自然大调推到出来，C大调和A小调互为平行大小调，可以通过其中一个得到另一个。
 
-<img src="https://img.sanzo.top/img/life/music_theory/image-20220810124354355.png" alt="image-20220810124354355" style="zoom:50%;" />
+![image-20220830215715447](../../img/life/music_theory/image-20220830215715447.png)
 
 
 
@@ -314,7 +318,7 @@ $$
 
 
 
-<img src="https://img.sanzo.top/img/life/music_theory/image-20220810125633333.png" alt="image-20220810125633333" style="zoom:33%;" />
+![image-20220830215757829](../../img/life/music_theory/image-20220830215757829.png)
 
 
 
@@ -332,7 +336,7 @@ $$
 
 音程用纯和大来表示，其中纯1度和纯8度都是C到C自己，所以纯里面只有4，5度，剩下的都是大度。
 
-<img src="https://img.sanzo.top/img/life/music_theory/image-20220810130138556.png" alt="image-20220810130138556" style="zoom: 33%;" />
+![image-20220830215737896](../../img/life/music_theory/image-20220830215737896.png)
 
 
 
@@ -348,13 +352,15 @@ $$
 
 
 
-<img src="https://img.sanzo.top/img/life/music_theory/image-20220810130930137.png" alt="image-20220810130930137" style="zoom:50%;" />
+![image-20220830215854849](../../img/life/music_theory/image-20220830215854849.png)
 
 
 
 其他的一些音程关系
 
-<img src="https://img.sanzo.top/img/life/music_theory/image-20220810132345228.png" alt="image-20220810132345228" style="zoom:50%;" />
+![](../../img/life/music_theory/image-20220810132345228.png)
+
+
 
 
 
@@ -605,7 +611,9 @@ C是F调的属音，所以C7也叫做属七和弦。
 
 ## 休止符
 
-<img src="https://img.sanzo.top/img/life/music_theory/image-20220811000629962.png" alt="image-20220811000629962" style="zoom:33%;" />
+
+
+![](../../img/life/music_theory/image-20220811000629962.png)
 
 
 
@@ -615,19 +623,13 @@ C是F调的属音，所以C7也叫做属七和弦。
 
 延音线：多个相同音高的音连在一起，变成一个音，一般出现在小节与小节之间。
 
-<img src="https://img.sanzo.top/img/life/music_theory/image-20220811000843464.png" alt="image-20220811000843464" style="zoom:50%;" />
-
-
-
 连音线：一个字包含多个音。
 
-<img src="https://img.sanzo.top/img/life/music_theory/image-20220811000953716.png" alt="image-20220811000953716" style="zoom:33%;" />
 
 
 
 
-
-<img src="https://img.sanzo.top/img/life/music_theory/image-20220811001038344.png" alt="image-20220811001038344" style="zoom:50%;" />
+![](../../img/life/music_theory/image-20220811001038344.png)
 
 
 
@@ -637,45 +639,27 @@ C是F调的属音，所以C7也叫做属七和弦。
 
 ## 中古(教会)调式
 
-<img src="https://img.sanzo.top/img/life/music_theory/image-20220811001314668.png" alt="image-20220811001314668" style="zoom:33%;" />
-
-
-
-![image-20220811001732880](https://img.sanzo.top/img/life/music_theory/image-20220811001732880.png)
-
- 
-
-
-
-![image-20220811001752507](https://img.sanzo.top/img/life/music_theory/image-20220811001752507.png)
-
-
-
-![image-20220811001819233](https://img.sanzo.top/img/life/music_theory/image-20220811001819233.png)
-
-
-
-
-
-![image-20220811001839061](https://img.sanzo.top/img/life/music_theory/image-20220811001839061.png)
-
-
-
-  
-
-![image-20220811001521624](https://img.sanzo.top/img/life/music_theory/image-20220811001521624.png)
-
-
-
-![image-20220811001604997](https://img.sanzo.top/img/life/music_theory/image-20220811001604997.png)
-
-
-
-![image-20220811001618989](https://img.sanzo.top/img/life/music_theory/image-20220811001618989.png)
-
-
-
 ![image-20220811001642342](https://img.sanzo.top/img/life/music_theory/image-20220811001642342.png)
+
+
+
+>  7个中古调式
+
+不同调式的区别是，音名对应的唱名不一样，7个音名轮流做do就形成了七种不同的调式。
+
+| 名称                          | 排列    |
+| ----------------------------- | ------- |
+| 伊奥尼亚 Lonian （自然大调）  | CDEFGAB |
+| 多利亚 Dorian                 | DEFGABC |
+| 弗里吉亚 Phrygian             | EFGABCD |
+| 利底亚 Lydian                 | FGABCDE |
+| 混合利底亚 Mixolydian         | GABCDEF |
+| 爱奥尼亚 Aeolian （自然小调） | ABCDEFG |
+| 洛克里亚 Locrian              | BCDEFGA |
+
+
+
+
 
 
 

@@ -24,9 +24,18 @@ categories: Default
 
 ### 服务端
 
+测试ip：[ping.chinaz.com](https://ping.chinaz.com)
+
+证书申请：https://freessl.cn/
+
 ```bash
-# 一键安装脚本
-bash <(curl -s -L https://git.io/v2ray.sh)
+#X-ui面板安装
+bash <(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)
+
+
+# ufw开启端口
+ufw allow 40000:60000/tcp
+ufw allow 40000:60000/udp
 ```
 
 
