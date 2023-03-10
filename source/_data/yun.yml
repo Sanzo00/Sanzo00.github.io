@@ -80,19 +80,19 @@ reward:
   methods:
     - name: 支付宝
       # path: https://cdn.jsdelivr.net/gh/sanzo00/sanzo00.github.io@master/img/reward/alipay.jpg
-      path: https://img.sanzo.top/img/reward/alipay.jpg
+      path: /img/reward/alipay.jpg
       color: "#00A3EE"
       icon: icon-alipay-line
     - name: QQ 支付
       # path: /img/reward/qqpay.jpg
       # path: https://cdn.jsdelivr.net/gh/sanzo00/sanzo00.github.io@master/img/reward/qqpay.jpg
-      path: https://img.sanzo.top/img/reward/qqpay.jpg
+      path: /img/reward/qqpay.jpg
       color: "#12B7F5"
       icon: icon-qq-line
     - name: 微信支付
       # path: /img/reward/wechat.jpg
       # path: https://cdn.jsdelivr.net/gh/sanzo00/sanzo00.github.io@master/img/reward/wechat.jpg
-      path: https://img.sanzo.top/img/reward/wechat.jpg
+      path: /img/reward/wechat.jpg
       color: "#2DC100"
       icon: icon-wechat-pay-line
     # - name: paypal

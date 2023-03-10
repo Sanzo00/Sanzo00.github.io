@@ -21,13 +21,13 @@ categories: RaspberryPi
 
 树莓派配置：[sanzo.top/RaspberryPi/raspi-setup](https://sanzo.top/RaspberryPi/raspi-setup)
 
-![](https://img.sanzo.top/img/pi/car.jpg)
+![](../../img/pi/car.jpg)
 
 ## 功能展示
 
 ### 远程控制小车
 
-![](https://img.sanzo.top/img/pi/remote-control-car.gif)
+![](../../img/pi/remote-control-car.gif)
 
 
 
@@ -39,7 +39,7 @@ categories: RaspberryPi
 
 小车在低电压情况下跑的比较慢，因此增加变速的功能。
 
-![](https://img.sanzo.top/img/pi/pwm-speed-control.png)
+![](../../img/pi/pwm-speed-control.png)
 
 
 
@@ -47,15 +47,15 @@ categories: RaspberryPi
 
 这里使用超声波测距模块（HC-SR04）实现距离检测，在此基础上实现一个简单的自动避障逻辑。
 
-![](https://img.sanzo.top/img/pi/auto-direction.gif)
+![](../../img/pi/auto-direction.gif)
 
 
 
 ## GPIO
 
-![image-20201206142156793](https://img.sanzo.top/img/pi/image-20201206142156793.png)
+![image-20201206142156793](../../img/pi/image-20201206142156793.png)
 
-![image-20201206142137327](https://img.sanzo.top/img/pi/image-20201206142137327.png)
+![image-20201206142137327](../../img/pi/image-20201206142137327.png)
 
 ### pinout
 
@@ -66,7 +66,7 @@ pinout
 
 
 
-![image-20201206142521859](https://img.sanzo.top/img/pi/image-20201206142521859.png)
+![image-20201206142521859](../../img/pi/image-20201206142521859.png)
 
 
 
@@ -77,7 +77,7 @@ wget https://project-downloads.drogon.net/wiringpi-latest.deb
 sudo dpkg -i wiringpi-latest.deb
 ```
 
-![image-20201206144158864](https://img.sanzo.top/img/pi/image-20201206144158864.png)
+![image-20201206144158864](../../img/pi/image-20201206144158864.png)
 
 
 
@@ -98,9 +98,9 @@ sudo dpkg -i wiringpi-latest.deb
 
 ### L298N
 
-![image-20210820111534273](https://img.sanzo.top/img/pi/image-20210820111534273.png)
+![image-20210820111534273](../../img/pi/image-20210820111534273.png)
 
-![image-20201206145217171](https://img.sanzo.top/img/pi/image-20201206145217171.png)
+![image-20201206145217171](../../img/pi/image-20201206145217171.png)
 
 > 接线
 
@@ -114,7 +114,7 @@ ENA、ENB接到树莓派的20、21。
 
 ### HC-SR04
 
-![image-20210820110650933](https://img.sanzo.top/img/pi/image-20210820110650933.png)
+![image-20210820110650933](../../img/pi/image-20210820110650933.png)
 
 > 测距原理
 
