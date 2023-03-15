@@ -117,6 +117,10 @@ vim config.yaml
 
 创建systemd配置文件
 
+`/home/sanzo/software/clash/clash` is you clash executable file
+
+`/home/sanzo/software/clash/` is your clash config directory
+
 ```bash
 [Unit]
 Description=Clash daemon, A rule-based proxy in Go.
