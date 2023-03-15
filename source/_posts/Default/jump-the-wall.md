@@ -71,13 +71,102 @@ nohup ./v2ray run config.json > v2ray.log 2>&1 &
 
 
 
-## 代理设置
+## Clash
+
+> 开源桌面应用
+
+Mac：[ClashX](https://github.com/yichengchen/clashX)
+
+Windows：[ClashForWindows](https://github.com/Fndroid/clash_for_windows_pkg/releases)
+
+Android：[ClashForAndroid](https://github.com/Kr328/ClashForAndroid)
 
 
+
+
+
+> 服务器配置
+
+下载对应系统的可执行文件：[Dreamacro/clash  release](https://github.com/Dreamacro/clash/releases)
+
+V2ray to Clash节点转换工具：[v2rayse.com/node-convert](https://v2rayse.com/node-convert)
+
+
+
+```bash
+cd ~/software
+mkdir clash && cd clash
+
+# 下载软件包
+wget https://github.com/Dreamacro/clash/releases/download/v1.13.0/clash-linux-amd64-v1.13.0.gz
+
+# 解压并添加权限
+gunzip clash-linux-amd64-v1.13.0.gz
+mv clash-linux-amd64-v1.13.0 clash
+chmod +x clash
+
+# 下载Country.mmdb
+wget https://github.com/Dreamacro/maxmind-geoip/releases/download/20230312/Country.mmdb
+
+# 设置clash配置文件
+vim config.yaml
+
+```
+
+
+
+创建systemd配置文件
+
+```bash
+[Unit]
+Description=Clash daemon, A rule-based proxy in Go.
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/home/sanzo/software/clash/clash -d /home/sanzo/software/clash/
+
+[Install]
+WantedBy=multi-user.target
+```
+
+
+
+使用systemctl控制clash的运行：
+
+```bash
+sudo systemctl status clash
+sudo systemctl start clash
+sudo systemctl restart clash
+sudo systemctl stop clash
+```
+
+
+
+网络测试
+
+```bash
+wget google.com
+```
+
+
+
+
+
+
+
+
+
+
+
+## 设置终端代理
 
 ### 终端代理
 
 ```bash
+vim ~/.bashrc
+
 export ALL_PROXY="socks5://127.0.0.1:10800"
 export all_proxy="socks5://127.0.0.1:10800"
 export http_proxy="http://127.0.0.1:10801"
