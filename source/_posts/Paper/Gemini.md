@@ -3,7 +3,7 @@ title: Gemini代码阅读
 hidden: false
 katex: true
 sticky: 0
-typora-copy-images-to: ../../img
+typora-copy-images-to: ../../img/paper/gemini
 date: 2023-02-22 20:25:55
 updated: 2023-02-22 20:25:55
 tags:
