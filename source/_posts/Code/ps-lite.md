@@ -115,7 +115,7 @@ server和worker也会创建心跳线程`heartbeat_thread_`执行`Van::Heartbeat(
 
 ## 类图
 
-![](https://img.sanzo.top/img/code/ps.png)
+![](../../img/code/ps.png)
 
 ## 测试程序
 
@@ -231,6 +231,6 @@ int main() {
 
 运行结果如下：
 
-![](https://img.sanzo.top/img/code/image-20210622234200560.png)
+![](../../img/code/image-20210622234200560.png)
 
 <!-- Q.E.D. -->

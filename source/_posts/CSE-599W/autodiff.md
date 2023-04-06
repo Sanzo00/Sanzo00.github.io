@@ -47,7 +47,7 @@ $$f'(x) = \lim_{h\rightarrow 0} \frac{f(x+h) - f(x)}{h}$$
 
 符号微分通过代数软件替代了人工计算梯度公式。
 
-![image-20211226192528850](https://img.sanzo.top/img/lesson/cse599w/image-20211226192528850.png)
+![image-20211226192528850](../../img/lesson/cse599w/image-20211226192528850.png)
 
 
 
@@ -56,7 +56,7 @@ $$f'(x) = \lim_{h\rightarrow 0} \frac{f(x+h) - f(x)}{h}$$
 - 求解的表达式不一定是最简的，对于复杂的函数，结果表达式可能呈指数级增大。
 - 保存中间的表达式是浪费的，因为只需要一个梯度值。
 
-![image-20211226192400331](https://img.sanzo.top/img/lesson/cse599w/image-20211226192400331.png)
+![image-20211226192400331](../../img/lesson/cse599w/image-20211226192400331.png)
 
 
 
@@ -70,13 +70,13 @@ $$f'(x) = \lim_{h\rightarrow 0} \frac{f(x+h) - f(x)}{h}$$
 
 对于函数$f(x1, x2) = ln(x_1) + x1x2 - sim(x_2)$我们可以构建一个计算图：
 
-![image-20211226193848492](https://img.sanzo.top/img/lesson/cse599w/image-20211226193848492.png)
+![image-20211226193848492](../../img/lesson/cse599w/image-20211226193848492.png)
 
 
 
 计算图是一个有向无环图，图中的节点表示计算，边表示数据的依赖关系。
 
-![image-20211226193900781](https://img.sanzo.top/img/lesson/cse599w/image-20211226193900781.png)
+![image-20211226193900781](../../img/lesson/cse599w/image-20211226193900781.png)
 
 上图左侧是每个节点的计算以及结果，右侧是每个节点对$x_1$的求导和结果。
 
@@ -88,7 +88,7 @@ $$f'(x) = \lim_{h\rightarrow 0} \frac{f(x+h) - f(x)}{h}$$
 
 ### 反向计算
 
-![image-20211226194547081](https://img.sanzo.top/img/lesson/cse599w/image-20211226194547081.png)
+![image-20211226194547081](../../img/lesson/cse599w/image-20211226194547081.png)
 
 反向计算刚好相反，首先根据符号微分计算当前节点的梯度公式，然后根据链式法则计算输出节点对当前节点的梯度。通过一次反向计算就可以得到所有维度的梯度值。
 
@@ -98,7 +98,7 @@ $$f'(x) = \lim_{h\rightarrow 0} \frac{f(x+h) - f(x)}{h}$$
 
 对于函数$f = \frac{1}{1 + e^{-(w_0+w_1x_1+w_2x_2)}}$，我们可以得到如下计算图：
 
-![image-20211226201919521](https://img.sanzo.top/img/lesson/cse599w/image-20211226201919521.png)
+![image-20211226201919521](../../img/lesson/cse599w/image-20211226201919521.png)
 
 
 
@@ -106,7 +106,7 @@ $$f'(x) = \lim_{h\rightarrow 0} \frac{f(x+h) - f(x)}{h}$$
 
 和前向计算一样，我们可以为反向的梯度计算构建一个有向无环图DAG：
 
-![image-20211226202012034](https://img.sanzo.top/img/lesson/cse599w/image-20211226202012034.png)
+![image-20211226202012034](../../img/lesson/cse599w/image-20211226202012034.png)
 
 
 
@@ -114,7 +114,7 @@ $$f'(x) = \lim_{h\rightarrow 0} \frac{f(x+h) - f(x)}{h}$$
 
 具体计算节点的梯度时，首先按照出边对节点的梯度进行求和，得到当前节点的梯度，然后将梯度传递给入边的节点（计算图存的是入边节点），计算入边节点的梯度值，保存节点的梯度值，用于其他节点的计算。
 
-![image-20211226202140955](https://img.sanzo.top/img/lesson/cse599w/image-20211226202140955.png)
+![image-20211226202140955](../../img/lesson/cse599w/image-20211226202140955.png)
 
 
 
@@ -124,7 +124,7 @@ $$f'(x) = \lim_{h\rightarrow 0} \frac{f(x+h) - f(x)}{h}$$
 
 首先定义计算图中节点，其中包括了节点入边、运算类型、
 
-![image-20211226210016987](https://img.sanzo.top/img/lesson/cse599w/image-20211226210016987.png)
+![image-20211226210016987](../../img/lesson/cse599w/image-20211226210016987.png)
 
 
 
@@ -132,15 +132,15 @@ $$f'(x) = \lim_{h\rightarrow 0} \frac{f(x+h) - f(x)}{h}$$
 
 每个算子包括前向计算（compute）和梯度计算（gradient）两部分，Op类作为算子的父类。负责为每个算子创建一个新的节点，同时标识节点的的算子类型。
 
-![image-20211226210248213](https://img.sanzo.top/img/lesson/cse599w/image-20211226210248213.png)
+![image-20211226210248213](../../img/lesson/cse599w/image-20211226210248213.png)
 
 
 
 其他算子在实现的时候，需要继承Op类，然后重写compute和gradient方法。
 
-![image-20211226210857597](https://img.sanzo.top/img/lesson/cse599w/image-20211226210857597.png)
+![image-20211226210857597](../../img/lesson/cse599w/image-20211226210857597.png)
 
-![image-20211226210914288](https://img.sanzo.top/img/lesson/cse599w/image-20211226210914288.png)
+![image-20211226210914288](../../img/lesson/cse599w/image-20211226210914288.png)
 
 
 
@@ -150,17 +150,17 @@ PlaceholerOp算子，它和Variable一起使用，用于输入节点的表示，
 
 占位符只是用于表示输入节点，本身没有数据，没有compute和gradient的逻辑。
 
-![image-20211226212942514](https://img.sanzo.top/img/lesson/cse599w/image-20211226212942514.png)
+![image-20211226212942514](../../img/lesson/cse599w/image-20211226212942514.png)
 
-![image-20211226213000735](https://img.sanzo.top/img/lesson/cse599w/image-20211226213000735.png)
+![image-20211226213000735](../../img/lesson/cse599w/image-20211226213000735.png)
 
 
 
 OnesLikeOp和ZerosLikeOp一般用于生成一个指定维度的全1张量和全0张量。
 
-![image-20211226213338136](https://img.sanzo.top/img/lesson/cse599w/image-20211226213338136.png)
+![image-20211226213338136](../../img/lesson/cse599w/image-20211226213338136.png)
 
-![image-20211226213344718](https://img.sanzo.top/img/lesson/cse599w/image-20211226213344718.png)
+![image-20211226213344718](../../img/lesson/cse599w/image-20211226213344718.png)
 
 
 
@@ -172,7 +172,7 @@ OnesLikeOp和ZerosLikeOp一般用于生成一个指定维度的全1张量和全0
 
 在构建反向计算图时，首先计算输出节点对应的拓扑序，然后按照逆序，即从最后一个节点往前，调用每个节点的gradient方法计算梯度值。
 
-![image-20211226213602852](https://img.sanzo.top/img/lesson/cse599w/image-20211226213602852.png)
+![image-20211226213602852](../../img/lesson/cse599w/image-20211226213602852.png)
 
 
 
@@ -188,7 +188,7 @@ run方法负责计算，参数feed_dict对应占位符的输入值。
 
 因为我们已经生成了梯度的反向计算图，所以梯度的计算和前向的计算逻辑完全一致，只需调用compute即可得到结果。
 
-![image-20211226214705976](https://img.sanzo.top/img/lesson/cse599w/image-20211226214705976.png)
+![image-20211226214705976](../../img/lesson/cse599w/image-20211226214705976.png)
 
 
 
@@ -210,15 +210,15 @@ $$L(x) = -[ylog(h(x)) + (1-y)log(1-h(x))]$$
 
 实现这些算子之后，就可以搭建一个简单的逻辑回归模型，下面是程序运行的结果：
 
-![image-20211226222211947](https://img.sanzo.top/img/lesson/cse599w/image-20211226222211947.png)
+![image-20211226222211947](../../img/lesson/cse599w/image-20211226222211947.png)
 
 
 
-![image-20211226222222933](https://img.sanzo.top/img/lesson/cse599w/image-20211226222222933.png)
+![image-20211226222222933](../../img/lesson/cse599w/image-20211226222222933.png)
 
 
 
-![image-20211226222233260](https://img.sanzo.top/img/lesson/cse599w/image-20211226222233260.png)
+![image-20211226222233260](../../img/lesson/cse599w/image-20211226222233260.png)
 
 
 
@@ -230,7 +230,7 @@ $$L(x) = -[ylog(h(x)) + (1-y)log(1-h(x))]$$
 
 2. 在实现算子后尽量对算子写一个测试样例，来检查算子的正确性，在写测试样例的时候尽可能的复杂一些，例如在测试除法算子时，可以这样写测试样例：
 
-   ![image-20211226221648049](https://img.sanzo.top/img/lesson/cse599w/image-20211226221648049.png)
+   ![image-20211226221648049](../../img/lesson/cse599w/image-20211226221648049.png)
 
    我之前写的样例过于简单，没能检查出算子中的bug，导致在实现逻辑回归的时候出现了梯度爆炸的问题（梯度计算错误）。
 

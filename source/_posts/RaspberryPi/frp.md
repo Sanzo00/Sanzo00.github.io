@@ -25,7 +25,7 @@ categories: RaspberryPi
 
 图片来自：https://cdn.fangyuanxiaozhan.com/assets/1633067238450eSkTFTi2.jpeg
 
-![image-20220130105711981](https://img.sanzo.top/img/pi/image-20220130105711981.png)
+![image-20220130105711981](../../img/pi/image-20220130105711981.png)
 
 
 

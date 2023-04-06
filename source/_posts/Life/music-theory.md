@@ -28,13 +28,13 @@ categories:
 
 钢琴有88个键，去掉左面三个和右面一个，剩下的可以划分为7组，每组有七个白键五个黑键。
 
-![image-20220724215018897](https://img.sanzo.top/img/life/music_theory/image-20220724215018897.png)
+![image-20220724215018897](../../img/life/music_theory/image-20220724215018897.png)
 
 
 
 CDEFGAB是白键的音名：
 
-![image-20220724215123953](https://img.sanzo.top/img/life/music_theory/image-20220724215123953.png)
+![image-20220724215123953](../../img/life/music_theory/image-20220724215123953.png)
 
 
 
@@ -42,13 +42,13 @@ CDEFGAB是白键的音名：
 
 全音：中间隔一个音的键位为全音关系
 
-![image-20220724215459437](https://img.sanzo.top/img/life/music_theory/image-20220724215459437.png)
+![image-20220724215459437](../../img/life/music_theory/image-20220724215459437.png)
 
 
 
 黑键的音名是通过白键来表示的，比如C和D之前的黑键可以表示为升C（C#）或者降D（Db）。
 
-![image-20220724215908235](https://img.sanzo.top/img/life/music_theory/image-20220724215908235.png)
+![image-20220724215908235](../../img/life/music_theory/image-20220724215908235.png)
 
 
 
@@ -58,13 +58,13 @@ CDEFGAB是白键的音名：
 
 对C#加还原号回到C，对Db加还原回到D。
 
-![image-20220724220201869](https://img.sanzo.top/img/life/music_theory/image-20220724220201869.png)
+![image-20220724220201869](../../img/life/music_theory/image-20220724220201869.png)
 
 
 
 同理白键也可以多种音名表示：
 
-![image-20220724220107563](https://img.sanzo.top/img/life/music_theory/image-20220724220107563.png)
+![image-20220724220107563](../../img/life/music_theory/image-20220724220107563.png)
 
 
 
@@ -72,7 +72,7 @@ CDEFGAB是白键的音名：
 
 另外还有重生和重降符号，即连升/降两个音。
 
-![image-20220724220445454](https://img.sanzo.top/img/life/music_theory/image-20220724220445454.png)
+![image-20220724220445454](../../img/life/music_theory/image-20220724220445454.png)
 
 
 
@@ -84,13 +84,13 @@ CDEFGAB是白键的音名：
 
 小字组用小写字母表示，组号写在右上方，例如$d^3$。
 
-![image-20220725140922915](https://img.sanzo.top/img/life/music_theory/image-20220725140922915.png)
+![image-20220725140922915](../../img/life/music_theory/image-20220725140922915.png)
 
 
 
 在编曲软件中，通常讲第一个C记为C0，中央C就是C3。
 
-![image-20220725140848992](https://img.sanzo.top/img/life/music_theory/image-20220725140848992.png)
+![image-20220725140848992](../../img/life/music_theory/image-20220725140848992.png)
 
 
 
@@ -104,7 +104,7 @@ CDEFGAB是白键的音名：
 
 常见的音符时值：
 
-<img src="https://img.sanzo.top/img/life/music_theory/image-20220725142648570.png" alt="image-20220725142648570" style="zoom:67%;" />
+<img src="../../img/life/music_theory/image-20220725142648570.png" alt="image-20220725142648570" style="zoom:67%;" />
 
 
 
@@ -148,11 +148,11 @@ $$
 
 
 
-![image-20220810121215844](https://img.sanzo.top/img/life/music_theory/image-20220810121215844.png)
+![image-20220810121215844](../../img/life/music_theory/image-20220810121215844.png)
 
 
 
-![image-20220810121204015](https://img.sanzo.top/img/life/music_theory/image-20220810121204015.png)
+![image-20220810121204015](../../img/life/music_theory/image-20220810121204015.png)
 
 
 
@@ -162,11 +162,11 @@ $$
 
 附点音符是在原来音符的基础上，延长原来音符的一半。
 
-![image-20220810121546179](https://img.sanzo.top/img/life/music_theory/image-20220810121546179.png)
+![image-20220810121546179](../../img/life/music_theory/image-20220810121546179.png)
 
 
 
-![image-20220810121534247](https://img.sanzo.top/img/life/music_theory/image-20220810121534247.png)
+![image-20220810121534247](../../img/life/music_theory/image-20220810121534247.png)
 
 
 
@@ -202,11 +202,11 @@ $$
 
 简谱数字的唱名是固定的
 
-![image-20220810122622062](https://img.sanzo.top/img/life/music_theory/image-20220810122622062.png)
+![image-20220810122622062](../../img/life/music_theory/image-20220810122622062.png)
 
 
 
-![image-20220810122721498](https://img.sanzo.top/img/life/music_theory/image-20220810122721498.png)
+![image-20220810122721498](../../img/life/music_theory/image-20220810122721498.png)
 
 
 
@@ -218,13 +218,13 @@ $$
 
 自然大调的1=C
 
-![image-20220810123028212](https://img.sanzo.top/img/life/music_theory/image-20220810123028212.png)
+![image-20220810123028212](../../img/life/music_theory/image-20220810123028212.png)
 
 
 
 自然大调的排列规律
 
-![image-20220810123117874](https://img.sanzo.top/img/life/music_theory/image-20220810123117874.png)
+![image-20220810123117874](../../img/life/music_theory/image-20220810123117874.png)
 
 
 
@@ -232,7 +232,7 @@ $$
 
 > G大调
 
-![image-20220810123213571](https://img.sanzo.top/img/life/music_theory/image-20220810123213571.png)
+![image-20220810123213571](../../img/life/music_theory/image-20220810123213571.png)
 
 其中7的音名用#F表示，因为要保证7个音名都要出现。
 
@@ -240,7 +240,7 @@ $$
 
 > D大调
 
-![image-20220810123751387](https://img.sanzo.top/img/life/music_theory/image-20220810123751387.png)
+![image-20220810123751387](../../img/life/music_theory/image-20220810123751387.png)
 
 
 
@@ -250,13 +250,13 @@ $$
 
 
 
-![image-20220810124111353](https://img.sanzo.top/img/life/music_theory/image-20220810124111353.png)
+![image-20220810124111353](../../img/life/music_theory/image-20220810124111353.png)
 
 
 
 
 
-![image-20220810124057057](https://img.sanzo.top/img/life/music_theory/image-20220810124057057.png)
+![image-20220810124057057](../../img/life/music_theory/image-20220810124057057.png)
 
 
 
@@ -272,7 +272,7 @@ $$
 
 
 
-![image-20220810124236498](https://img.sanzo.top/img/life/music_theory/image-20220810124236498.png)
+![image-20220810124236498](../../img/life/music_theory/image-20220810124236498.png)
 
 
 
@@ -286,19 +286,19 @@ $$
 
 首先往前找一个全音和一个半音，得到音名G，那E小调的关系大调为G大调。
 
-![image-20220810124742329](https://img.sanzo.top/img/life/music_theory/image-20220810124742329.png)
+![image-20220810124742329](../../img/life/music_theory/image-20220810124742329.png)
 
 
 
 根据"全全半全全全半"，得到G大调的音阶
 
-![image-20220810124849864](https://img.sanzo.top/img/life/music_theory/image-20220810124849864.png)
+![image-20220810124849864](../../img/life/music_theory/image-20220810124849864.png)
 
 
 
 然后把6和7挪到前面，就可以得到E小调的音阶
 
-![image-20220810124935446](https://img.sanzo.top/img/life/music_theory/image-20220810124935446.png)
+![image-20220810124935446](../../img/life/music_theory/image-20220810124935446.png)
 
 
 
@@ -306,7 +306,7 @@ $$
 
 练习：D小调的音阶
 
-![image-20220810125319460](https://img.sanzo.top/img/life/music_theory/image-20220810125319460.png)
+![image-20220810125319460](../../img/life/music_theory/image-20220810125319460.png)
 
 
 
@@ -322,7 +322,7 @@ $$
 
 
 
-![image-20220810125731411](https://img.sanzo.top/img/life/music_theory/image-20220810125731411.png)
+![image-20220810125731411](../../img/life/music_theory/image-20220810125731411.png)
 
 
 
@@ -342,13 +342,13 @@ $$
 
 音程的作用就是确定这些音程包含多少键。
 
-![image-20220810130705778](https://img.sanzo.top/img/life/music_theory/image-20220810130705778.png)
+![image-20220810130705778](../../img/life/music_theory/image-20220810130705778.png)
 
 
 
 同理，bD到F也是大三度，bD还原到D，D到F是三度。
 
-![image-20220810130811794](https://img.sanzo.top/img/life/music_theory/image-20220810130811794.png)
+![image-20220810130811794](../../img/life/music_theory/image-20220810130811794.png)
 
 
 
@@ -378,7 +378,7 @@ E到Fb，是2度1键，减二度。
 
 主和弦是由主音、下属音、属音组成的。
 
-![image-20220810133126353](https://img.sanzo.top/img/life/music_theory/image-20220810133126353.png)
+![image-20220810133126353](../../img/life/music_theory/image-20220810133126353.png)
 
 
 
@@ -392,15 +392,15 @@ E到Fb，是2度1键，减二度。
 
 三和弦：三个音按照三度关系叠加的和弦。
 
-![image-20220810232453106](https://img.sanzo.top/img/life/music_theory/image-20220810232453106.png)
+![image-20220810232453106](../../img/life/music_theory/image-20220810232453106.png)
 
 
 
 > 大三和弦
 
-<img src="https://img.sanzo.top/img/life/music_theory/image-20220810232521894.png" alt=" "  />
+<img src="../../img/life/music_theory/image-20220810232521894.png" alt=" "  />
 
-<img src="https://img.sanzo.top/img/life/music_theory/image-20220810232544612.png" alt="image-20220810232544612"  />
+<img src="../../img/life/music_theory/image-20220810232544612.png" alt="image-20220810232544612"  />
 
 
 
@@ -408,11 +408,11 @@ E到Fb，是2度1键，减二度。
 
 > 小三和弦：小三度+大三度
 
-![image-20220810232835788](https://img.sanzo.top/img/life/music_theory/image-20220810232835788.png)
+![image-20220810232835788](../../img/life/music_theory/image-20220810232835788.png)
 
 
 
-![image-20220810232812732](https://img.sanzo.top/img/life/music_theory/image-20220810232812732.png)
+![image-20220810232812732](../../img/life/music_theory/image-20220810232812732.png)
 
 
 
@@ -420,25 +420,25 @@ E到Fb，是2度1键，减二度。
 
 > 增三和弦：大三度+大三度
 
-![image-20220810232940666](https://img.sanzo.top/img/life/music_theory/image-20220810232940666.png)
+![image-20220810232940666](../../img/life/music_theory/image-20220810232940666.png)
 
 
 
-![image-20220810232920128](https://img.sanzo.top/img/life/music_theory/image-20220810232920128.png)
+![image-20220810232920128](../../img/life/music_theory/image-20220810232920128.png)
 
 > 减三和弦：小三度+小三度
 
-![image-20220810232856581](https://img.sanzo.top/img/life/music_theory/image-20220810232856581.png)
+![image-20220810232856581](../../img/life/music_theory/image-20220810232856581.png)
 
 
 
-![image-20220810232909789](https://img.sanzo.top/img/life/music_theory/image-20220810232909789.png)
+![image-20220810232909789](../../img/life/music_theory/image-20220810232909789.png)
 
 
 
 每一个调式都有7个本调音的三和弦（没有升降的音组成的和弦）。
 
-![image-20220810233347067](https://img.sanzo.top/img/life/music_theory/image-20220810233347067.png)
+![image-20220810233347067](../../img/life/music_theory/image-20220810233347067.png)
 
 
 
@@ -446,7 +446,7 @@ E到Fb，是2度1键，减二度。
 
 常用：大七和弦，大小七和弦，小七和弦
 
-![image-20220810233600708](https://img.sanzo.top/img/life/music_theory/image-20220810233600708.png)
+![image-20220810233600708](../../img/life/music_theory/image-20220810233600708.png)
 
 
 
@@ -456,7 +456,7 @@ E到Fb，是2度1键，减二度。
 
 大七和弦：大三和弦+大三度
 
-![image-20220810233624543](https://img.sanzo.top/img/life/music_theory/image-20220810233624543.png)
+![image-20220810233624543](../../img/life/music_theory/image-20220810233624543.png)
 
 
 
@@ -470,11 +470,11 @@ C是F调的属音，所以C7也叫做属七和弦。
 
 一个调式里，除了属七和弦，其他的大小七和弦，都有离调音（7音）。
 
-![image-20220810233902018](https://img.sanzo.top/img/life/music_theory/image-20220810233902018.png)
+![image-20220810233902018](../../img/life/music_theory/image-20220810233902018.png)
 
 
 
-![image-20220810233920730](https://img.sanzo.top/img/life/music_theory/image-20220810233920730.png)
+![image-20220810233920730](../../img/life/music_theory/image-20220810233920730.png)
 
 
 
@@ -484,25 +484,25 @@ C是F调的属音，所以C7也叫做属七和弦。
 
 >  小七和弦：小三和弦+小三度
 
-![image-20220810234202599](https://img.sanzo.top/img/life/music_theory/image-20220810234202599.png)
+![image-20220810234202599](../../img/life/music_theory/image-20220810234202599.png)
 
 
 
 >  小大七和弦：小三和弦+大三度
 
-![image-20220810234352390](https://img.sanzo.top/img/life/music_theory/image-20220810234352390.png)
+![image-20220810234352390](../../img/life/music_theory/image-20220810234352390.png)
 
 
 
 > 减七和弦：减三和弦+小三度
 
-![image-20220810234522474](https://img.sanzo.top/img/life/music_theory/image-20220810234522474.png)
+![image-20220810234522474](../../img/life/music_theory/image-20220810234522474.png)
 
 
 
 >  半减七和弦：减三和弦+大三度
 
-![image-20220810234752663](https://img.sanzo.top/img/life/music_theory/image-20220810234752663.png)
+![image-20220810234752663](../../img/life/music_theory/image-20220810234752663.png)
 
 
 
@@ -510,13 +510,13 @@ C是F调的属音，所以C7也叫做属七和弦。
 
 ## 九和弦
 
-![image-20220810235137437](https://img.sanzo.top/img/life/music_theory/image-20220810235137437.png)
+![image-20220810235137437](../../img/life/music_theory/image-20220810235137437.png)
 
 
 
 > 大九和弦：大七和弦+小三度
 
-![image-20220810235257369](https://img.sanzo.top/img/life/music_theory/image-20220810235257369.png)
+![image-20220810235257369](../../img/life/music_theory/image-20220810235257369.png)
 
 
 
@@ -525,7 +525,7 @@ C是F调的属音，所以C7也叫做属七和弦。
 
 > 小九和弦：大七和弦+大三度
 
-![image-20220810235325788](https://img.sanzo.top/img/life/music_theory/image-20220810235325788.png)
+![image-20220810235325788](../../img/life/music_theory/image-20220810235325788.png)
 
 
 
@@ -536,7 +536,7 @@ C是F调的属音，所以C7也叫做属七和弦。
 
 
 
-![image-20220810235406139](https://img.sanzo.top/img/life/music_theory/image-20220810235406139.png)
+![image-20220810235406139](../../img/life/music_theory/image-20220810235406139.png)
 
 
 
@@ -544,7 +544,7 @@ C是F调的属音，所以C7也叫做属七和弦。
 
 > 属七降九和弦：属九和弦 久音降半音
 
-![image-20220810235533547](https://img.sanzo.top/img/life/music_theory/image-20220810235533547.png)
+![image-20220810235533547](../../img/life/music_theory/image-20220810235533547.png)
 
 
 
@@ -552,7 +552,7 @@ C是F调的属音，所以C7也叫做属七和弦。
 
 > ADD9和弦：三和弦+九音
 
-![image-20220810235631357](https://img.sanzo.top/img/life/music_theory/image-20220810235631357.png)
+![image-20220810235631357](../../img/life/music_theory/image-20220810235631357.png)
 
 
 
@@ -569,7 +569,7 @@ C是F调的属音，所以C7也叫做属七和弦。
 
 > 挂二和弦：用二度音替换掉原来的三度音所形成的和弦
 
-![image-20220810235941096](https://img.sanzo.top/img/life/music_theory/image-20220810235941096.png)
+![image-20220810235941096](../../img/life/music_theory/image-20220810235941096.png)
 
 
 
@@ -577,7 +577,7 @@ C是F调的属音，所以C7也叫做属七和弦。
 
 > 挂四和弦：用四度音替换掉原来的三度音所形成的和弦
 
-![image-20220811000017580](https://img.sanzo.top/img/life/music_theory/image-20220811000017580.png)
+![image-20220811000017580](../../img/life/music_theory/image-20220811000017580.png)
 
 
 
@@ -591,21 +591,21 @@ C是F调的属音，所以C7也叫做属七和弦。
 
 原味和弦：跟音为最低音的和弦
 
-![image-20220811000333126](https://img.sanzo.top/img/life/music_theory/image-20220811000333126.png)
+![image-20220811000333126](../../img/life/music_theory/image-20220811000333126.png)
 
 
 
-![image-20220811000346235](https://img.sanzo.top/img/life/music_theory/image-20220811000346235.png)
+![image-20220811000346235](../../img/life/music_theory/image-20220811000346235.png)
 
 
 
 转位和弦用于两个和弦的转换的时候，如果跨度比较大，可以替换为转位和弦。
 
-![image-20220811000505949](https://img.sanzo.top/img/life/music_theory/image-20220811000505949.png)
+![image-20220811000505949](../../img/life/music_theory/image-20220811000505949.png)
 
 
 
-![image-20220811000527498](https://img.sanzo.top/img/life/music_theory/image-20220811000527498.png)
+![image-20220811000527498](../../img/life/music_theory/image-20220811000527498.png)
 
 
 
@@ -639,7 +639,7 @@ C是F调的属音，所以C7也叫做属七和弦。
 
 ## 中古(教会)调式
 
-![image-20220811001642342](https://img.sanzo.top/img/life/music_theory/image-20220811001642342.png)
+![image-20220811001642342](../../img/life/music_theory/image-20220811001642342.png)
 
 
 

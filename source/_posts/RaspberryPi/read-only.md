@@ -126,7 +126,7 @@ tmpfs           /var/tmp        tmpfs   nosuid,nodev         0       0
 
 切换RO模式和RW模式
 
-![image-20201210205854363](https://img.sanzo.top/img/pi/image-20201210205854363.png)
+![image-20201210205854363](../../img/pi/image-20201210205854363.png)
 
 ```bash
 sudo vim /etc/bash.bashrc
@@ -167,7 +167,7 @@ sudo reboot
 
 如果出现这样的错误，可能是`/tmp`的权限问题。
 
-![image-20201210205056610](https://img.sanzo.top/img/pi/image-20201210205056610.png)
+![image-20201210205056610](../../img/pi/image-20201210205056610.png)
 
 ```bash
 sudo /etc/profile.d/chmod_tmp.sh

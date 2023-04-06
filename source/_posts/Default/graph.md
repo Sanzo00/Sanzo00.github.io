@@ -31,8 +31,8 @@ categories: Default
 
 | 图                                                           | 邻接矩阵                                                     |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![image-20210626114334769](https://img.sanzo.top/img/default/image-20210626114334769.png) | ![image-20210626114859936](https://img.sanzo.top/img/default/image-20210626114859936.png) |
-| ![image-20210626115338016](https://img.sanzo.top/img/default/image-20210626115338016.png) | ![image-20210626115510388](https://img.sanzo.top/img/default/image-20210626115510388.png) |
+| ![image-20210626114334769](../../img/default/image-20210626114334769.png) | ![image-20210626114859936](../../img/default/image-20210626114859936.png) |
+| ![image-20210626115338016](../../img/default/image-20210626115338016.png) | ![image-20210626115510388](../../img/default/image-20210626115510388.png) |
 
 
 
@@ -44,8 +44,8 @@ categories: Default
 
 | 图                                                           | 邻接表                                                       |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![image-20210626114334769](https://img.sanzo.top/img/default/image-20210626114334769.png) | ![image-20210626120407478](https://img.sanzo.top/img/default/image-20210626120407478.png) |
-| ![image-20210626115338016](https://img.sanzo.top/img/default/image-20210626115338016.png) | ![image-20210626120501667](https://img.sanzo.top/img/default/image-20210626120501667.png) |
+| ![image-20210626114334769](../../img/default/image-20210626114334769.png) | ![image-20210626120407478](../../img/default/image-20210626120407478.png) |
+| ![image-20210626115338016](../../img/default/image-20210626115338016.png) | ![image-20210626120501667](../../img/default/image-20210626120501667.png) |
 
 
 
@@ -62,7 +62,7 @@ categories: Default
 
 | 图                                                           | 度矩阵                                                       |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![image-20210626114334769](https://img.sanzo.top/img/default/image-20210626114334769.png) | ![image-20210626115116467](https://img.sanzo.top/img/default/image-20210626115116467.png) |
+| ![image-20210626114334769](../../img/default/image-20210626114334769.png) | ![image-20210626115116467](../../img/default/image-20210626115116467.png) |
 
 
 
@@ -74,23 +74,23 @@ categories: Default
 
 A是邻接矩阵，D是度矩阵，则拉普拉斯矩阵L的定义如下：
 
-![image-20210626120929183](https://img.sanzo.top/img/default/image-20210626120929183.png)
+![image-20210626120929183](../../img/default/image-20210626120929183.png)
 
 | 图                                                           | 度矩阵                                                       | 邻接矩阵                                                     | 拉普拉斯矩阵                                                 |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![image-20210626114334769](https://img.sanzo.top/img/default/image-20210626114334769.png) | ![image-20210626115116467](https://img.sanzo.top/img/default/image-20210626115116467.png) | ![image-20210626114859936](https://img.sanzo.top/img/default/image-20210626114859936.png) | ![image-20210626121430982](https://img.sanzo.top/img/default/image-20210626121430982.png) |
+| ![image-20210626114334769](../../img/default/image-20210626114334769.png) | ![image-20210626115116467](../../img/default/image-20210626115116467.png) | ![image-20210626114859936](../../img/default/image-20210626114859936.png) | ![image-20210626121430982](../../img/default/image-20210626121430982.png) |
 
 
 
 > 拉普拉斯矩阵的正则化
 
-![image-20210626122339671](https://img.sanzo.top/img/default/image-20210626122339671.png)
+![image-20210626122339671](../../img/default/image-20210626122339671.png)
 
 
 
 > 随机游走
 
-![image-20210626144849030](https://img.sanzo.top/img/default/image-20210626144849030.png)
+![image-20210626144849030](../../img/default/image-20210626144849030.png)
 
 $D^{-1}A$是随机游走的转移矩阵，$D^{-1}L$是随机游走正则化的拉普拉斯矩阵。
 
@@ -114,7 +114,7 @@ C_D(v)=\frac{deg(v)}{n-1}
 $$
 </div>
 
-![image-20210626150505037](https://img.sanzo.top/img/default/image-20210626150505037.png)
+![image-20210626150505037](../../img/default/image-20210626150505037.png)
 
 | v    | $C_D(v)$      |
 | ---- | ------------- |
@@ -145,7 +145,7 @@ $$
 </div>
 
 
-![image-20210626150505037](https://img.sanzo.top/img/default/image-20210626150505037.png)
+![image-20210626150505037](../../img/default/image-20210626150505037.png)
 
 | v    | $C(v)$            |
 | ---- | ----------------- |
@@ -172,7 +172,7 @@ $$
 
 一个节点的中介中心性和该网络中节点的个数有关，因此可以除以不包含$v$的节点对数以将计算结果标准化。使得$g\in[0,1]$，有向图除以$(n-1)(n-2)$，无向图除以$\frac{(n-1)(n-2)}{2}$，$n$为节点的个数。
 
-![image-20210626150802281](https://img.sanzo.top/img/default/image-20210626150802281.png)
+![image-20210626150802281](../../img/default/image-20210626150802281.png)
 
 节点B的中介中心性：
 
@@ -201,7 +201,7 @@ Eigenvector Centrality.
 
 原理如下：
 
-![image-20210626151025457](https://img.sanzo.top/img/default/image-20210626151025457.png)
+![image-20210626151025457](../../img/default/image-20210626151025457.png)
 
 
 
@@ -287,7 +287,7 @@ PageRank是用于衡量网页重要性的算法。
 
 
 
-![image-20210626151213516](https://img.sanzo.top/img/default/image-20210626151213516.png)
+![image-20210626151213516](../../img/default/image-20210626151213516.png)
 
 假设用户停留在其中一个网页上，跳转每个链接的概率相同，可以得到一个转移矩阵：
 <div>

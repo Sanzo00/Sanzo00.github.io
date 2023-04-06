@@ -1,7 +1,7 @@
 ---
 title: 智能计算系统：实验5
 katex: true
-typora-copy-images-to: https://img.sanzo.top/img/znjs/img
+typora-copy-images-to: ../../img/znjs/img
 date: 2021-12-07 18:00:42
 updated: 2021-12-07 18:00:42
 tags:
@@ -22,7 +22,7 @@ categories:
 
 实验工作量：约150行代码，约需10小时。
 
-![image-20211207231705012](https://img.sanzo.top/img/znjs/image-20211207231705012.png)
+![image-20211207231705012](../../img/znjs/image-20211207231705012.png)
 
 
 
@@ -117,7 +117,7 @@ categories:
 
 实验手册的一处错误：
 
-![](https://img.sanzo.top/img/znjs/image-20211204130448896.png)
+![](../../img/znjs/image-20211204130448896.png)
 
 
 
@@ -198,7 +198,7 @@ cnrtInvokeKernel_V2((void *)(&L2LossKernel), dim, params, ft, pQueue);
 
 > 编译运行
 
-![image-20211207235324904](https://img.sanzo.top/img/znjs/image-20211207235324904.png)
+![image-20211207235324904](../../img/znjs/image-20211207235324904.png)
 
 
 
@@ -210,7 +210,7 @@ cnrtInvokeKernel_V2((void *)(&L2LossKernel), dim, params, ft, pQueue);
 
 为了使算子往TensorFlow中集成更加模块化，这里对算子进行了多个层次的封装，如下图。
 
-![image-20211207235558729](https://img.sanzo.top/img/znjs/image-20211211204056405.png)
+![image-20211207235558729](../../img/znjs/image-20211211204056405.png)
 
 自底向上分为以下几个层次：
 
@@ -222,11 +222,11 @@ cnrtInvokeKernel_V2((void *)(&L2LossKernel), dim, params, ft, pQueue);
 
 > 封装MLULib层
 
-![image-20211210233750068](https://img.sanzo.top/img/znjs/image-20211210233750068.png)
+![image-20211210233750068](../../img/znjs/image-20211210233750068.png)
 
 MLULib层的调用：
 
-![image-20211208002114236](https://img.sanzo.top/img/znjs/image-20211208002114236.png)
+![image-20211208002114236](../../img/znjs/image-20211208002114236.png)
 
 > 算子融合
 
@@ -303,23 +303,23 @@ MLULib层的调用：
 
 `cnmlPluginPowerDifferenceOpParam_t`的实现可以参考`cnplugin.h`中其他算子的实现。
 
-![image-20211204151424761](https://img.sanzo.top/img/znjs/image-20211204151424761.png)
+![image-20211204151424761](../../img/znjs/image-20211204151424761.png)
 
 
 
-![image-20211203213305385](https://img.sanzo.top/img/znjs/image-20211203213305385.png)
-
-
-
-
-
-![image-20211203213852692](https://img.sanzo.top/img/znjs/image-20211203213852692.png)
+![image-20211203213305385](../../img/znjs/image-20211203213305385.png)
 
 
 
 
 
-![image-20211203213943532](https://img.sanzo.top/img/znjs/image-20211203213943532.png)
+![image-20211203213852692](../../img/znjs/image-20211203213852692.png)
+
+
+
+
+
+![image-20211203213943532](../../img/znjs/image-20211203213943532.png)
 
 
 
@@ -337,7 +337,7 @@ MLULib层的调用：
 
 MLUOp层负责TensorFlow算子的DLP实现，调用MLULib实现算子后供MLUStream层调用。可以只调用单独的MLULib算子，也可以调用多个MLULib算子拼接为更复杂的TensorFlow算子。
 
-![image-20211210233815076](https://img.sanzo.top/img/znjs/image-20211210233815076.png)
+![image-20211210233815076](../../img/znjs/image-20211210233815076.png)
 
 主要是在MLUOp层实现算子类的Create和Compute等方法，补全`powerdifference.cc`。
 
@@ -390,7 +390,7 @@ MLUOp层负责TensorFlow算子的DLP实现，调用MLULib实现算子后供MLUSt
 
 `powerdifference.cc`的代码补全可以参考`env/tensorflow-v1.10/tensorflow/stream_executor/mlu/mlu_api/ops/squared_difference.cc`，唯一不同的是PowerDifference需要计算tensor的length。
 
-![image-20211208101730956](https://img.sanzo.top/img/znjs/image-20211208101730956.png)
+![image-20211208101730956](../../img/znjs/image-20211208101730956.png)
 
 
 
@@ -398,7 +398,7 @@ MLUOp层负责TensorFlow算子的DLP实现，调用MLULib实现算子后供MLUSt
 
 MLUStream主要是在MLUStream层添加算子类说明，与MLUOpKernel类接口相关联，负责MLU算子的实例化并与运行时队列结合。
 
-![image-20211210234114270](https://img.sanzo.top/img/znjs/image-20211210234114270.png)
+![image-20211210234114270](../../img/znjs/image-20211210234114270.png)
 
 ```cpp
 1  // file: tensorflow / stream_executor /mlu/mlu_stream.h
@@ -415,7 +415,7 @@ MLUStream主要是在MLUStream层添加算子类说明，与MLUOpKernel类接口
 
 定义MLUOpKernel层接口主要是在MLUOpKernel层定义MLUPowerDifferenceOp，在其中通过stream机制调用MLUStream层具体的PowerDifference函数。
 
-![image-20211210234401303](https://img.sanzo.top/img/znjs/image-20211210234401303.png)
+![image-20211210234401303](../../img/znjs/image-20211210234401303.png)
 
 
 
@@ -444,7 +444,7 @@ MLUStream主要是在MLUStream层添加算子类说明，与MLUOpKernel类接口
 
 PowerDifference DLP算子会与CPU算子共享tensorflow/core/ops/math_ops.cc中的算子注册方法，这样用户可以使用相同的Python API（powerdifference）调用自定义算子，在编程上无需感知底层硬件的差异，通过环境变量来区分。
 
-![image-20211211204056405](https://img.sanzo.top/img/znjs/image-20211211204056405.png)
+![image-20211211204056405](../../img/znjs/image-20211211204056405.png)
 
 ```python
 os.environ['MLU_VISIBLE_DEVICES']="0"
@@ -719,7 +719,7 @@ output = power_diff_numpy(input_x, input_y, input_pow).reshape(1, 256, 256, 3)
 
 底层算子在实现的时候是通过dim_size来确定的power_value，所以传入的是一个张量。
 
-![image-20211205101509305](https://img.sanzo.top/img/znjs/image-20211205101509305.png)
+![image-20211205101509305](../../img/znjs/image-20211205101509305.png)
 
 
 
@@ -850,7 +850,7 @@ make
 
 
 
-![image-20211207210603424](https://img.sanzo.top/img/znjs/image-20211207210603424.png)
+![image-20211207210603424](../../img/znjs/image-20211207210603424.png)
 
 
 
@@ -860,7 +860,7 @@ make
 
 下图为MLU加速卡的架构，有4个Cluster，每个Cluster有4个Core，内存方面：全局内存GDRAM，每个Cluster的SRAM，每个Core有NRAM和WRAM。
 
-![image-20211205151914267](https://img.sanzo.top/img/znjs/image-20211205151914267.png)
+![image-20211205151914267](../../img/znjs/image-20211205151914267.png)
 
 
 
@@ -870,7 +870,7 @@ make
 
 下面的标量实现将矩阵全部读到NRAM中，然后循环进行计算，如果输入矩阵过大，则需要多次读写NRAM。
 
-![image-20211205151741780](https://img.sanzo.top/img/znjs/image-20211205151741780.png)
+![image-20211205151741780](../../img/znjs/image-20211205151741780.png)
 
 
 
@@ -880,11 +880,11 @@ make
 
 将输入矩阵A和B分别存放在DLP计算核的两个存储单元NRAM和WRAM，然后使用DLP的卷积指令做矩阵乘法计算。当矩阵B的规模很大时，需要分批次（N/256）拷贝，另外在使用卷积指令计算时，需要将矩阵转化为__bang_conv支持的格式（内存对齐）。
 
-![image-20211205153135516](https://img.sanzo.top/img/znjs/image-20211205153135516.png)
+![image-20211205153135516](../../img/znjs/image-20211205153135516.png)
 
 
 
-![image-20211205154124143](https://img.sanzo.top/img/znjs/image-20211205154124143.png)
+![image-20211205154124143](../../img/znjs/image-20211205154124143.png)
 
 
 
@@ -909,7 +909,7 @@ void __bang_conv(float* dst, int16* src, int16* kernel, const int channel_input,
 
 每个计算核在读取数据的时候，根据自己的coreId来确定目标数据的GDRAM地址，并将自己负责的数据快拷入到NRAM中。
 
-![image-20211205171502851](https://img.sanzo.top/img/znjs/image-20211205171502851.png)
+![image-20211205171502851](../../img/znjs/image-20211205171502851.png)
 
 
 
@@ -923,11 +923,11 @@ void __bang_conv(float* dst, int16* src, int16* kernel, const int channel_input,
 
 本实验打破了数据访问核计算在时许上的独立性，因此需要进行同步操作。
 
-![image-20211205152203343](https://img.sanzo.top/img/znjs/image-20211205152203343.png)
+![image-20211205152203343](../../img/znjs/image-20211205152203343.png)
 
-![image-20211205171622311](https://img.sanzo.top/img/znjs/image-20211205171622311.png)
+![image-20211205171622311](../../img/znjs/image-20211205171622311.png)
 
-![image-20211205171643330](https://img.sanzo.top/img/znjs/image-20211205171643330.png)
+![image-20211205171643330](../../img/znjs/image-20211205171643330.png)
 
 
 
@@ -937,7 +937,7 @@ void __bang_conv(float* dst, int16* src, int16* kernel, const int channel_input,
 
 从下图可以看出，从GDRAM数据拷贝的时间较长，且数据的拷贝与计算串行，DLLP的利用率不高。针对这个问题可以将数据的拷贝和四个核的计算做流水处理，从而隐藏数据拷贝的时间。
 
-![image-20211205152230322](https://img.sanzo.top/img/znjs/image-20211205152230322.png)
+![image-20211205152230322](../../img/znjs/image-20211205152230322.png)
 
 
 
@@ -949,19 +949,19 @@ void __bang_conv(float* dst, int16* src, int16* kernel, const int channel_input,
 
 通过以上操作可以隐藏GDRAM到SRAM的访问延迟。
 
-![image-20211205152241077](https://img.sanzo.top/img/znjs/image-20211205152241077.png)
+![image-20211205152241077](../../img/znjs/image-20211205152241077.png)
 
 
 
-![image-20211205171808620](https://img.sanzo.top/img/znjs/image-20211205171808620.png)
+![image-20211205171808620](../../img/znjs/image-20211205171808620.png)
 
-![image-20211205171826141](https://img.sanzo.top/img/znjs/image-20211205171826141.png)
-
-
+![image-20211205171826141](../../img/znjs/image-20211205171826141.png)
 
 
 
-![image-20211207210628386](https://img.sanzo.top/img/znjs/image-20211207210628386.png)
+
+
+![image-20211207210628386](../../img/znjs/image-20211207210628386.png)
 
 
 

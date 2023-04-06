@@ -32,7 +32,7 @@ categories: Algorithm
 
 接下来具体介绍这三个步骤。
 
-![image-20211001172822844](https://img.sanzo.top/img/algorithm/image-20211001172822844.png)
+![image-20211001172822844](../../img/algorithm/image-20211001172822844.png)
 
 ## Shingling
 
@@ -46,11 +46,11 @@ categories: Algorithm
 
 在计算相似度时，这里采用[Jaccard similarity](https://en.wikipedia.org/wiki/Jaccard_index)，$sim(D_1, D_2) = \frac{|D_1\cap D_2|}{|D_1\cup D_2|}$。
 
-![image-20211001173617727](https://img.sanzo.top/img/algorithm/image-20211001173617727.png)
+![image-20211001173617727](../../img/algorithm/image-20211001173617727.png)
 
 另外我们可以把集合表示为bit vector，这样求交集相当于AND运算，并集相当于OR运算。
 
-![image-20211001173957028](https://img.sanzo.top/img/algorithm/image-20211001173957028.png)
+![image-20211001173957028](../../img/algorithm/image-20211001173957028.png)
 
 
 
@@ -60,7 +60,7 @@ categories: Algorithm
 
 MinHashing的具体做法时，对Shingles的集合进行随机打乱，bit vector为1的下标作为新的特征值。
 
-![image-20211001174630022](https://img.sanzo.top/img/algorithm/image-20211001174630022.png)
+![image-20211001174630022](../../img/algorithm/image-20211001174630022.png)
 
 MinHash相等的概率刚好等于Jaccard Similarity值，$Pr[h_\pi(D_1) = h_\pi(D_2)] = Jaccard(D_1, D_2)$。
 
@@ -78,7 +78,7 @@ MinHash相等的概率刚好等于Jaccard Similarity值，$Pr[h_\pi(D_1) = h_\pi
 
 因此我们可以使用MinHash近似表示Jaccard Similarity，同时将长的vector压缩为短的签名。
 
-![image-20211001175937408](https://img.sanzo.top/img/algorithm/image-20211001175937408.png)
+![image-20211001175937408](../../img/algorithm/image-20211001175937408.png)
 
 
 
@@ -92,7 +92,7 @@ MinHash相等的概率刚好等于Jaccard Similarity值，$Pr[h_\pi(D_1) = h_\pi
 
 通过MinHashing将特征矩阵转化为小的签名矩阵，接下来LSH将签名矩阵划分为$b$个band，每个band有$r$行，$len(sig) = b\times r$。
 
-![image-20211001181506527](https://img.sanzo.top/img/algorithm/image-20211001181506527.png)
+![image-20211001181506527](../../img/algorithm/image-20211001181506527.png)
 
 对于每个band，它们包含整体签名的一部分，将这部分签名通过hash映射到不同的桶中，如果两个签名相同它们就会映射到同一个桶中，经过b次映射，两个节点至少有一次被分到同一个桶中，我们就认为这两个节点的相似度更高。
 
@@ -110,11 +110,11 @@ MinHash相等的概率刚好等于Jaccard Similarity值，$Pr[h_\pi(D_1) = h_\pi
 
 $b$和$r$是可调节的参数，下表是$b=20$，$r=5$的概率。
 
-![image-20211001182918941](https://img.sanzo.top/img/algorithm/image-20211001182918941.png)
+![image-20211001182918941](../../img/algorithm/image-20211001182918941.png)
 
 
 
-![image-20211001183025149](https://img.sanzo.top/img/algorithm/image-20211001183025149.png)
+![image-20211001183025149](../../img/algorithm/image-20211001183025149.png)
 
 ## 参考文献
 

@@ -47,11 +47,11 @@ DistGNN主要提出了以下优化：
 
 > Aggregation Primitive in DGL
 
-![image-20220408103605239](https://img.sanzo.top/img/paper/image-20220408103605239.png)
+![image-20220408103605239](../../img/paper/image-20220408103605239.png)
 
 
 
-![image-20220408103615006](https://img.sanzo.top/img/paper/image-20220408103615006.png)
+![image-20220408103615006](../../img/paper/image-20220408103615006.png)
 
 
 
@@ -64,7 +64,7 @@ DistGNN主要提出了以下优化：
 
 以上都会触发额外的内存请求，DistGNN提出了cache blocking的优化，以增加cache的复用。
 
-![image-20220408104249393](https://img.sanzo.top/img/paper/image-20220408104249393.png)
+![image-20220408104249393](../../img/paper/image-20220408104249393.png)
 
 每次只处理一个block，$f_v$只需要遍历一次，不过$f_o$需要访问多次，所以应该在满足L2 cache大小要求下，尽可能最大化block size，以减少$f_o$
 
@@ -90,7 +90,7 @@ DistGNN主要提出了以下优化：
 
 邻居聚合符合SIMD，DistGNN使用LIBXSMM对循环结构重组，确保$f_o[v]$只写一次。另外通过JITing生成优化过的汇编语言来减少代码执行的指令数。
 
-![image-20220408112029390](https://img.sanzo.top/img/paper/image-20220408112029390.png)
+![image-20220408112029390](../../img/paper/image-20220408112029390.png)
 
 
 
@@ -98,7 +98,7 @@ DistGNN主要提出了以下优化：
 
 DistGNN使用Libra的图分区策略，采用vetex-cut，将边分配给负载小的分区。[libra](https://cx2.web.engr.illinois.edu/papers/nips2014.pdf) [powerlore](https://cx2.web.engr.illinois.edu/papers/powerlore.pdf)
 
-![image-20220408114441051](https://img.sanzo.top/img/paper/image-20220408114441051.png)
+![image-20220408114441051](../../img/paper/image-20220408114441051.png)
 
 
 
@@ -148,13 +148,13 @@ DistGNN针对分区后的split-vertex提出了三种通信方式：
 
 
 
-![image-20220408120440195](https://img.sanzo.top/img/paper/image-20220408120440195.png)
+![image-20220408120440195](../../img/paper/image-20220408120440195.png)
 
 
 
 ## Experiment Setup
 
-![image-20220408122256371](https://img.sanzo.top/img/paper/image-20220408122256371.png)
+![image-20220408122256371](../../img/paper/image-20220408122256371.png)
 
 
 
@@ -166,21 +166,21 @@ Distribute：64 Intel Xeon 9242 CPU@2.30GHz 48 cores per socket dual-socket syst
 
 ### Single-socket performance
 
-![image-20220408123145893](https://img.sanzo.top/img/paper/image-20220408123145893.png)
+![image-20220408123145893](../../img/paper/image-20220408123145893.png)
 
 
 
 #### Effect of block size
 
-![image-20220408123330745](https://img.sanzo.top/img/paper/image-20220408123330745.png)
+![image-20220408123330745](../../img/paper/image-20220408123330745.png)
 
-![image-20220408123340240](https://img.sanzo.top/img/paper/image-20220408123340240.png)
+![image-20220408123340240](../../img/paper/image-20220408123340240.png)
 
 
 
 #### Breakup of speedup
 
-![image-20220408123519877](https://img.sanzo.top/img/paper/image-20220408123519877.png)
+![image-20220408123519877](../../img/paper/image-20220408123519877.png)
 
 
 
@@ -190,7 +190,7 @@ Reddit数据集相对比较密集，所以复制因子高一些。Proteins数据
 
 Products和Papers的平均顶点度数最小，他们的复制因子差不多。
 
-![image-20220408123918515](https://img.sanzo.top/img/paper/image-20220408123918515.png)
+![image-20220408123918515](../../img/paper/image-20220408123918515.png)
 
 
 
@@ -204,7 +204,7 @@ Products介于Reddit和Proteins之间。
 
 single-socket性能低是由于numa内存访问的影响。
 
-![image-20220408131520457](https://img.sanzo.top/img/paper/image-20220408131520457.png)
+![image-20220408131520457](../../img/paper/image-20220408131520457.png)
 
 
 
@@ -220,7 +220,7 @@ papers，remote一直高于local。
 
 remote高于local，出了reddit。
 
-![image-20220408133237586](https://img.sanzo.top/img/paper/image-20220408133237586.png)
+![image-20220408133237586](../../img/paper/image-20220408133237586.png)
 
 
 
@@ -228,7 +228,7 @@ remote高于local，出了reddit。
 
 #### Accuracy
 
-![image-20220408132732732](https://img.sanzo.top/img/paper/image-20220408132732732.png)
+![image-20220408132732732](../../img/paper/image-20220408132732732.png)
 
 Proteins缺少label和feature，所以没做实验对比。
 
@@ -236,23 +236,23 @@ Proteins缺少label和feature，所以没做实验对比。
 
 #### Memory and Communication
 
-![image-20220408132938648](https://img.sanzo.top/img/paper/image-20220408132938648.png)
+![image-20220408132938648](../../img/paper/image-20220408132938648.png)
 
 
 
 #### Comparison with Current Solutions
 
-![image-20220408133102601](https://img.sanzo.top/img/paper/image-20220408133102601.png)
+![image-20220408133102601](../../img/paper/image-20220408133102601.png)
 
 
 
-![image-20220408133115272](https://img.sanzo.top/img/paper/image-20220408133115272.png)
+![image-20220408133115272](../../img/paper/image-20220408133115272.png)
 
 4x-128x的任务量，但是也比DistDGL好。
 
 
 
-![image-20220408133129476](https://img.sanzo.top/img/paper/image-20220408133129476.png)
+![image-20220408133129476](../../img/paper/image-20220408133129476.png)
 
 
 

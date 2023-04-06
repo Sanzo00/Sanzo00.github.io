@@ -4,7 +4,7 @@ title: >-
   Analysis
 hidden: false
 katex: true
-typora-copy-images-to: https://img.sanzo.top/img/paper
+typora-copy-images-to: ../../img/paper
 sticky: 0
 date: 2022-04-08 21:45:16
 updated: 2022-04-08 21:45:16
@@ -55,7 +55,7 @@ The workload of a machine is determind by the number of edges located in that ma
 
 The communication cost of the whole graph is determined by the number of mirrors of the vertices.
 
-![image-20220408220640066](https://img.sanzo.top/img/paper/image-20220408220640066.png)
+![image-20220408220640066](../../img/paper/image-20220408220640066.png)
 
 
 
@@ -63,7 +63,7 @@ The communication cost of the whole graph is determined by the number of mirrors
 
 
 
-![image-20220408221207144](https://img.sanzo.top/img/paper/image-20220408221207144.png)
+![image-20220408221207144](../../img/paper/image-20220408221207144.png)
 
 
 
@@ -81,7 +81,7 @@ The communication cost of the whole graph is determined by the number of mirrors
 
 下图是Twitter-2010社交网络的度数分布，$\alpha \approx 2$。
 
-![image-20220408224715317](https://img.sanzo.top/img/paper/image-20220408224715317.png)
+![image-20220408224715317](../../img/paper/image-20220408224715317.png)
 
 
 
@@ -101,21 +101,21 @@ Libra使用$vetex\_hash$函数来定义$edge\_hash$，将边分给度数小的�
 
 
 
-![image-20220408231744751](https://img.sanzo.top/img/paper/image-20220408231744751.png)
+![image-20220408231744751](../../img/paper/image-20220408231744751.png)
 
-![image-20220408232022401](https://img.sanzo.top/img/paper/image-20220408232022401.png)
+![image-20220408232022401](../../img/paper/image-20220408232022401.png)
 
 
 
 ## Constel
 
-![image-20220409145113001](https://img.sanzo.top/img/paper/image-20220409145113001.png)
+![image-20220409145113001](../../img/paper/image-20220409145113001.png)
 
 
 
 ## Zodiac
 
-![image-20220409145059835](https://img.sanzo.top/img/paper/image-20220409145059835.png)
+![image-20220409145059835](../../img/paper/image-20220409145059835.png)
 
 
 

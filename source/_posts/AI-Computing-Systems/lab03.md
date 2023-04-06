@@ -26,7 +26,7 @@ categories:
 
 ### 卷积层
 
-![image-20211107224525019](https://img.sanzo.top/img/znjs/image-20211107224525019.png)
+![image-20211107224525019](../../img/znjs/image-20211107224525019.png)
 
 打上padding之后的宽和高：
 
@@ -98,7 +98,7 @@ $$\nabla_{\mathbf{X}(n,c,hs+q(0), ws+q(1))}L=\nabla{\mathbf{Y}(n,c,h,w)}L\tag{3.
 
 > VGG19网络基本结构
 
-![image-20211107231231715](https://img.sanzo.top/img/znjs/image-20211107231231715.png)
+![image-20211107231231715](../../img/znjs/image-20211107231231715.png)
 
 
 
@@ -115,19 +115,19 @@ $$\nabla_{\mathbf{X}(n,c,hs+q(0), ws+q(1))}L=\nabla{\mathbf{Y}(n,c,h,w)}L\tag{3.
 - [High Performance Convolutional Neural Networks for Document Processing](https://hal.inria.fr/file/index/docid/112631/filename/p1038112283956.pdf)
 - [卷积神经网络之快速卷积算法(img2col、Winograd、FFT)](https://blog.csdn.net/qq_43409114/article/details/105426806)
 
-{%pdf https://img.sanzo.top/pdf/others/p1038112283956.pdf%}
+{%pdf ../../pdf/others/p1038112283956.pdf%}
 
 
 
-![image-20211108221620103](https://img.sanzo.top/img/znjs/image-20211108221620103.png)
+![image-20211108221620103](../../img/znjs/image-20211108221620103.png)
 
-![image-20211108221653508](https://img.sanzo.top/img/znjs/image-20211108221653508.png)
+![image-20211108221653508](../../img/znjs/image-20211108221653508.png)
 
 
 
 从下图可以看出，应用Img2col算法，前向传播提高160倍，反向传播提高111倍。
 
-![image-20211108233105519](https://img.sanzo.top/img/znjs/image-20211108233105519.png)
+![image-20211108233105519](../../img/znjs/image-20211108233105519.png)
 
 
 
@@ -137,7 +137,7 @@ $$\nabla_{\mathbf{X}(n,c,hs+q(0), ws+q(1))}L=\nabla{\mathbf{Y}(n,c,h,w)}L\tag{3.
 
 ### 非实时风格迁移
 
-![image-20211107231306746](https://img.sanzo.top/img/znjs/image-20211107231306746.png)
+![image-20211107231306746](../../img/znjs/image-20211107231306746.png)
 
 
 

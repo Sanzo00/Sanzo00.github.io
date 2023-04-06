@@ -18,19 +18,19 @@ Grape是一个并行的图计算系统，可以将整个图算法作为整体并
 
 [Parallelizing Sequential Graph Computations](https://homepages.inf.ed.ac.uk/wenfei/papers/sigmod17-GRAPE.pdf)
 
-{% pdf https://img.sanzo.top/pdf/paper/sigmod17-GRAPE.pdf %}
+{% pdf ../../pdf/paper/sigmod17-GRAPE.pdf %}
 
 
 
 ## Introduce
 
-![image-20210703165424167](https://img.sanzo.top/img/paper/image-20210703165424167.png)
+![image-20210703165424167](../../img/paper/image-20210703165424167.png)
 
 图1是Grape的编程接口，对于一个查询$Q$，用户需要自定义三个函数：PEval、IncEval和Assemble，在配置面板，用户可以选择图分区策略和worker的数量。
 
 
 
-![image-20210703165504851](https://img.sanzo.top/img/paper/image-20210703165504851.png)
+![image-20210703165504851](../../img/paper/image-20210703165504851.png)
 
 
 
@@ -85,7 +85,7 @@ Grape采用BSP模型，和其他系统不同的是：
 
 ## Perliminaries
 
-![image-20210703192952595](https://img.sanzo.top/img/paper/image-20210703192952595.png)
+![image-20210703192952595](../../img/paper/image-20210703192952595.png)
 
 表2是一些图的符号定义。
 
@@ -137,7 +137,7 @@ PEval可以指定$aggregateMsg$用于解决来自多个worker的消息冲突，�
 
 
 
-![image-20210703231814414](https://img.sanzo.top/img/paper/image-20210703231814414.png)
+![image-20210703231814414](../../img/paper/image-20210703231814414.png)
 
 
 
@@ -147,7 +147,7 @@ PEval可以指定$aggregateMsg$用于解决来自多个worker的消息冲突，�
 
 ### IncEval: Incremental Evaluation
 
-![image-20210704125540831](https://img.sanzo.top/img/paper/image-20210704125540831.png)
+![image-20210704125540831](../../img/paper/image-20210704125540831.png)
 
 
 
@@ -159,7 +159,7 @@ PEval可以指定$aggregateMsg$用于解决来自多个worker的消息冲突，�
 
 
 
-![image-20210704130106240](https://img.sanzo.top/img/paper/image-20210704130106240.png)
+![image-20210704130106240](../../img/paper/image-20210704130106240.png)
 
 
 
@@ -260,7 +260,7 @@ Aliyun ECS n2.large，Intel Xeon processor 2.5GHz，16G memory。
 
 ### Result
 
-![image-20210704220128070](https://img.sanzo.top/img/paper/image-20210704220128070.png)
+![image-20210704220128070](../../img/paper/image-20210704220128070.png)
 
 (a) 从上图可以看出，Grape通过简单的并行顺序算法而不做进一步的优化，就可以和最先进的系统相媲美。
 
@@ -274,7 +274,7 @@ Aliyun ECS n2.large，Intel Xeon processor 2.5GHz，16G memory。
 
 
 
-![image-20210704220147557](https://img.sanzo.top/img/paper/image-20210704220147557.png)
+![image-20210704220147557](../../img/paper/image-20210704220147557.png)
 
 (c) Grape的通信量远小于其他系统。
 

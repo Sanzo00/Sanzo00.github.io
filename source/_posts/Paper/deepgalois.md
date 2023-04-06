@@ -2,7 +2,7 @@
 title: 'DeepGalois: EFFICIENT DISTRIBUTION FOR DEEP LEARNING ON LARGE GRAPHS'
 hidden: false
 katex: true
-typora-copy-images-to: https://img.sanzo.top/img/paper
+typora-copy-images-to: ../../img/paper
 date: 2022-03-26 15:50:41
 updated: 2022-03-26 15:50:41
 tags:
@@ -38,7 +38,7 @@ GNN的计算主要包括图计算和NN计算，DeepGalois分别采用Galois处�
 
 DeepGalois采用CuSP提供的图画分，CuSP支持vertex cut，edge cut，hybrid-cut，用户可以按照需求针对分布式和不同的数据集选择不同的划分策略。
 
-![image-20220326173431291](https://img.sanzo.top/img/paper/image-20220326173431291.png)
+![image-20220326173431291](../../img/paper/image-20220326173431291.png)
 
 DeepGalois自称是第一个支持任意图分区的GNN系统 (thank to CuSP)。
 
@@ -72,13 +72,13 @@ system：DeepGalois，DGL，DistDGL。
 
 gnn model：GCN，GraphSAGE。
 
-![image-20220326182212622](https://img.sanzo.top/img/paper/image-20220326182212622.png)
+![image-20220326182212622](../../img/paper/image-20220326182212622.png)
 
 
 
 > 单机性能：DGL vs DeepGalois
 
-![image-20220326182418050](https://img.sanzo.top/img/paper/image-20220326182418050.png)
+![image-20220326182418050](../../img/paper/image-20220326182418050.png)
 
 这个实验说明DeepGalois的性能和现有的GNN实现comparable。
 
@@ -90,7 +90,7 @@ gnn model：GCN，GraphSAGE。
 
 DeepGalois采用CVC的图划分（better than OEC）。
 
-![image-20220326183340427](https://img.sanzo.top/img/paper/image-20220326183340427.png)
+![image-20220326183340427](../../img/paper/image-20220326183340427.png)
 
 即使DistDGL使用采样，训练速度仍没有DeepGalois快，因为DeepGalois没有数据拷贝的开销。
 
@@ -100,7 +100,7 @@ reddit dataset上DistDGL在32台的训练速度比单机慢2.6x，**这也说明
 
 
 
-![image-20220326183352609](https://img.sanzo.top/img/paper/image-20220326183352609.png)
+![image-20220326183352609](../../img/paper/image-20220326183352609.png)
 
 
 
@@ -110,7 +110,7 @@ DistDGL的采样和数据拷贝的开销非常大，DeepGalois的通信开销要
 
 >  OEC vs IEC
 
-![image-20220326184809849](https://img.sanzo.top/img/paper/image-20220326184809849.png)
+![image-20220326184809849](../../img/paper/image-20220326184809849.png)
 
 计算量随着机器的增加而减少。
 
@@ -122,7 +122,7 @@ CVC要比OEC的计算量小，因为OEC采用vertex cut（high degree）。
 
 > Accuracy Convergence speed
 
-![image-20220326185716399](https://img.sanzo.top/img/paper/image-20220326185716399.png)
+![image-20220326185716399](../../img/paper/image-20220326185716399.png)
 
 DeepGalois的收敛更快是因为全采样，以及DeepGalois计算性能高于DistDGL。
 

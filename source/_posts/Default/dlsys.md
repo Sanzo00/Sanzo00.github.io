@@ -237,6 +237,12 @@ Derivation for the muliple pathway case.
 
 
 
+## 5. 
+
+
+
+
+
 ## 6. Optimization
 
 

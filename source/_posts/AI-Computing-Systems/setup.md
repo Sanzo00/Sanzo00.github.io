@@ -19,11 +19,11 @@ categories: AI-Computing-Systems
 
 首先注册帐号：
 
-![image-20211031104939174](https://img.sanzo.top/img/znjs/image-20211031104939174.png)
+![image-20211031104939174](../../img/znjs/image-20211031104939174.png)
 
 登录后的界面如下：
 
-![image-20211031104725603](https://img.sanzo.top/img/znjs/image-20211031104725603.png)
+![image-20211031104725603](../../img/znjs/image-20211031104725603.png)
 
 
 
@@ -34,15 +34,15 @@ categories: AI-Computing-Systems
 
 
 
-![image-20211031105532919](https://img.sanzo.top/img/znjs/image-20211031105532919.png)
+![image-20211031105532919](../../img/znjs/image-20211031105532919.png)
 
 
 
-![image-20211031110101449](https://img.sanzo.top/img/znjs/image-20211031110101449.png)
+![image-20211031110101449](../../img/znjs/image-20211031110101449.png)
 
 
 
-![image-20211031110140532](https://img.sanzo.top/img/znjs/image-20211031110140532.png)
+![image-20211031110140532](../../img/znjs/image-20211031110140532.png)
 
 
 
@@ -66,15 +66,15 @@ categories: AI-Computing-Systems
 
 
 
-![image-20211031112745493](https://img.sanzo.top/img/znjs/image-20211031112745493.png)
+![image-20211031112745493](../../img/znjs/image-20211031112745493.png)
 
 
 
-![image-20211031112758041](https://img.sanzo.top/img/znjs/image-20211031112758041.png)
+![image-20211031112758041](../../img/znjs/image-20211031112758041.png)
 
 
 
-![image-20211031112909663](https://img.sanzo.top/img/znjs/image-20211031112909663.png)
+![image-20211031112909663](../../img/znjs/image-20211031112909663.png)
 
 
 
@@ -86,7 +86,7 @@ categories: AI-Computing-Systems
 
 进入开发容器详情页，查看IP、端口号、密码
 
-![image-20211031112943428](https://img.sanzo.top/img/znjs/image-20211031112943428.png)
+![image-20211031112943428](../../img/znjs/image-20211031112943428.png)
 
 
 
@@ -94,7 +94,7 @@ SSH工具：[XShell](https://www.netsarang.com/en/xshell/)、[MobaXterm](https:/
 
  `ssh root@ip -p 端口号`
 
-![image-20211031125835406](https://img.sanzo.top/img/znjs/image-20211031125835406.png)
+![image-20211031125835406](../../img/znjs/image-20211031125835406.png)
 
 
 
@@ -106,7 +106,7 @@ SSH工具：[XShell](https://www.netsarang.com/en/xshell/)、[MobaXterm](https:/
 
 首先安装`Remote-ssh`插件。
 
-![image-20211031131058777](https://img.sanzo.top/img/znjs/image-20211031131058777.png)
+![image-20211031131058777](../../img/znjs/image-20211031131058777.png)
 
 
 
@@ -119,13 +119,13 @@ Host chap2
     Port 22088
 ```
 
-![image-20211031131525684](https://img.sanzo.top/img/znjs/image-20211031131525684.png)
+![image-20211031131525684](../../img/znjs/image-20211031131525684.png)
 
 
 
 实验的代码在opt目录下：
 
-![image-20211031131823233](https://img.sanzo.top/img/znjs/image-20211031131823233.png)
+![image-20211031131823233](../../img/znjs/image-20211031131823233.png)
 
 
 

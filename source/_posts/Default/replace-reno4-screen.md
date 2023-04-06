@@ -3,7 +3,7 @@ title: 记录一次更换手机屏幕的经历
 hidden: false
 katex: true
 sticky: 0
-typora-copy-images-to: https://img.sanzo.top/img/default/reno
+typora-copy-images-to: ../../img/default/reno
 date: 2023-01-12 23:18:13
 updated: 2023-01-12 23:18:13
 tags:
@@ -12,7 +12,7 @@ categories:
 	- Default
 ---
 
-![image-20230113000756043](https://img.sanzo.top/img/default/reno/image-20230113000756043.png)
+![image-20230113000756043](../../img/default/reno/image-20230113000756043.png)
 
 
 
@@ -24,7 +24,7 @@ categories:
 
 有一次早上做完核酸不小心把手机摔了（原地练跳投），一直没带手机壳，这次是真的G了。屏幕虽然能用，不过屏幕漏液面积一天比一天大，最后直接覆盖到整张屏幕了。
 
-![image-20230113002640062](https://img.sanzo.top/img/default/reno/image-20230113002640062.png)
+![image-20230113002640062](../../img/default/reno/image-20230113002640062.png)
 
 
 
@@ -32,7 +32,7 @@ categories:
 
 当时是在github上搜的一个投屏软件，感觉还挺不错：https://github.com/barry-ran/QtScrcpy
 
-![image-20230113002744798](https://img.sanzo.top/img/default/reno/image-20230113002744798.png)
+![image-20230113002744798](../../img/default/reno/image-20230113002744798.png)
 
 
 
@@ -50,7 +50,7 @@ categories:
 
 拆的时候如果太紧的话，可以用吹风机吹一下，不要暴力拆解，否者就是右图的下场（其实我的是之前摔成这样的...）。
 
-![image-20230113003227209](https://img.sanzo.top/img/default/reno/image-20230113003227209.png)
+![image-20230113003227209](../../img/default/reno/image-20230113003227209.png)
 
 
 
@@ -62,7 +62,7 @@ categories:
 
 接着把后盖的螺丝卸下来。
 
-![image-20230113004120400](https://img.sanzo.top/img/default/reno/image-20230113004120400.png)
+![image-20230113004120400](../../img/default/reno/image-20230113004120400.png)
 
 
 
@@ -70,7 +70,7 @@ categories:
 
 
 
-![image-20230113004506334](https://img.sanzo.top/img/default/reno/image-20230113004506334.png)
+![image-20230113004506334](../../img/default/reno/image-20230113004506334.png)
 
 
 
@@ -82,7 +82,7 @@ categories:
 
 安装屏幕之前先测试下屏幕，要不然装上之后如果不能用，不知道是安装的问题，还是手机屏幕的问题（~~主要是卖家怕扯皮~~）。
 
-![image-20230113003328871](https://img.sanzo.top/img/default/reno/image-20230113003328871.png)
+![image-20230113003328871](../../img/default/reno/image-20230113003328871.png)
 
 
 
@@ -92,13 +92,13 @@ categories:
 
 装屏幕的话，其实就比较简单了，对准放进去就行。需要注意的就是，如果之前的胶不行了，需要重新粘一下。
 
-![image-20230113003413092](https://img.sanzo.top/img/default/reno/image-20230113003413092.png)
+![image-20230113003413092](../../img/default/reno/image-20230113003413092.png)
 
 
 
 >  大功告成
 
-![image-20230113003557732](https://img.sanzo.top/img/default/reno/image-20230113003557732.png)
+![image-20230113003557732](../../img/default/reno/image-20230113003557732.png)
 
 
 

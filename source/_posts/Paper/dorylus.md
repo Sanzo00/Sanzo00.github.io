@@ -18,7 +18,7 @@ typora-copy-images-to: ..\..\img\paper\
 
 [Dorylus: Affordable, Scalable, and Accurate GNN Training withDistributed CPU Servers and Serverless Threads](http://web.cs.ucla.edu/~harryxu/papers/dorylus-osdi21.pdf)
 
-{% pdf https://img.sanzo.top/pdf/paper/dorylus-osdi21.pdf %}
+{% pdf ../../pdf/paper/dorylus-osdi21.pdf %}
 
 
 
@@ -65,7 +65,7 @@ Serverless是无服务器计算，用户不需要自己维护服务器，例如[
 
 ## Design Overview
 
-![image-20210604203232773](https://img.sanzo.top/img/paper/image-20210604203232773.png)
+![image-20210604203232773](../../img/paper/image-20210604203232773.png)
 
 系统共分为三个部分Graph Server、Lambda Threads、Parameter Servers。
 
@@ -81,17 +81,17 @@ Lambda和PSes的通信发生在，前向传播的参数读取和反向传播的�
 
 ## Tasks and Pipelining
 
-![image-20210604215351649](https://img.sanzo.top/img/paper/image-20210604215351649.png)
+![image-20210604215351649](../../img/paper/image-20210604215351649.png)
 
 前向传播任务可以分为四个步骤：Gather、Scatter在图结构上进行计算，运行在GSes上，ApplyVertex、ApplyEdge负责特征矩阵和参数的相乘，运行在Lambdas上。
 
 
 
-![image-20210604214754716](https://img.sanzo.top/img/paper/image-20210604214754716.png)
+![image-20210604214754716](../../img/paper/image-20210604214754716.png)
 
 
 
-![image-20210604233940856](https://img.sanzo.top/img/paper/image-20210604233940856.png)
+![image-20210604233940856](../../img/paper/image-20210604233940856.png)
 
 GS使用线程池（数量等于vCPUs）,当有空闲的线程时，从任务队列中取一个任务执行，GS的输出作为Lambda的tensor计算的输入。线程数通常情况下比任务数少，通过流水线将图计算和NN计算重叠以隐藏Lambda的通信延迟。
 
@@ -110,7 +110,7 @@ Dorylus的贡献是细粒度的任务划分和计算分离。
 
 Dorylus使用了PipeDream提出的weight stashing来限制参数更新的异步处理，每层的前向传播时使用最新的参数，并将缓存使用的参数，用于反向传播。
 
-![image-20210605082905047](https://img.sanzo.top/img/paper/image-20210605082905047.png)
+![image-20210605082905047](../../img/paper/image-20210605082905047.png)
 
 https://zhuanlan.zhihu.com/p/113416860
 
@@ -175,7 +175,7 @@ V = \frac{1}{T \times C}
 $$
 
 
-![image-20210605100839987](https://img.sanzo.top/img/paper/image-20210605100839987.png)
+![image-20210605100839987](../../img/paper/image-20210605100839987.png)
 
 前三个图带有特征和标签，最后一个是随机生成的图，Dorylus实现了两种GNN模型：GCN和GAT。
 
@@ -187,11 +187,11 @@ $$
 
  ### Instance Selection
 
-![image-20210605095942959](https://img.sanzo.top/img/paper/image-20210605095942959.png)
+![image-20210605095942959](../../img/paper/image-20210605095942959.png)
 
 在实例选择中，对比了CPU的内存型r5和计算型c5，GPU的p2(K80)和p3(V100)，通过对比最终选择r5和p3作为实验的实例。
 
-![image-20210605100639067](https://img.sanzo.top/img/paper/image-20210605100639067.png)
+![image-20210605100639067](../../img/paper/image-20210605100639067.png)
 
 
 
@@ -213,7 +213,7 @@ each lambda： 0.11vCPUs(192MB memory)、\$0.20/1M requests、\$0.01125/h
 
 
 
-![image-20210605112423906](https://img.sanzo.top/img/paper/image-20210605112423906.png)
+![image-20210605112423906](../../img/paper/image-20210605112423906.png)
 
 - Dorylus-pipe是同步的方式，只有当前层完成之后，才能进入下一层。
 - Doryls-async（s=0）,允许使用当前epoch下不同层的节点信息。
@@ -223,7 +223,7 @@ each lambda： 0.11vCPUs(192MB memory)、\$0.20/1M requests、\$0.01125/h
 
 
 
-![image-20210605133251589](https://img.sanzo.top/img/paper/image-20210605133251589.png)
+![image-20210605133251589](../../img/paper/image-20210605133251589.png)
 
 图六是GCN的每个epoch的时间开销，异步要比同步快15%，s=0要比s=1的表现好一些，s的取值越大，需要的迭迭代次数越多，但是每次迭代的时间开销下降的很慢，因此s=0是最好的选择。
 
@@ -231,11 +231,11 @@ each lambda： 0.11vCPUs(192MB memory)、\$0.20/1M requests、\$0.01125/h
 
 ### Effects of Lambdas
 
-![image-20210605142900448](https://img.sanzo.top/img/paper/image-20210605142900448.png)
+![image-20210605142900448](../../img/paper/image-20210605142900448.png)
 
 在5个图上分别跑3种不同模型的Dorylus，得到他们的运行时间和花费。
 
-![image-20210605142322339](https://img.sanzo.top/img/paper/image-20210605142322339.png)
+![image-20210605142322339](../../img/paper/image-20210605142322339.png)
 
 以GPU only作为基准的价值对比图，可以看到，GPUs适用于规模小或密集的图，Dorylus要比CPU-only的好，Dorylus更适合规模大或稀疏的图，
 
@@ -243,7 +243,7 @@ each lambda： 0.11vCPUs(192MB memory)、\$0.20/1M requests、\$0.01125/h
 
 
 
-![image-20210605145354684](https://img.sanzo.top/img/paper/image-20210605145354684.png)
+![image-20210605145354684](../../img/paper/image-20210605145354684.png)
 
 
 
@@ -285,7 +285,7 @@ Dorylus从4个server到16个server，速度提高了2.82x，成本只增加了5%
 
 NeuGraph和AGL没有开源，Roc不能很好的在作者的实验环境下运行（各种CUDA errors），而且Roc需要将整张图加载到内存中，因此不能运行数十亿边的图，因此Dorylus主要和DGL、AliGraph进行对比实验。
 
-![image-20210606001208672](https://img.sanzo.top/img/paper/image-20210606001208672.png)
+![image-20210606001208672](../../img/paper/image-20210606001208672.png)
 
 图9是不同系统在Reddit-small和Amazon上得到的准确度：
 
@@ -307,7 +307,7 @@ Dorylus可以达到91.12%、65.23%的准确度
 
 
 
-![image-20210606003505255](https://img.sanzo.top/img/paper/image-20210606003505255.png)
+![image-20210606003505255](../../img/paper/image-20210606003505255.png)
 
 表5是不同系统在达到目标准确度下的运行时间和成本开销。
 
@@ -319,7 +319,7 @@ Dorylus可以达到91.12%、65.23%的准确度
 
 ### Breakdown of Perfomance and Costs
 
-![image-20210606004516790](https://img.sanzo.top/img/paper/image-20210606004516790.png)
+![image-20210606004516790](../../img/paper/image-20210606004516790.png)
 
 没有pipelining和overlapping lambdas，对比GPU速度减慢了1.9倍。
 

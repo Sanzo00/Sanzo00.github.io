@@ -15,7 +15,7 @@ categories: CSE-599W
 
 GPU（Graphics processing unit）在计算机图形学和图像处理上非常高效，GPU相比CPU有更多的计算单元，因此适合做并行计算。
 
-![image-20211227163837672](https://img.sanzo.top/img/lesson/cse599w/image-20211227163837672.png)
+![image-20211227163837672](../../img/lesson/cse599w/image-20211227163837672.png)
 
 
 
@@ -29,13 +29,13 @@ GPC可以理解为一个单独的GPU，从Fermi架构之后所有的GPU都有GPC
 
 早期的Fermi，SMs和Texture Units组合成TPCs（Texture Processing Clusters），但是现在SM有4个专用的Texture Units，因此不再需要TPC。
 
-![image-20211227164046177](https://img.sanzo.top/img/lesson/cse599w/image-20211227164046177.png)
+![image-20211227164046177](../../img/lesson/cse599w/image-20211227164046177.png)
 
 
 
 下图是不同GPU之间的对比，主要区别是SM、CUDA core的数量，以及缓存的大小。
 
-![image-20211227165820741](https://img.sanzo.top/img/lesson/cse599w/image-20211227165820741.png)
+![image-20211227165820741](../../img/lesson/cse599w/image-20211227165820741.png)
 
 
 
@@ -45,7 +45,7 @@ GPC可以理解为一个单独的GPU，从Fermi架构之后所有的GPU都有GPC
 
 
 
-![image-20211227164004446](https://img.sanzo.top/img/lesson/cse599w/image-20211227164004446.png)
+![image-20211227164004446](../../img/lesson/cse599w/image-20211227164004446.png)
 
 
 
@@ -57,13 +57,13 @@ GPC可以理解为一个单独的GPU，从Fermi架构之后所有的GPU都有GPC
 
 ### 内存等级
 
-![image-20211227165155940](https://img.sanzo.top/img/lesson/cse599w/image-20211227165155940.png)
+![image-20211227165155940](../../img/lesson/cse599w/image-20211227165155940.png)
 
  
 
 ### 内存延迟
 
-![image-20211227165230372](https://img.sanzo.top/img/lesson/cse599w/image-20211227165230372.png)
+![image-20211227165230372](../../img/lesson/cse599w/image-20211227165230372.png)
 
 
 
@@ -81,11 +81,11 @@ SIMT（单指令多线程），多个线程执行相同的代码，可以有不�
 
 kernel函数是以grid的形式执行的。
 
-![image-20211228122652411](https://img.sanzo.top/img/lesson/cse599w/image-20211228122652411.png)
+![image-20211228122652411](../../img/lesson/cse599w/image-20211228122652411.png)
 
 
 
-![image-20211228134658810](https://img.sanzo.top/img/lesson/cse599w/image-20211228134658810.png)
+![image-20211228134658810](../../img/lesson/cse599w/image-20211228134658810.png)
 
 ### Kernel Execution
 
@@ -93,13 +93,13 @@ kernel函数是以grid的形式执行的。
 
 多个并发的blocks可以分配到同一个SM中，SM中block的数量取决于SM内存资源以及block的内存需求。
 
-![image-20211228124843623](https://img.sanzo.top/img/lesson/cse599w/image-20211228124843623.png)
+![image-20211228124843623](../../img/lesson/cse599w/image-20211228124843623.png)
 
 
 
 SM以warp（32个线程）为单位来调度block中的线程，每个时钟周期warp调度器选择一个准备好的warp，然后将其dispatch给CUDA cores执行。
 
-![image-20211228124919218](https://img.sanzo.top/img/lesson/cse599w/image-20211228124919218.png)
+![image-20211228124919218](../../img/lesson/cse599w/image-20211228124919218.png)
 
 
 
@@ -107,7 +107,7 @@ SM以warp（32个线程）为单位来调度block中的线程，每个时钟周�
 
 由于条件分支的存在，warp中的线程可能存在不同的运行状态。
 
-![image-20211228125552255](https://img.sanzo.top/img/lesson/cse599w/image-20211228125552255.png)
+![image-20211228125552255](../../img/lesson/cse599w/image-20211228125552255.png)
 
 
 
@@ -137,7 +137,7 @@ kernel_name<<<5,8>>>(...);
 
 在对线程进行索引的时候，一般是先定位线程所在的block，然后计算线程在block内部的索引。
 
-![image-20211228151045258](https://img.sanzo.top/img/lesson/cse599w/image-20211228151045258.png)
+![image-20211228151045258](../../img/lesson/cse599w/image-20211228151045258.png)
 
 
 
@@ -161,21 +161,21 @@ int tid = (blockIdx.y * gridDim.x + blockIdx.x) * (blockDim.x * blockDim.y) + th
 
 利用GPU的线程同时进行计算。
 
-![image-20211231103023560](https://img.sanzo.top/img/lesson/cse599w/image-20211231103023560.png)
+![image-20211231103023560](../../img/lesson/cse599w/image-20211231103023560.png)
 
 ### Sliding Window Sum
 
-![image-20211231103055408](https://img.sanzo.top/img/lesson/cse599w/image-20211231103055408.png)
+![image-20211231103055408](../../img/lesson/cse599w/image-20211231103055408.png)
 
-![image-20211231103104113](https://img.sanzo.top/img/lesson/cse599w/image-20211231103104113.png)
+![image-20211231103104113](../../img/lesson/cse599w/image-20211231103104113.png)
 
 朴素的方法是每个线程遍历A中长度为2 * RADIUS的元素，然后进行求和。这里每个元素的计算都需要进行多次的访存，而且数组A是在Global Memory上，所以效率较低。
 
 一种优化方法是，利用SM中的Shared Memory，每个block中的线程在做计算前，首先将对应的数据加载到shared memroy，后续需要访存的时候，直接从shared memory上拿数据，这样比从Global Memory上拿快很多。
 
-![image-20211231103118280](https://img.sanzo.top/img/lesson/cse599w/image-20211231103118280.png)
+![image-20211231103118280](../../img/lesson/cse599w/image-20211231103118280.png)
 
-![image-20211231103538633](https://img.sanzo.top/img/lesson/cse599w/image-20211231103538633.png)
+![image-20211231103538633](../../img/lesson/cse599w/image-20211231103538633.png)
 
 
 

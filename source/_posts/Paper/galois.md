@@ -22,7 +22,7 @@ hide: true
 
 [A Lightweight Infrastructure for Graph Analytics](https://dl.acm.org/doi/pdf/10.1145/2517349.2522739)
 
-{%pdf https://img.sanzo.top/pdf/paper/galois-A_Lightweight_Infrastructure_for_Graph_Analytics.pdf %}
+{%pdf ../../pdf/paper/galois-A_Lightweight_Infrastructure_for_Graph_Analytics.pdf %}
 
 
 
@@ -40,7 +40,7 @@ hide: true
 
 amorphous data parallelism（ADP）is a data-centric programming model for expression parallelism in regular and irregular algorithms.
 
-![image-20210811101315304](https://img.sanzo.top/img/paper/image-20210811101315304.png)
+![image-20210811101315304](../../img/paper/image-20210811101315304.png)
 
 **Active nodes** in the graph where computation must be performed, they are shown as filled dots in Figure 1.
 
@@ -90,7 +90,7 @@ Coordinated scheduling, restricts the scheduing of activities to **round of exec
 
 ## Galois System
 
-![image-20210811115326611](https://img.sanzo.top/img/paper/image-20210811115326611.png)
+![image-20210811115326611](../../img/paper/image-20210811115326611.png)
 
 ### Topology-aware bags of tasks
 
@@ -104,7 +104,7 @@ Galois scheduler uses a **concurrent bag** to hold the set of pending tasks (act
 
 ### Priority Scheduling
 
-![image-20210811141533008](https://img.sanzo.top/img/paper/image-20210811141533008.png)
+![image-20210811141533008](../../img/paper/image-20210811141533008.png)
 
 Priority scheduling is used extensively in OS, but os tasks are relatively coarse-grained may execute in tens or hundreds of milliseconds, where tasks in **graph analytics take only microseconds to execute**, as shown in Figure 2. Therefore the **overheads of priority scheduling in the OS context are masked by the execution time of task**, so **solutions from the operating systems area cannot be used here**.
 
@@ -156,11 +156,11 @@ One **leader thread** per package will scan the other package leaders. This rest
 
 #### Evaluation of design choices
 
-![image-20210811202012098](https://img.sanzo.top/img/paper/image-20210811202012098.png)
+![image-20210811202012098](../../img/paper/image-20210811202012098.png)
 
 
 
-![image-20210811202025706](https://img.sanzo.top/img/paper/image-20210811202025706.png)
+![image-20210811202025706](../../img/paper/image-20210811202025706.png)
 
 Figure 5a shows the speedup of SSSP relative to the best overall single-threaded execution time. We can see the **back-scan prevention is critical** for performance. without this optimization, speedup is never more than 2.5.
 
@@ -211,7 +211,7 @@ These kinds of code specialization optimizations reduce the overhead of dynamic 
 
 ## Evaluation
 
-![image-20210812094812950](https://img.sanzo.top/img/paper/image-20210812094812950.png)
+![image-20210812094812950](../../img/paper/image-20210812094812950.png)
 
 
 
@@ -221,25 +221,25 @@ Figure 9b shows that performance of Ligra-g is roughly comparable to Ligra. Powe
 
 Comparison between the two figure, most of the ratio in Figure 9a are greater than those in Figure 9b, but in the behavior of PowerGraph with PageRank on the road graph, The Galois improvenment is about 10X while PowerGraph-g improvement is about 50X. This suggest that the Galois application of PageRank, which is **pull-base, is not good as push-base algorithm used by PowerGraph, on the road graph.**
 
-![image-20210812120126645](https://img.sanzo.top/img/paper/image-20210812120126645.png)
+![image-20210812120126645](../../img/paper/image-20210812120126645.png)
 
 
 
-![image-20210812114623224](https://img.sanzo.top/img/paper/image-20210812114623224.png)
-
-
-
-
-
-![image-20210812115156230](https://img.sanzo.top/img/paper/image-20210812115156230.png)
+![image-20210812114623224](../../img/paper/image-20210812114623224.png)
 
 
 
 
 
+![image-20210812115156230](../../img/paper/image-20210812115156230.png)
 
 
-![image-20210812121431446](https://img.sanzo.top/img/paper/image-20210812121431446.png)
+
+
+
+
+
+![image-20210812121431446](../../img/paper/image-20210812121431446.png)
 
 
 

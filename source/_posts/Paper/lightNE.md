@@ -20,7 +20,7 @@ hide: false
 
 [LightNE: A Lightweight Graph Processing System for Network Embedding](https://keg.cs.tsinghua.edu.cn/jietang/publications/SIGMOD21-Qiu-et-al-LightNE.pdf)
 
-{% pdf https://img.sanzo.top/pdf/paper/SIGMOD21-Qiu-et-al-LightNE.pdf %}
+{% pdf ../../pdf/paper/SIGMOD21-Qiu-et-al-LightNE.pdf %}
 
 
 

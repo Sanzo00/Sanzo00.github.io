@@ -20,7 +20,7 @@ hide: false
 
 [DeepWalk: Online Learning of Social Representations](https://arxiv.org/pdf/1403.6652)
 
-{% pdf https://img.sanzo.top/pdf/paper/1403.6652-deepwalk.pdf %}
+{% pdf ../../pdf/paper/1403.6652-deepwalk.pdf %}
 
 [14-KDD-DeepWalk]( https://docs.google.com/presentation/d/1TKRfbtZg_EJFnnzFsnYOsUiyFS0SbNi0X3Qg9OtfDSo)
 
@@ -46,7 +46,7 @@ DeepWalk的目标就是学习到图的隐藏表示$X_E \in \mathrm{R} ^ {|V| \ti
 
 社交网络和NLP的词库都遵循着power-law。
 
-![image-20210629122653559](https://img.sanzo.top/img/paper/image-20210629122653559.png)
+![image-20210629122653559](../../img/paper/image-20210629122653559.png)
 
 
 
@@ -56,7 +56,7 @@ language modeling的目的是估计某个单词序列在语料库中出现的可
 
 DeepWalk的目标是学习latent representation，引入一个映射函数$\Phi:v\in V \rightarrow \mathrm{R}^{|V| \times d}$，因此目标变为：
 
-![image-20210629122306128](https://img.sanzo.top/img/paper/image-20210629122306128.png)
+![image-20210629122306128](../../img/paper/image-20210629122306128.png)
 
 随着walk length的增加，计算这个目标函数将十分困难，目前在language modeling提出了新的解决方法，将预测任务颠倒过来：
 
@@ -66,7 +66,7 @@ DeepWalk的目标是学习latent representation，引入一个映射函数$\Phi:
 
 此时优化问题变为：
 
-![image-20210629122255772](https://img.sanzo.top/img/paper/image-20210629122255772.png)
+![image-20210629122255772](../../img/paper/image-20210629122255772.png)
 
 
 
@@ -77,7 +77,7 @@ DeepWalk算法包含两部分：
 - random walk生成器
 - 更新程序
 
-![image-20210629121717503](https://img.sanzo.top/img/paper/image-20210629121717503.png)
+![image-20210629121717503](../../img/paper/image-20210629121717503.png)
 
 在每次对所有点进行randowm walk之前，生成一个随机遍历顶点的顺序（line 4），这样可以加快算法收敛的速率。
 
@@ -91,13 +91,13 @@ line 7是按照公示2对representation进行更新。
 
 ### SkipGram
 
-![image-20210629122148677](https://img.sanzo.top/img/paper/image-20210629122148677.png)
+![image-20210629122148677](../../img/paper/image-20210629122148677.png)
 
 对于random walk中的每个节点，目标是最大化在窗口$w$中元素的出现的概率，
 
 $\alpha$初始值设置为2.5%，然后线性的减小。
 
-![image-20210629130626818](https://img.sanzo.top/img/paper/image-20210629130626818.png)
+![image-20210629130626818](../../img/paper/image-20210629130626818.png)
 
 
 
@@ -105,11 +105,11 @@ $\alpha$初始值设置为2.5%，然后线性的减小。
 
 使用logistic regression建模，将产生大量等于 $|V|$的标签，是计算变得复杂。
 
-![image-20210629133211810](https://img.sanzo.top/img/paper/image-20210629133211810.png)
+![image-20210629133211810](../../img/paper/image-20210629133211810.png)
 
 如果将顶点放到二叉搜索树的叶子节点，那么预测问题将变为最大化特定路径的概率，节点$u_k$可以表示为$b_0, b_1,\cdots,b_{\lceil log|V| \rceil}$即：
 
-![image-20210629133757732](https://img.sanzo.top/img/paper/image-20210629133757732.png)
+![image-20210629133757732](../../img/paper/image-20210629133757732.png)
 
 使用Haffman编码可以优化访问节点的时间。
 
@@ -119,7 +119,7 @@ $\alpha$初始值设置为2.5%，然后线性的减小。
 
 random walk中的节点的分布遵循power-law，这导致$\Phi$的更新不会很频繁，因此可以使用异步版本的SGD（ASGD），通过多个worker来加速收敛。
 
-![image-20210629134802455](https://img.sanzo.top/img/paper/image-20210629134802455.png)
+![image-20210629134802455](../../img/paper/image-20210629134802455.png)
 
 通过图4可以看出，多个worker可以线性的减少时间，通过对性能的影响非常小。
 
@@ -150,7 +150,7 @@ Some graphs are created as a by-product of agents interacting with a sequence of
 
 共使用三种数据集：
 
-![image-20210629140621134](https://img.sanzo.top/img/paper/image-20210629140621134.png)
+![image-20210629140621134](../../img/paper/image-20210629140621134.png)
 
 - BlogCatalog是博客作者的社交关系图，标签表示是作者提供的文章的topic。
 - Flicker是照片分享网站中用户之间的联系，标签表示用户的interest group，例如'black and white'。
@@ -158,7 +158,7 @@ Some graphs are created as a by-product of agents interacting with a sequence of
 
  和5种算法进行对比：
 
-![image-20210629160520949](https://img.sanzo.top/img/paper/image-20210629160520949.png)
+![image-20210629160520949](../../img/paper/image-20210629160520949.png)
 
 
 
@@ -170,7 +170,7 @@ deepwalk的实验参数设置为：$\gamma=80, w=10, d=128$。
 
 算法在BlogCatalog数据集上的表现如下：
 
-![image-20210629175539936](https://img.sanzo.top/img/paper/image-20210629175539936.png)
+![image-20210629175539936](../../img/paper/image-20210629175539936.png)
 
 从图中可以看出，DeepWalk在只有20%数据的情况下，要比很多算法在90%的数据下表现得更好。DeepWalk与SpectralClustering性能很接近，DeepWalk在训练数据稀疏的情况下性能要高于SpectralClustering。
 
@@ -180,7 +180,7 @@ deepwalk的实验参数设置为：$\gamma=80, w=10, d=128$。
 
 > Flickr
 
-![image-20210629175902368](https://img.sanzo.top/img/paper/image-20210629175902368.png)
+![image-20210629175902368](../../img/paper/image-20210629175902368.png)
 
 DeepWalk在训练数据在1%-10%的Flickr上表现比baseline的算法有3%的提升，且在只有3%的训练数据的情况下，比其他算法在10%的表现都要好。
 
@@ -190,7 +190,7 @@ DeepWalk在训练数据在1%-10%的Flickr上表现比baseline的算法有3%的�
 
 > YouTube
 
-![image-20210629180422404](https://img.sanzo.top/img/paper/image-20210629180422404.png)
+![image-20210629180422404](../../img/paper/image-20210629180422404.png)
 
 
 
@@ -202,7 +202,7 @@ DeepWalk在训练数据在1%-10%的Flickr上表现比baseline的算法有3%的�
 
 > Effect of Dimensionality
 
-![image-20210629181321416](https://img.sanzo.top/img/paper/image-20210629181321416.png)
+![image-20210629181321416](../../img/paper/image-20210629181321416.png)
 
 通过图(a1)和图(a3)对比可以得到，最佳的维度$d$和训练数据的规模有关。
 
@@ -219,7 +219,7 @@ DeepWalk在训练数据在1%-10%的Flickr上表现比baseline的算法有3%的�
 
 > Effect of sampling frequency
 
-![image-20210629183629493](https://img.sanzo.top/img/paper/image-20210629183629493.png)
+![image-20210629183629493](../../img/paper/image-20210629183629493.png)
 
 
 

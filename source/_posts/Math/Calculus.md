@@ -138,19 +138,19 @@ $$
 </div>
 先函数求导：
 
-![image-20201004171414791](https://img.sanzo.top/img/math/Calculus/image-20201004171414791.png)
+![image-20201004171414791](../../img/math/Calculus/image-20201004171414791.png)
 
 
 
 隐函数求导，等号两边同时对$x$求导：
 
-![image-20201004171511976](https://img.sanzo.top/img/math/Calculus/image-20201004171511976.png)
+![image-20201004171511976](../../img/math/Calculus/image-20201004171511976.png)
 
 
 
 参数函数求导：
 
-![image-20201004171717622](https://img.sanzo.top/img/math/Calculus/image-20201004171717622.png)
+![image-20201004171717622](../../img/math/Calculus/image-20201004171717622.png)
 
 常见的多阶导数：
 <div>
@@ -166,7 +166,7 @@ $$
 
 微分是求函数在某点$x_0$附近的变化量。
 
-![image-20201004190517554](https://img.sanzo.top/img/math/Calculus/image-20201004190517554.png)
+![image-20201004190517554](../../img/math/Calculus/image-20201004190517554.png)
 
 微分规则：
 <div>
@@ -185,23 +185,23 @@ $$
 
 显函数微分：
 
-![image-20201004190959176](https://img.sanzo.top/img/math/Calculus/image-20201004190959176.png)
+![image-20201004190959176](../../img/math/Calculus/image-20201004190959176.png)
 
-![image-20201004191100047](https://img.sanzo.top/img/math/Calculus/image-20201004191100047.png)
+![image-20201004191100047](../../img/math/Calculus/image-20201004191100047.png)
 
 
 
 隐函数求导：
 
-![image-20201004191124766](https://img.sanzo.top/img/math/Calculus/image-20201004191124766.png)
+![image-20201004191124766](../../img/math/Calculus/image-20201004191124766.png)
 
 
 
 近似计算：
 
-![image-20201004191222577](https://img.sanzo.top/img/math/Calculus/image-20201004191222577.png)
+![image-20201004191222577](../../img/math/Calculus/image-20201004191222577.png)
 
-![image-20201004191253535](https://img.sanzo.top/img/math/Calculus/image-20201004191253535.png)
+![image-20201004191253535](../../img/math/Calculus/image-20201004191253535.png)
 
 
 
@@ -211,19 +211,19 @@ $$
 
 罗尔定理
 
-![image-20201004234302988](https://img.sanzo.top/img/math/Calculus/image-20201004234302988.png)
+![image-20201004234302988](../../img/math/Calculus/image-20201004234302988.png)
 
 拉格朗日中值定理：
 
 罗尔定理是拉格朗日中值定理的特殊情况，将拉格朗日中的坐标系转换成罗尔即可证明。
 
-![image-20201004234343532](https://img.sanzo.top/img/math/Calculus/image-20201004234343532.png)
+![image-20201004234343532](../../img/math/Calculus/image-20201004234343532.png)
 
 柯西中值定理：
 
-![image-20201005001251899](https://img.sanzo.top/img/math/Calculus/image-20201005001251899.png)
+![image-20201005001251899](../../img/math/Calculus/image-20201005001251899.png)
 
-![image-20201005162606663](https://img.sanzo.top/img/math/Calculus/image-20201005162606663.png)
+![image-20201005162606663](../../img/math/Calculus/image-20201005162606663.png)
 
 
 
@@ -231,11 +231,11 @@ $$
 
 使用微分$f(x)=f'(x_0)(x-x_0)+f(x_0)$估计函数的值误差太大，泰勒公式可以很好的表示函数的值。
 
-![image-20201005182142322](https://img.sanzo.top/img/math/Calculus/image-20201005182142322.png)
+![image-20201005182142322](../../img/math/Calculus/image-20201005182142322.png)
 
 马克劳林公式
 
-![image-20201005182213341](https://img.sanzo.top/img/math/Calculus/image-20201005182213341.png)
+![image-20201005182213341](../../img/math/Calculus/image-20201005182213341.png)
 
 
 
@@ -243,19 +243,19 @@ $$
 
 洛必达法则用于求两个函数相比的极限，适用于$\frac{0}{0}、\frac{\infty}{\infty}$型极限。
 
-![image-20201005192022562](https://img.sanzo.top/img/math/Calculus/image-20201005192022562.png)
+![image-20201005192022562](../../img/math/Calculus/image-20201005192022562.png)
 
 
 
-![image-20201005192633104](https://img.sanzo.top/img/math/Calculus/image-20201005192633104.png)
+![image-20201005192633104](../../img/math/Calculus/image-20201005192633104.png)
 
 
 
 洛必达求解极限不存在时，原函数不一定不存在，需要改用其他方法。
 
-![image-20201005192739672](https://img.sanzo.top/img/math/Calculus/image-20201005192739672.png)
+![image-20201005192739672](../../img/math/Calculus/image-20201005192739672.png)
 
-![image-20201005192959826](https://img.sanzo.top/img/math/Calculus/image-20201005192959826.png)
+![image-20201005192959826](../../img/math/Calculus/image-20201005192959826.png)
 
 
 
@@ -265,9 +265,9 @@ $$
 
 函数增减的分界点$\begin{cases} f'(x)=0(驻点)\\\\导数不存在的点\end{cases}$
 
-![image-20201005201951384](https://img.sanzo.top/img/math/Calculus/image-20201005201951384.png)
+![image-20201005201951384](../../img/math/Calculus/image-20201005201951384.png)
 
-![image-20201005202011756](https://img.sanzo.top/img/math/Calculus/image-20201005202011756.png)
+![image-20201005202011756](../../img/math/Calculus/image-20201005202011756.png)
 
 
 
@@ -275,4 +275,4 @@ $$
 
 <div>$\left.\begin{matrix} f''(x)=0(拐点)\\\\二阶导数不存在的点 \end{matrix} \right\}$</div> 可能是拐点（凸凹的分界点），还需要根据左右的凸凹性进一步判断。
 
-![image-20201005203040731](https://img.sanzo.top/img/math/Calculus/image-20201005203040731.png)
+![image-20201005203040731](../../img/math/Calculus/image-20201005203040731.png)
