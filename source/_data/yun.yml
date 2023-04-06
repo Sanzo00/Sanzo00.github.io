@@ -167,7 +167,7 @@ footer:
     # icp: 苏ICP备xxxxxxxx号
 
   support:
-    enable: true
+    enable: false
     title: 又拍云
     link: https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral
     logo: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png
