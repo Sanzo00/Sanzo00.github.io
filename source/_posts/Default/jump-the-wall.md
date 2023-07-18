@@ -117,9 +117,11 @@ vim config.yaml
 
 创建systemd配置文件
 
-`/home/sanzo/software/clash/clash` is you clash executable file
+```bash
+sudo vim /etc/systemd/system/clash.service
+```
 
-`/home/sanzo/software/clash/` is your clash config directory
+
 
 ```bash
 [Unit]
@@ -135,11 +137,16 @@ ExecStart=/home/sanzo/software/clash/clash -d /home/sanzo/software/clash/
 WantedBy=multi-user.target
 ```
 
+`/home/sanzo/software/clash/clash` is you clash executable file
+
+`/home/sanzo/software/clash/` is your clash config directory
+
 
 
 使用systemctl控制clash的运行：
 
 ```bash
+sudo systemctl emable clash
 sudo systemctl status clash
 sudo systemctl start clash
 sudo systemctl restart clash
@@ -171,10 +178,10 @@ wget google.com
 ```bash
 vim ~/.bashrc
 
-export ALL_PROXY="socks5://127.0.0.1:10800"
-export all_proxy="socks5://127.0.0.1:10800"
-export http_proxy="http://127.0.0.1:10801"
-export https_proxy="https://127.0.0.1:10801"
+export ALL_PROXY="socks5://127.0.0.1:7890"
+export all_proxy="socks5://127.0.0.1:7890"
+export http_proxy="http://127.0.0.1:7890"
+export https_proxy="http://127.0.0.1:7890"
 ```
 
 
@@ -185,12 +192,12 @@ export https_proxy="https://127.0.0.1:10801"
 
 ```bash
 # http and https
-git config --global http.proxy http://127.0.0.1:10801
-git config --global https.proxy https://127.0.0.1:10801
+git config --global http.proxy http://127.0.0.1:7890
+git config --global https.proxy https://127.0.0.1:7890
 
 # socks5
-git config --global http.proxy socks5://127.0.0.1:10800
-git config --global https.proxy socks5://127.0.0.1:10800
+git config --global http.proxy socks5://127.0.0.1:7890
+git config --global https.proxy socks5://127.0.0.1:7890
 
 # unset
 git config --global --unset http.proxy
@@ -203,17 +210,18 @@ git config --global --unset https.proxy
 
 ```bash
 sudo apt install connect-proxy
+# (or) https://github.com/larryhou/connect-proxy
 vim ~/.ssh/config
 
 # socks5
 Host github.com
 User git
-ProxyCommand connect -S 127.0.0.1:10800 %h %p
+ProxyCommand connect -S 127.0.0.1:7890 %h %p
 
 # http || https
 Host github.com
 User git
-ProxyCommand connect -H 127.0.0.1:10801 %h %p
+ProxyCommand connect -H 127.0.0.1:7890 %h %p
 ```
 
 
