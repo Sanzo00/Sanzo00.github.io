@@ -115,7 +115,7 @@ git submodule add your_repository.git
 - 配置用户信息
 
   ```bash
-  git config --global user.name "Sanzona"
+  git config --global user.name "Sanzo00"
   git config --global user.email "arrangeman@163.com"
   ```
 

@@ -214,6 +214,8 @@ vim .ssh/id_rsa.pub
 ### docker安装
 
 ```bash
+# docker install
+# https://yeasy.gitbook.io/docker_practice/install/raspberry-pi
 docker pull tigerj/cups-airprint
 
 docker run -d --restart=always --name=cups --net=host -v /var/run/dbus:/var/run/dbus --device /dev/bus -e CUPSADMIN="ubuntu" -e CUPSPASSWORD="ubuntu@print" tigerj/cups-airprint
@@ -469,6 +471,22 @@ AriaNg http://ariang.mayswind.net/latest
 
 
 ## 仪表盘
+
+
+
+
+
+### docker
+
+```
+https://hub.docker.com/r/ecat/docker-pi-dashboard
+```
+
+
+
+### 手动安装
+
+
 
 
 
