@@ -446,10 +446,10 @@ docker run -d \
   -e TZ=Etc/UTC \
   -e WEBUI_PORT=18000 \
   -p 18000:18000 \
-  -p 6881:6881 \
-  -p 6881:6881/udp \
-  -v /path/to/appdata/config:/config \
-  -v /path/to/downloads:/downloads \
+  -p 46881:46881 \
+  -p 46881:46881/udp \
+  -v /home/sanzo/disk/data/qbittorrent-config:/config \
+  -v /home/sanzo/disk/data/private/qbittorrent:/downloads \
   --restart unless-stopped \
   lscr.io/linuxserver/qbittorrent:latest
 ```
