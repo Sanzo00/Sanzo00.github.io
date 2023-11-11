@@ -209,7 +209,30 @@ vim .ssh/id_rsa.pub
 
 
 
-## 配置局域网打印机
+## Docker
+
+```bash
+# install
+curl -fsSL get.docker.com -o get-docker.sh
+sudo sh get-docker.sh --mirror Aliyun
+
+# docker setup
+sudo systemctl enable docker
+sudo systemctl start docker
+
+# add $USER to docker groups
+sudo groupadd docker
+sudo usermod -aG docker $USER
+
+# test docker
+docker run --rm hello-world
+```
+
+
+
+
+
+## 打印机
 
 ### docker安装
 
@@ -401,6 +424,117 @@ net use \\192.168.31.240\share /d
 ```
 
 若清除缓存后依然自动登录，则需要进入控制面板→用户账户→选择当前账户→管理你的凭据→Windows凭据→删除
+
+
+
+## qBittorrent
+
+https://hub.docker.com/r/linuxserver/qbittorrent
+
+
+
+```bash
+# download image
+docker pull lscr.io/linuxserver/qbittorrent:latest
+
+# run image
+docker run -d \
+  --name=qbittorrent \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e TZ=Etc/UTC \
+  -e WEBUI_PORT=18000 \
+  -p 18000:18000 \
+  -p 6881:6881 \
+  -p 6881:6881/udp \
+  -v /path/to/appdata/config:/config \
+  -v /path/to/downloads:/downloads \
+  --restart unless-stopped \
+  lscr.io/linuxserver/qbittorrent:latest
+```
+
+
+
+## frp内网穿透
+
+### frps
+
+```bash
+# configuration of frps
+vim /root/sanzo/frp/frps.toml
+
+[common]
+bind_port = 60000
+vhost_http_port = 60080
+vhost_https_port = 60443
+dashboard_addr = 0.0.0.0
+dashboard_port = 60001
+dashboard_user = YOUR_NAME
+dashboard_pwd = YOUR_PASSWD
+token = YOUR_TOKEN
+```
+
+
+
+```bash
+# install image
+docker pull snowdreamtech/frps
+
+# run image
+docker run --restart=always --net host -d -v /root/sanzo/frp/frps.toml:/etc/frp/frps.toml^C-name frps snowdreamtech/frps
+
+# access frps vis this link
+YOUR_IP:60001
+```
+
+
+
+### frpc
+
+```bash
+# configuration of frpc
+vim /home/sanzo/software/frpc/frpc.toml
+
+
+[common]
+server_addr = SERVER_IP
+server_port = 60000
+token = SERVER_TOKEN
+
+http_proxy = http://127.0.0.1:7890
+https_proxy = https://127.0.0.1:7890
+
+[ssh]
+type = tcp
+local_ip = 127.0.0.1
+local_port = 22
+remote_port = SERVER_PORT
+
+[qbt]
+type = tcp
+local_ip = 127.0.0.1
+local_port = 18000
+remote_port = SERVER_PORT
+
+[pi-dashboard]
+type = tcp
+local_ip = 127.0.0.1
+local_port = 80
+remote_port = SERVER_PORT
+```
+
+
+
+```bash
+# install image
+docker pull snowdreamtech/frpc
+
+# run image
+docker run --restart=always --network host -d -v /home/sanzo/software/frpc/frpc.toml:/etc/frp/frpc.toml --name frpc snowdreamtech/frpc
+
+```
+
+
 
 
 
