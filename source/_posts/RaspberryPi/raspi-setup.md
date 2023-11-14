@@ -456,6 +456,12 @@ docker run -d \
 
 
 
+在使用内网穿透访问局域网的qbittorrent服务时，需要取消勾选`设置`=>`Web UI`=>`启动Host header属性验证`。
+
+
+
+
+
 ## frp内网穿透
 
 ### frps
