@@ -106,10 +106,10 @@ source ~/.zshrc
 vim ~/.zshrc
 
 # 在最后一行添加
-export ALL_PROXY="socks5://127.0.0.1:10800"
-export all_proxy="socks5://127.0.0.1:10800"
-export http_proxy="http://127.0.0.1:10801"
-export https_proxy="https://127.0.0.1:10801"
+export ALL_PROXY="socks5://127.0.0.1:7890"
+export all_proxy="socks5://127.0.0.1:7890"
+export http_proxy="http://127.0.0.1:7890"
+export https_proxy="https://127.0.0.1:7890"
 
 #重新加载配置文件
 source ~/.zshrc

@@ -178,10 +178,10 @@ sudo systemctl start v2ray
 终端代理设置：
 
 ```bash
-export ALL_PROXY="socks5://127.0.0.1:10800"
-export all_proxy="socks5://127.0.0.1:10800"
-export http_proxy="http://127.0.0.1:10801"
-export https_proxy="https://127.0.0.1:10801"
+export ALL_PROXY="socks5://127.0.0.1:7890"
+export all_proxy="socks5://127.0.0.1:7890"
+export http_proxy="http://127.0.0.1:7890"
+export https_proxy="http://127.0.0.1:7890"
 ```
 
 
@@ -436,7 +436,7 @@ https://hub.docker.com/r/linuxserver/qbittorrent
 
 ```bash
 # download image
-docker pull lscr.io/linuxserver/qbittorrent:latest
+docker pull linuxserver/qbittorrent:latest
 
 # run image
 docker run -d \
@@ -451,12 +451,50 @@ docker run -d \
   -v /home/sanzo/disk/data/qbittorrent-config:/config \
   -v /home/sanzo/disk/data/private/qbittorrent:/downloads \
   --restart unless-stopped \
-  lscr.io/linuxserver/qbittorrent:latest
+  linuxserver/qbittorrent:latest
 ```
 
 
 
 在使用内网穿透访问局域网的qbittorrent服务时，需要取消勾选`设置`=>`Web UI`=>`启动Host header属性验证`。
+
+
+
+
+
+## WebDAV
+
+```bash
+docker pull bytemark/webdav
+
+docker run --restart always \
+		-v local-dir:/var/lib/dav/data \ 
+    -e AUTH_TYPE=Digest -e USERNAME=User -e PASSWORD=PASSWRD \
+    --publish port:80 --name webdav \
+    -e LOCATION=/webdav -d bytemark/webdav
+```
+
+
+
+> 中文乱码
+
+```bash
+docker exec -it webdav /bin/bash
+
+vi conf/conf-enabled/dav.conf
+
+DavLockDB "/var/lib/dav/DavLock"
+Alias /webdav /var/lib/dav/data/
+<Directory "/var/lib/dav/data/">
+  Dav On
+  Options Indexes FollowSymLinks
+  ####### add this line (start)
+  IndexOptions Charset=utf-8
+  ##################### (end)
+  AuthType Digest
+  AuthName "WebDAV"
+  AuthUserFile "/user.passwd"
+```
 
 
 
