@@ -229,7 +229,20 @@ sudo usermod -aG docker $USER
 docker run --rm hello-world
 ```
 
+> support ipv6
 
+https://www.rectcircle.cn/posts/docker-ipv6/#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C%E6%94%AF%E6%8C%81-ipv6
+
+```bash
+# start ipv6 nat
+docker run -d --name ipv6nat --privileged --network host --restart always -v /var/run/docker.sock:/var/run/docker.sock:ro -v /lib/modules:/lib/modules:ro robbertkl/ipv6nat
+
+# create ipv6 network
+docker network create my-net-ipv6 --ipv6 --subnet="fd00:1::1/80" --gateway="fd00:1::1"
+
+# run docker image with --network my-net-ipv6
+
+```
 
 
 
@@ -461,7 +474,6 @@ docker run -d \
 
 
 
-
 ## WebDAV
 
 ```bash
@@ -496,6 +508,11 @@ Alias /webdav /var/lib/dav/data/
   AuthUserFile "/user.passwd"
 ```
 
+> 添加用户
+
+```bash
+htdigest /user.passwd "WebDAV" user
+```
 
 
 
