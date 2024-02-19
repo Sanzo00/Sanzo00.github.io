@@ -93,7 +93,7 @@ sudo apt install proxychains
 # 修改配置文件
 sudo vim /etc/proxychains.conf 
 # 最后一行改为对应自己的端口
-socks5    127.0.0.1 10800
+socks5    127.0.0.1 7890
 ```
 
 
@@ -102,8 +102,8 @@ socks5    127.0.0.1 10800
 
 ```shell
 sudo vim /etc/apt/apt.conf.d/proxy.conf
-Acquire::http::Proxy "socks5h://127.0.0.1:10800";
-Acquire::https::Proxy "socks5h://127.0.0.1:10800";
+Acquire::http::Proxy "socks5h://127.0.0.1:7890";
+Acquire::https::Proxy "socks5h://127.0.0.1:7890";
 ```
 
 
@@ -114,11 +114,11 @@ Acquire::https::Proxy "socks5h://127.0.0.1:10800";
 vim ~/.bashrc
 # vim ~/.zshrc
 
-export ALL_PROXY="socks5://127.0.0.1:10800"
-export all_proxy="socks5://127.0.0.1:10800"
-export http_proxy="http://127.0.0.1:10801"
-export https_proxy="https://127.0.0.1:10801"
-# export https_proxy="http://127.0.0.1:10801" # for conda http error
+export ALL_PROXY="socks5://127.0.0.1:7890"
+export all_proxy="socks5://127.0.0.1:7890"
+export http_proxy="http://127.0.0.1:7890"
+export https_proxy="http://127.0.0.1:7890"
+# export https_proxy="http://127.0.0.1:7890" # for conda http error
 ```
 
 在setting中设置了http，apt和bash应该可以不用再设置了，以防万一可以加上。
@@ -145,11 +145,11 @@ cat ~/.ssh/id_rsa.pub
 
 ```bash
 # http and https
-git config --global http.proxy http://127.0.0.1:10801
-git config --global https.proxy https://127.0.0.1:10801
+git config --global http.proxy http://127.0.0.1:7890
+git config --global https.proxy https://127.0.0.1:7890
 # socks5
-git config --global http.proxy socks5://127.0.0.1:10800
-git config --global https.proxy socks5://127.0.0.1:10800
+git config --global http.proxy socks5://127.0.0.1:7890
+git config --global https.proxy socks5://127.0.0.1:7890
 
 # unset
 git config --global --unset http.proxy
@@ -162,11 +162,11 @@ vim ~/.ssh/config
 # socks5
 Host github.com
 User git
-ProxyCommand connect -S 127.0.0.1:10800 %h %p
+ProxyCommand connect -S 127.0.0.1:7890 %h %p
 # http || https
 Host github.com
 User git
-ProxyCommand connect -H 127.0.0.1:10801 %h %p
+ProxyCommand connect -H 127.0.0.1:7890 %h %p
 ```
 
 
