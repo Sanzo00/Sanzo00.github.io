@@ -7,8 +7,10 @@ updated: 2021-07-07 22:24:52
 sticky: 9
 tags:
 	- pi
+	- RaspberryPi
 	- car
-categories: RaspberryPi
+categories: Blog
+toc: true
 ---
 
 

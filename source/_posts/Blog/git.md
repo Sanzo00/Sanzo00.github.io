@@ -5,7 +5,8 @@ typora-copy-images-to: ..\..\img\blog\git
 date: 2021-07-11 00:10:10
 updated: 2023-01-12 10:10:10
 tags: git
-categories: Default
+categories: Blog
+toc: true
 ---
 
 git迷路指南

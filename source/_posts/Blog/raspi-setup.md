@@ -5,10 +5,11 @@ date: 2021-06-13 15:47:44
 updated: 2021-06-13 15:47:44
 sticky: 8
 tags:
-	- raspi
 	- samba
 	- v2ray
-categories: RaspberryPi
+	- RaspberryPi
+categories: Blog
+toc: true
 ---
 
 
