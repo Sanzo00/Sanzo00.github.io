@@ -100,7 +100,7 @@ module.exports = class extends Component {
                     {/* Licensing block */}
                     {!index && article && article.licenses && Object.keys(article.licenses)
                         ? <ArticleLicensing.Cacheable page={page} config={config} helper={helper} /> : null}
-                    {/* <hr style="height:1px;margin:1rem 0"/> */}
+                    <hr style="height:1px;margin:1rem 0"/>
                     <div className="level is-mobile is-flex">
                     {/* Tags */}
                     {page.tags && page.tags.length ? <div class="article-tags is-size-7 is-uppercase">
