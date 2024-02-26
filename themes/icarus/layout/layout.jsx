@@ -10,6 +10,7 @@ const Search = require('./common/search');
 module.exports = class extends Component {
     render() {
         const { site, config, page, helper, body } = this.props;
+        // site.posts && site.posts.filter(p => !p.thumbnail).forEach(p => p.thumbnail = '/img/thumbnail.svg');
 
         const language = page.lang || page.language || config.language;
         const columnCount = Widgets.getColumnCount(config.widgets, config, page);
