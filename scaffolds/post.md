@@ -1,21 +1,16 @@
 ---
 title: {{ title }}
-hidden: false
 date: {{ date }}
 updated: {{ date }}
-katex: true
-sticky: 0
 tags: 
 categories: 
+katex: true
+sticky: 0
+toc: true
 typora-copy-images-to: ../../img
 ---
 
 
+...
 
 <!-- more -->
-
----
-
-To Be Continued.
-
-<!-- Q.E.D. -->

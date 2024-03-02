@@ -5,7 +5,7 @@ title: 吴恩达机器学习笔记
 # typora-copy-images-to: ../../img/Blog/ml-andrew
 date: 2022-03-27 13:02:26
 # updated: 2022-03-27 13:02:26
-sticky: 10
+sticky: 0
 tags:
   - ML
 #   - AndrewNg
