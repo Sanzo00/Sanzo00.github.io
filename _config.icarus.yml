@@ -253,6 +253,10 @@ widgets:
             Github:
                 icon: fab fa-github
                 url: https://github.com/Sanzo00
+            Email:
+                icon: fa fa-envelope
+                url: mailto:arrangeman@163.com
+                # icon: fas fa-envelope
             # Facebook:
             #     icon: fab fa-facebook
             #     url: https://facebook.com
@@ -281,13 +285,12 @@ widgets:
         depth: 3
     # Recommendation links widget configurations
     # -
-    #     # Where should the widget be placed, left sidebar or right sidebar
-    #     position: left
-    #     type: links
-    #     # Names and URLs of the sites
-    #     links:
-    #         # Hexo: https://hexo.io
-    #         # Bulma: https://bulma.io
+        # Where should the widget be placed, left sidebar or right sidebar
+        # position: left
+        # type: links
+        # Names and URLs of the sites
+        # links:
+            # Bulma: https://bulma.io
     # Categories widget configurations
     -
         # Where should the widget be placed, left sidebar or right sidebar
