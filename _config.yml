@@ -103,3 +103,14 @@ theme: icarus
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+
+feed:
+  enable: true
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content: true
+  # content_limit:
+  # content_limit_delim: ' '
+  order_by: -data
