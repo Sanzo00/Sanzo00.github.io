@@ -170,6 +170,10 @@ search:
 #     type: disqus
 #     # Disqus shortname
 #     shortname: ''
+comment:
+    type: twikoo
+    envId: https://sanzo00-blog.hf.space
+    jsUrl: https://cdn.jsdelivr.net/npm/twikoo@1.6.0/dist/twikoo.all.min.js
 # Donate plugin configurations
 # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Donation/
 donates:
@@ -258,6 +262,9 @@ widgets:
             # Dribbble:
             #     icon: fab fa-dribbble
             #     url: https://dribbble.com
+            # Telegram:
+            #     icon: fab fa-telegram
+            #     url: 
             RSS:
                 icon: fas fa-rss
                 url: /atom.xml
@@ -326,16 +333,16 @@ widgets:
     #     # AdSense AD unit ID
     #     slot_id: ''
     # Follow.it email subscription widget configurations
-    # -
-    #     # Where should the widget be placed, left sidebar or right sidebar
-    #     position: left
-    #     type: followit
-    #     # Hint text under the email input
-    #     description: 
-    #     # Subscription form action URL
-    #     action_url: ''
-    #     # Feed claiming verification code
-    #     verification_code: ''
+    -
+        # Where should the widget be placed, left sidebar or right sidebar
+        position: left
+        type: followit
+        # Hint text under the email input
+        description: 
+        # Subscription form action URL
+        action_url: 'https://api.follow.it/subscription-form/VkdEYjJIYUJXc3NWWEUrcTRQVzhYN2hxYVpHZDBOWlNTZDhBWW1TbmtmUkVKNDlobzZwMFVuY2ZKYXliT1BJTEtIV0NNaVY0bnVPTXJxVURJOEMyUWNTVndTc3ZEQXAwUndERG43bjB6RnVCOUxtVGVOTkVtWUlVZS9yVlNhZW18QTVaT1plUWxrNkt6b2tuYlFWdmFLN2pUOHBZeHB6VytMU0JEUFJwTFlhdz0=/8'
+        # Feed claiming verification code
+        verification_code: 'ryvLrPRCwHTCNPCEl4LW'
 # Plugin configurations
 # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/
 plugins:
@@ -347,7 +354,7 @@ plugins:
     # https://tongji.baidu.com
     baidu_analytics:
         # Baidu Analytics tracking ID
-        tracking_id: 
+        tracking_id: b59d4dcd7ecbf66eec1a1b7ff331e1a9
     # Bing Webmaster Tools plugin settings
     # https://www.bing.com/toolbox/webmaster/
     bing_webmaster:
@@ -382,7 +389,7 @@ plugins:
     # https://analytics.google.com
     google_analytics:
         # Google Analytics tracking ID
-        tracking_id: 
+        tracking_id: G-82SWX0KLXT
     # Hotjar user feedback plugin
     # https://www.hotjar.com/
     hotjar:
@@ -390,7 +397,7 @@ plugins:
         site_id: 
     # Enable the KaTeX math typesetting support
     # https://katex.org/
-    katex: false
+    katex: true
     # Enable the MathJax math typesetting support
     # https://www.mathjax.org/
     mathjax: false
