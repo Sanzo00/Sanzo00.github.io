@@ -172,7 +172,8 @@ search:
 #     shortname: ''
 comment:
     type: twikoo
-    envId: https://sanzo00-blog.hf.space
+    # envId: https://sanzo00-blog.hf.space
+    envId: https://sanzo-blog.netlify.app/.netlify/functions/twikoo
     jsUrl: https://cdn.jsdelivr.net/npm/twikoo@1.6.0/dist/twikoo.all.min.js
 # Donate plugin configurations
 # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Donation/
