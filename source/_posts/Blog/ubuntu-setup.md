@@ -4,7 +4,7 @@ katex: true
 typora-copy-images-to: ../../img/
 date: 2021-10-08 09:52:47
 updated: 2021-10-08 09:52:47
-sticky: 7
+sticky: 0
 tags: 
   - ubuntu
   - setup
