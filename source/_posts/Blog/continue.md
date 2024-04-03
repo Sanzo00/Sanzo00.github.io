@@ -39,19 +39,17 @@ After=network-online.target
 
 [Service]
 ExecStart=/usr/local/bin/ollama serve
-User=ollama
-Group=ollama
+User=root
+Group=root
 Restart=always
 RestartSec=3
+Environment="OLLAMA_MODELS=your_model_path/ollama/models"
 # 添加下面两行
 Environment="OLLAMA_HOST=0.0.0.0"
 Environment="OLLAMA_ORIGINS=*"
 
-# Environment="OLLAMA_MODELS=/data/ollama/.ollama/models"
-
 [Install]
 WantedBy=default.target
-
 ```
 
 
@@ -98,6 +96,24 @@ ollama run codellama:13b
          "provider": "ollama",
          "model": "codellama:34b",
          "apiBase": "http://your_server_ip:11434"
+       },
+       {
+         "title": "StarCoder2 3b",
+         "provider": "ollama",
+         "model": "starcoder2:3b",
+         "apiBase": "http://node1:11434"
+       },
+       {
+         "title": "StarCoder2 7b",
+         "provider": "ollama",
+         "model": "starcoder2:7b",
+         "apiBase": "http://node1:11434"
+       },
+       {
+         "title": "starcoder2:15b",
+         "provider": "ollama",
+         "model": "starcoder2:15b",
+         "apiBase": "http://node1:11434"
        },
        {
          "title": "Llama2 7b",
