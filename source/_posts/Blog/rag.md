@@ -97,6 +97,89 @@ Graph RAG可以看作是对已有方法的额外扩展。通过将知识图谱�
 
 
 
+
+
+
+
+### RAG Evaluate/Benchmark
+
+
+
+#### RGB [AAAI 2024]
+
+[paper](https://arxiv.org/pdf/2309.01431.pdf)  [code](https://github.com/chen700564/RGB)
+
+RGB是针对QA场景下的RAG benchmark工作，主要贡献如下：
+
+1. 构建了一个中英文的RAG benchmark。
+2. 从以下四个方面对RAG进行了评估，分析总结了LLM和RAG的局限性和缺点。
+   - Noise Robustness，表示LLM可以从噪声文档中提取有用的信息。其中噪声文档，是语文题相关但是不包含答案相关的信息。
+   - Negative Rejection，表示如果检索的文档不包含与答案相关的信息，LLM应该拒绝回答。
+   - information Integration，表示LMM是否可以回答需要整合多个文档信息的复杂问题。
+   - Counterfactual Robustness，表示当LLM通过prompt警告检索的信息可能包含事实错误的信息时，LLM可以识别文档中的事实错误。
+
+
+
+> 数据集构造
+
+1. QA instances generation，收集最新的新闻文章，然后使用ChatGPT对每个文章生成 (events, questions, and answers)。通过人工检查答案的正确性，并过滤掉一些无法从搜索引擎检索得到的数据。
+
+2. Retrieve using search engine，对于每个问题，使用Google的API获取10个相关的网页，然后提取出相关的文档快。每个文档快包含300个token，使用`dense retrieval model`([m3e-base](https://huggingface.co/moka-ai/m3e-base)，[all-mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2)) 选择top-30的文本块。这些文本被分为positive documents and negative documents。
+
+3. Testbeds construction for each ability
+
+   - noise robustness，根据比例采样不同数量的negative documents。
+
+   - negative rejection，只从negative documents中采样外部文档。
+
+   - information integration，对问题进行expanding或者rewriting，使得问题的答案包含多个文档的信息。
+
+     例如："Who won the MVP of Super Bowl 2023?" can be rewrite as "Who won the MVPs of Super Bowl 2022 and 2023?"
+
+   - counterfactual robustness，利用LLM内部的知识生成问题的答案，然后检索出相关的文档，手动修改文档中的信息。
+
+
+
+
+
+<img src="../../img/Blog/rag/image-20240310162733217.png" alt="RGB的数据构造过程" style="zoom:50%;" />
+
+
+
+
+
+
+
+> 评估的metrics
+
+1. Accuracy ，用来评估noise robustness and information integration。生成的回答是否和标准答案一样。
+2. Rejection rate，评估negative rejection。当只提供negative documents，LLM应该输出"I can not answer the question because of the insufficient information in documents."。
+3. Error detection rate，评估counterfactual robustness。当提供的文档包含错误的事实，LLM应该输出”There are factual errors in the provided documents.“。
+4. Error correction rate，评估LLM在识别出检索文档的事实错误后，是否可以回答出正确的答案。
+
+
+
+
+
+> 实验结果
+
+1. RAG的性能随着噪声比例上升严重下降。存在以下问题：
+   - Long-distance information
+   - Evidence uncertainty
+   - Concept confusion.
+2. RAG很容易受到噪音信息的干扰，Negative Rejection很低。
+3. RAG在information  integration上表现不佳，存在以下问提：
+   - Merging Error，成功识别了两个问题，但是在合并答案出错。
+   - Ignoring Error，没有正确识别两个问题，只回答了一个答案。
+   - Misalignment Error，两个问题的答案混淆。
+4. RAG基本没有识别事实错误的能力，因为这个RAG的基本假设冲突（模型缺乏信息，从外部检索相关信息），现有的LLM缺乏对错误信息的识别能力，严重依赖检索的信息。
+
+
+
+
+
+
+
 ## 参考文献
 
 1. [Retrieval-Augmented Generation for Large Language Models: A Survey](https://arxiv.org/abs/2312.10997)

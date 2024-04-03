@@ -37,6 +37,12 @@ sudo userdel -r test
 
 # append ssh key to remote host
 cat .ssh/id_ras.pub | ssh user@hostname "cat >> ~/.ssh/authorized_keys"
+
+# check group
+getent group groupname
+
+# delete group of username
+sudo deluser username groupname
 ```
 
 
