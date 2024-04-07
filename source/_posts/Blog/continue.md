@@ -67,6 +67,26 @@ ollama run codellama:13b
 
 
 
+同时部署多个模型 **[可选]**
+
+```bash
+# 默认端口为11434， 这里额外部署一个11435的服务
+OLLAMA_HOST=0.0.0.0:11435 ollama serve
+
+# 下载模型
+OLLAMA_HOST=127.0.0.1:11435 ollama pull codellama:13b
+
+# 测试
+curl -X POST http://127.0.0.1:11435/api/generate -d '{
+  "model": "codellama:13b",
+  "prompt": "Write me a function that outputs the fibonacci sequence"
+}'
+```
+
+
+
+
+
 
 
 ## Continue
@@ -75,7 +95,7 @@ ollama run codellama:13b
 
 2. 在`config.json`中添加模型配置文件。
 
-   如果使用本地模型，可以注释掉`"apiBase": "http://your_server_ip:11434"`。
+   如果使用本地模型，可以注释掉`"apiBase": "http://your_server_ip:11435"`，如果使用的是默认的ollama服务，端口`11435` 改为 `11434`。
 
    ```bash
    "models": [
@@ -83,55 +103,55 @@ ollama run codellama:13b
          "title": "Codellama 7b",
          "provider": "ollama",
          "model": "codellama:7b",
-         "apiBase": "http://your_server_ip:11434"
+         "apiBase": "http://your_server_ip:11435"
        },
        {
          "title": "Codellama 13b",
          "provider": "ollama",
          "model": "codellama:13b",
-         "apiBase": "http://your_server_ip:11434"
+         "apiBase": "http://your_server_ip:11435"
        },
        {
          "title": "Codellama 34b",
          "provider": "ollama",
          "model": "codellama:34b",
-         "apiBase": "http://your_server_ip:11434"
+         "apiBase": "http://your_server_ip:11435"
        },
        {
          "title": "StarCoder2 3b",
          "provider": "ollama",
          "model": "starcoder2:3b",
-         "apiBase": "http://node1:11434"
+         "apiBase": "http://node1:11435"
        },
        {
          "title": "StarCoder2 7b",
          "provider": "ollama",
          "model": "starcoder2:7b",
-         "apiBase": "http://node1:11434"
+         "apiBase": "http://node1:11435"
        },
        {
          "title": "starcoder2:15b",
          "provider": "ollama",
          "model": "starcoder2:15b",
-         "apiBase": "http://node1:11434"
+         "apiBase": "http://node1:11435"
        },
        {
          "title": "Llama2 7b",
          "provider": "ollama",
          "model": "llama2:7b",
-         "apiBase": "http://your_server_ip:11434"
+         "apiBase": "http://your_server_ip:11435"
        },
        {
          "title": "Llama2 13b",
          "provider": "ollama",
          "model": "llama2:13b",
-         "apiBase": "http://your_server_ip:11434"
+         "apiBase": "http://your_server_ip:11435"
        },
        {
          "title": "Llama2 70b",
          "provider": "ollama",
          "model": "llama2:70b",
-         "apiBase": "http://your_server_ip:11434"
+         "apiBase": "http://your_server_ip:11435"
        }
      ],
    ```
