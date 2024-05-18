@@ -29,8 +29,6 @@ revert: 回滚到上一个版本
 
 
 
-
-
 ## 常用命令
 
 [Version Control（Git）](https://missing.csail.mit.edu/2020/version-control/)
@@ -99,6 +97,32 @@ git merge upstream/master
 # submodule 
 git submodule update --init --recursive
 git submodule add your_repository.git
+```
+
+
+
+## 工作流
+
+```bash
+# 创建本地分支
+git checkout -b my-feature
+
+# 同步到remote
+git push origin my-feature
+
+# 将remote main的分支同步到本地分支
+git checkout main
+git pull origin main
+git checkout my-feature
+git rebase main
+git push -f origin my-feature
+
+# 将my-feature合并到main
+pull request
+
+# main合并pull request
+squash and merge
+
 ```
 
 
