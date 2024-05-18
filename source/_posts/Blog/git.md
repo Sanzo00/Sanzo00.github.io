@@ -117,12 +117,14 @@ git checkout my-feature
 git rebase main
 git push -f origin my-feature
 
-# 将my-feature合并到main
-pull request
+# main合并pull request (squash and merge)
+git checkout main
+git merge --squash my-feature
 
-# main合并pull request
-squash and merge
-
+# 删除分支
+git checkout main
+git branch -d my-feature
+git push origin --delete my-feature
 ```
 
 
