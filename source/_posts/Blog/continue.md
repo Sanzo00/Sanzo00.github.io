@@ -47,6 +47,7 @@ Environment="OLLAMA_MODELS=your_model_path/ollama/models"
 # 添加下面两行
 Environment="OLLAMA_HOST=0.0.0.0"
 Environment="OLLAMA_ORIGINS=*"
+Environment="CUDA_VISIBLE_DEVICES=0,1,2"
 
 [Install]
 WantedBy=default.target
