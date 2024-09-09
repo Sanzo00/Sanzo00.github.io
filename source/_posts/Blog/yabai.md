@@ -15,6 +15,7 @@ categories:
 <!-- more -->
 
 
+cite: [How To Setup And Use The Yabai Tiling Window Manager On Mac](https://www.josean.com/posts/yabai-setup)
 
 ## setup
 

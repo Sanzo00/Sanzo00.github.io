@@ -97,6 +97,11 @@ git merge upstream/master
 # submodule 
 git submodule update --init --recursive
 git submodule add your_repository.git
+
+
+# 将其他分支的commit迁移到目标分支
+git checkout <target-branch>
+git cherry-pick <commit-hash>
 ```
 
 
