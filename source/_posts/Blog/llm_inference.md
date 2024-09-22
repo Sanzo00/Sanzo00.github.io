@@ -17,7 +17,7 @@ categories: Blog
 
 
 
-## [Parrot'OSDI24]
+## [Parrot' OSDI24]
 
 Parrot: Efficient Serving of LLM-based Applications with Semantic Variable. [pdf](https://www.usenix.org/system/files/osdi24-lin-chaofan.pdf) [code](https://github.com/microsoft/ParrotServe) [author](https://chaofanlin.com/)
 
@@ -27,7 +27,7 @@ Parrot这篇论文的主要贡献是提出了**一个全新的推理workload：L
 
 LLM Application是使用LLM来完成特定的任务（摘要，搜索，代码助手等），在一个应用中通常包含多个LLM请求。
 
-<img src="../../img/Blog/llm-inference/image-20240919165055080.png" alt="LLM Application的工作流程" style="zoom:50%;align:center;" />
+<img src="../../img/Blog/llm-inference/image-20240919165055080.png" alt="LLM Application的工作流程" style="zoom:50%;" />
 
 
 
