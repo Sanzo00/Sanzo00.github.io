@@ -3,6 +3,7 @@ title: 线性代数
 katex: true
 date: 2021-06-13 17:09:21
 updated: 2021-06-13 16:09:21
+sticky: 1
 tags:
 	- linear algebra
 	- math

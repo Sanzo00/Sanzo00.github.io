@@ -4,7 +4,7 @@ katex: true
 typora-copy-images-to: ..\..\img\
 date: 2021-07-07 22:24:52
 updated: 2021-07-07 22:24:52
-sticky: 0
+sticky: 1
 tags:
 	- pi
 	- RaspberryPi

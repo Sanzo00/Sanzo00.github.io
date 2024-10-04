@@ -3,7 +3,7 @@ title: 树莓派配置
 katex: true
 date: 2021-06-13 15:47:44
 updated: 2021-06-13 15:47:44
-sticky: 0
+sticky: 2
 tags:
 	- samba
 	- v2ray
@@ -11,8 +11,6 @@ tags:
 categories: Blog
 toc: true
 ---
-
-
 
 
 
@@ -238,6 +236,30 @@ docker run --rm hello-world
 
 https://www.rectcircle.cn/posts/docker-ipv6/#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C%E6%94%AF%E6%8C%81-ipv6
 
+**方法1:** 
+
+```bash
+# test ipv6 address
+docker exec -it qbittorrent ifconfig
+
+# ipv6 support
+sudo vim /etc/docker/daemon.json
+
+{
+  "experimental": true,
+  "ip6tables": true,
+  "ipv6": true,
+  "fixed-cidr-v6": "2001:db8:1::/64"
+}
+
+# restart
+sudo systemctl reload docker && sudo systemctl restart docker
+```
+
+
+
+方法2: 
+
 ```bash
 # start ipv6 nat
 docker run -d --name ipv6nat --privileged --network host --restart always -v /var/run/docker.sock:/var/run/docker.sock:ro -v /lib/modules:/lib/modules:ro robbertkl/ipv6nat
@@ -248,6 +270,8 @@ docker network create my-net-ipv6 --ipv6 --subnet="fd00:1::1/80" --gateway="fd00
 # run docker image with --network my-net-ipv6
 
 ```
+
+
 
 
 
