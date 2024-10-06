@@ -3,7 +3,7 @@ title: 树莓派配置
 katex: true
 date: 2021-06-13 15:47:44
 updated: 2021-06-13 15:47:44
-sticky: 2
+sticky: 0
 tags:
 	- samba
 	- v2ray
