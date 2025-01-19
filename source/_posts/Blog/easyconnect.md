@@ -132,7 +132,7 @@ ip: `127.0.0.1:5901`, passed: `ecconnect`.
 
 ```bash
 - name: 'NEU-campus#🏫'
-	type: http
+  type: http
   port: 8888
   # type: socks5
   # port: 1080
@@ -146,6 +146,21 @@ ip: `127.0.0.1:5901`, passed: `ecconnect`.
 # - DOMAIN-SUFFIX,neu.edu.cn,NEU-campus#🏫
 ```
 
+
+> ssh代理配置
+```bash
+Host node1-jump
+    HostName your_server_ip  # 目标服务器主机名
+    User your_user_name
+    ProxyCommand connect -H 127.0.0.1:8888 %h %p
+
+Host node2-jump
+    HostName your_server_ip  # 目标服务器主机名
+    User yuanh
+    ProxyCommand connect -H 127.0.0.1:8888 %h %p
+
+# then use `ssh node2-jump` to connect the node2 server.
+```
 
 
 
