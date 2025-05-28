@@ -3,7 +3,7 @@ secondary_name: "袁昊"
 navbar_name: "Hao Yuan"
 
 positions:
-- logo: /assets/images/badges/neu.jpg  # Logo is optional
+- logo: /assets/images/badges/neu.png  # Logo is optional
   name: PhD student @ Northeastern University
 # - name: Position 2 without logo
 
@@ -29,16 +29,18 @@ short_bio: >-
   </p>
 
 portrait_url: /assets/images/photos/sanzo.jpg
-# portrait_caption: >-
-  # Photo by Manja Vitolic on Unsplash (this caption is optional, comment it out to disable).
+portrait_caption: >-
+  This photo was taken at Mount Tai.
+# This photo was taken in November 2023 at the majestic Mount Tai.
+
 
 education:
 - name: Northeastern University
-  logo: /assets/images/badges/neu.jpg
+  logo: /assets/images/badges/neu.png
   position: Ph.D. Student
   date: Sep. 2023 - present
 - name: Northeastern University
-  logo: /assets/images/badges/neu.jpg
+  logo: /assets/images/badges/neu.png
   position: M.S. in Computer Science
   date: Sep. 2021 - Jul. 2023
 - name: Henan University

@@ -2,7 +2,7 @@
 title:          "NeutronRAG: Towards Understanding the Effectiveness of RAG from a Data Retrieval Perspective [Demo]"
 date:           2025-02-01 00:01:00 +0800
 selected:       true
-pub:            "Proceedings of the International Conference on Management of Data (SIGMOD)"
+pub:            "Special Interest Group on Management of Data (SIGMOD)"
 # pub_pre:        "Submitted to "
 # pub_post:       'Under review.'
 # pub_last:       ' <span class="badge badge-pill badge-publication badge-success">Spotlight</span>'

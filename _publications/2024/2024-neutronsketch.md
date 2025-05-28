@@ -2,7 +2,7 @@
 title:          "NeutronSketch: An in-depth exploration of redundancy in large-scale graph neural network training"
 date:           2024-02-01 00:01:00 +0800
 selected:       true
-pub:            "knowledge-based-systems (KBS)"
+pub:            "Knowledge-Based Systems (KBS)"
 # pub_pre:        "Submitted to "
 # pub_post:       'Under review.'
 # pub_last:       ' <span class="badge badge-pill badge-publication badge-success">Spotlight</span>'
