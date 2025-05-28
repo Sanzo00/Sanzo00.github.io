@@ -22,13 +22,16 @@ github: Sanzo00
 short_bio_text_justify: false
 short_bio: >-
   <p>
-    I am a second-year Ph.D. student in Computer Science at <a href="https://english.neu.edu.cn" target="_blank">Northeastern University (China)</a>, supervised by Prof. <a href="https://neuzhangyf.github.io" target="_blank">Yanfeng Zhang</a>.
+    I am a second-year Ph.D. student in Computer Science at Northeastern University (China), working in the <a href="https://idc-neu.github.io" target="_blank">iDC-NEU Group</a> under the supervision of <a href="https://neuzhangyf.github.io" target="_blank">Prof. Yanfeng Zhang</a>. Prior to that, I received my M.S. in Computer Science from Northeastern University (China) and my B.S. from Henan University.
   </p>
   <p>
-    I’m interested in building distributed and parallel graph processing systems. I am also interested in GPU-accelerated data management.
+    My research interests broadly lie in building efficient systems to support the training of graph neural networks (GNNs), with a current focus on system-level optimizations for AI workloads.
   </p>
 
-portrait_url: /assets/images/photos/sanzo.jpg
+
+
+
+portrait_url: /assets/images/photos/sanzo.jpeg
 portrait_caption: >-
   This photo was taken at Mount Tai.
 # This photo was taken in November 2023 at the majestic Mount Tai.
