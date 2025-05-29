@@ -2,6 +2,71 @@
 layout: prompt
 title: 404 - Page Not Found
 ---
-<h1 class="mt-5">404</h1>
-<p class="lead">The requested page could not be found.</p>
-<p><a href="{{ '/' | relative_url }}">Go home</a></p>
+
+<style>
+  .error-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .error-title {
+    font-size: 96px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+
+  .error-subtitle {
+    font-size: 24px;
+    color: #7f8c8d;
+    margin-bottom: 30px;
+  }
+
+  .error-body {
+    font-size: 16px;
+    color: #34495e;
+    margin-bottom: 30px;
+    line-height: 1.6;
+  }
+
+  code {
+    background: #ecf0f1;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+  }
+
+  .button {
+    display: inline-block;
+    background-color: #3498db;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+
+  .button:hover {
+    background-color: #2980b9;
+  }
+</style>
+
+<div class="error-container">
+  <div class="error-title">404</div>
+  <div class="error-subtitle">Oops! Page Not Found</div>
+  <div class="error-body">
+    I recently restructured my site and moved my personal blog to a new location.<br><br>
+    If you were trying to access a blog post, please note that the blog is now under: <br>
+    <a href="https://sanzo.top/blog"><strong>https://sanzo.top/blog</strong></a><br><br>
+    For example:<br>
+    <code>https://sanzo.top/Blog/ML-AndrewNg/</code><br>
+    should now be:<br>
+    <code><a href="https://sanzo.top/blog/Blog/ML-AndrewNg/">https://sanzo.top/blog/Blog/ML-AndrewNg/</a></code>
+  </div>
+
+  <a href="{{ '/' | relative_url }}" class="button">Return to Home</a>
+</div>

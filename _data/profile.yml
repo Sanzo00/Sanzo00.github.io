@@ -32,8 +32,8 @@ short_bio: >-
 
 
 portrait_url: /assets/images/photos/sanzo.jpeg
-portrait_caption: >-
-  This photo was taken at Mount Tai.
+# portrait_caption: >-
+# This photo was taken at Mount Tai.
 # This photo was taken in November 2023 at the majestic Mount Tai.
 
 
