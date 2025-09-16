@@ -25,6 +25,7 @@ authors:
   - Yingyou Wen
   - Ge Yu
 links:
+  Paper: https://www.vldb.org/pvldb/vol18/p1705-fu.pdf
   Code: https://github.com/iDC-NEU/NeutronTask
 ---
 

@@ -23,6 +23,7 @@ authors:
   - Yingyou Wen
   - Ge Yu
 links:
+  Paper: https://dl.acm.org/doi/10.1145/3722212.3725119
   Code: https://github.com/iDC-NEU/NeutronRAG
   Video: https://www.bilibili.com/video/BV1KcVuzDEdF/?vd_source=2cab48c20a54d99e4f559a22c60e7fc3
 ---

@@ -21,6 +21,7 @@ authors:
   - Yu Gu
   - Ge Yu
 links:
+  Paper: https://www.vldb.org/pvldb/vol17/p1995-ai.pdf
   Code: https://github.com/iDC-NEU/NeutronOrch
   Slides: https://idc-neu.github.io/slides/NeutronOrch_VLDB24.pdf
 ---

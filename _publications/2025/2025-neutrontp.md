@@ -23,6 +23,7 @@ authors:
   - Yu Gu
   - Ge Yu
 links:
+  Paper: https://www.vldb.org/pvldb/vol18/p173-ai.pdf
   Code: https://github.com/iDC-NEU/NeutronTP
 ---
 

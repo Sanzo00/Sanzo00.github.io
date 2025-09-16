@@ -21,6 +21,7 @@ authors:
   - Yu Gu
   - Ge Yu
 links:
+  Paper: https://www.vldb.org/pvldb/vol17/p1241-yuan.pdf
   Code: https://github.com/iDC-NEU/NeutronBench
   Slides: https://drive.google.com/file/d/1JE21sdvzxukLxfjW-e6fJueX5-flHx3r
 ---
