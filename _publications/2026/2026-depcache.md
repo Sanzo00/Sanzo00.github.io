@@ -25,4 +25,5 @@ authors:
   - Yingyou Wen
   - Ge Yu
 links:
+  Paper: https://github.com/iDC-NEU/iDC-NEU.github.io/blob/master/slides/DepCache_SIGMOD26.pdf
 ---
