@@ -25,6 +25,7 @@ authors:
 links:
   Paper: https://www.vldb.org/pvldb/vol18/p173-ai.pdf
   Code: https://github.com/iDC-NEU/NeutronTP
+  Slides: https://idc-neu.github.io/slides/NeutronTP_VLDB2025.pdf
 ---
 
 
