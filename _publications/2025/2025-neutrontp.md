@@ -1,7 +1,7 @@
 ---
 title:          "NeutronTP: Load-Balanced Distributed Full-Graph GNN Training with Tensor Parallelism"
 date:           2025-02-01 00:01:00 +0800
-selected:       true
+selected:       false
 pub:            "Very Large Data Bases (VLDB)"
 # pub_pre:        "Submitted to "
 # pub_post:       'Under review.'

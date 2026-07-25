@@ -31,25 +31,25 @@ short_bio: >-
 
 
 
-portrait_url: /assets/images/photos/sanzo.jpeg
+portrait_url: /assets/images/photos/sanzo.jpg
 # portrait_caption: >-
 # This photo was taken at Mount Tai.
 # This photo was taken in November 2023 at the majestic Mount Tai.
 
 
 education:
-- name: Northeastern University
+- name: Northeastern University (东北大学)
   logo: /assets/images/badges/neu.png
-  position: Ph.D. Student
-  date: Sep. 2023 - present
-- name: Northeastern University
+  position: Ph.D. in Computer Science and Technology
+  date: 2023.09 - Present
+- name: Northeastern University (东北大学)
   logo: /assets/images/badges/neu.png
-  position: M.S. in Computer Science
-  date: Sep. 2021 - Jul. 2023
-- name: Henan University
+  position: M.S. in Computer Science and Technology
+  date: 2021.09 - 2023.07
+- name: Henan University (河南大学)
   logo: /assets/images/badges/henu.png
-  position: B.S. in Computer Science
-  date: Sep. 2017 - Jul. 2021
+  position: B.S. in Network Engineering
+  date: 2017.09 - 2021.07
 
 # experience:
 # - name: Peking University
@@ -58,7 +58,9 @@ education:
 #   date: Sep. 2019 - Jul. 2021
 
 awards:
-- name: National Scholarship of China
+- name: National Scholarship of China (国家奖学金)
   date: 2024
-- name: The champion in China’s first CCF Graph Computing Challenge  
+- name: Outstanding Master's Thesis of the Chinese Society for Metallurgical Education (中国冶金教育学会优秀硕士学位论文)
+  date: 2024
+- name: The Champion of China’s First CCF Graph Computing Challenge (首届 CCF 图计算挑战赛冠军)
   date: 2023
